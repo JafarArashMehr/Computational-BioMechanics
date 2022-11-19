@@ -1,0 +1,20 @@
+What is this document about?
+===========================================
+
+
+This is a document including some cool computational projects on an open-source platform. 
+
+:math:`\textbf {1.}` Briefly it starts with explaining the basic concepts of some hyperelastic material models and compares the analytical solutions with the numerical results based on finite element method (**FEM**).  
+
+:math:`\textbf {2.}` In the second chapter, it goes over how to numercially solve a **Multi-Physics** problem using FEM. 
+
+:math:`\textbf {3.}` In the third chapter, details of a **Differential Evolution** optimizaition algorithm will be described and later it will be explained how it could be used to implement Inverse FEM for tunining parameters in a numercial model to fit into the experimental data.
+  
+:math:`\textbf {4.}` The last chapter goes over the thoery and implementation of a supervised machine learning technique (**Linear Discriminant Analysis**) and its real application in a disease diagnosis.  
+
+
+.. note:: 
+
+   The reader is assumed to be familiar with the basic concepts of continuum mechanics, as well as FEM and coding in Python. 
+
+
