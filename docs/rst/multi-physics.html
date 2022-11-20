@@ -771,10 +771,16 @@
 <img alt="../_images/12.png" src="../_images/12.png" />
 <p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Initial and stationary solutions</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
+<p>The figures (a), (c) and (e) correspond to the initial values of the <span class="math notranslate nohighlight">\(c_{Na}\)</span> , <span class="math notranslate nohighlight">\(c_{Cl}\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> respectively. The figures (b), (d) and (f) correspond to the stationary values of the <span class="math notranslate nohighlight">\(c_{Na}\)</span> , <span class="math notranslate nohighlight">\(c_{Cl}\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> respectively.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The figures (a), (c) and (e) correspond to the initial values of the <span class="math notranslate nohighlight">\(c_{Na}\)</span> , <span class="math notranslate nohighlight">\(c_{Cl}\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> respectively. The figures (b), (d) and (f) correspond to the stationary values of the <span class="math notranslate nohighlight">\(c_{Na}\)</span> , <span class="math notranslate nohighlight">\(c_{Cl}\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> respectively.</p>
+<p class="last">The above code has been written with the capability for parallel computation. You can significantly increase the speed if running it in parallel.</p>
 </div>
+<p>In order to run the code in parallel, all you need to do is just opening the terminal and then run this command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span class="n">mpirun</span> <span class="o">-</span><span class="n">np</span> <span class="mi">4</span> <span class="n">python3</span> <span class="n">code</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Where 4 is the number of the cores you want to use to solve the code. You can increase it based on  number of the cores you have access to.</p>
 </div>
 </div>
 

@@ -717,7 +717,20 @@ The results could be visualized in Paraview. Here are the results after 10s for 
 
    Initial and stationary solutions 
 
+
+The figures (a), (c) and (e) correspond to the initial values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. The figures (b), (d) and (f) correspond to the stationary values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. 
+
 .. note:: 
 
-   The figures (a), (c) and (e) correspond to the initial values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. The figures (b), (d) and (f) correspond to the stationary values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. 
+   The above code has been written with the capability for parallel computation. You can significantly increase the speed if running it in parallel. 
 
+In order to run the code in parallel, all you need to do is just opening the terminal and then run this command: 
+
+.. code-block:: python
+
+			mpirun -np 4 python3 code.py
+
+Where 4 is the number of the cores you want to use to solve the code. You can increase it based on  number of the cores you have access to.    
+
+
+  
