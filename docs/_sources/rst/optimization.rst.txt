@@ -249,7 +249,7 @@ The only difference is where we defined the :math:`f(X)`. With that being said w
 
 	    "Here we write the FEniCS code"
 
-	    return sqrt(("Experimental Value"-u(x,y))**2)
+	    return sqrt(sum("Experimental Value"-u(x,y))**2)
  
 .. note::
 
