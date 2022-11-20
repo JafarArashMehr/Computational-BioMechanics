@@ -1,0 +1,261 @@
+**3. Inverse Finite Element (Optimization)**
+=============================================
+
+3.1. Optimization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In this section we implement a powerful optimization algorithm which is called **Differential Evolution** (Storn & Price, 1997). This algorithm is it one of the most popular population-based algorithms that is very useful in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:
+
+3.1.1. Differential Evolution
+"""""""""""""""""""""""""""""""""
+Lets say we have a 2 dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The poplulation list include vectors :math:`\vec{x_1} , ... , \vec{x_n}`. Each vector has two components corresponding to the unknowns of interest. The number of the vectors should be set by the user:
+
+
+.. math:: 
+   :name: eq.93 
+
+   Populations:\begin{cases}
+     \vec{x_1}=(a_1,b_1) \\
+     . \\
+     . \\
+     . \\
+     \vec{x_n} = (a_n,b_n)
+   \end{cases}
+
+Then we need to define a trial vector :math:`\vec{u}` for each member in the population list. The components of the trial vector are determined based on the below equation: 
+
+.. math:: 
+   :name: eq.94
+
+   u_{nj}=x_{kj}+F \times (x_{lj} - x_{mj}) \quad    n \neq k \neq l \neq m 
+
+.. note::
+
+   In the above equation the :math:`F` is called **Mutation Factor** that should be in the range of [0,2]
+
+It should be noted that we need to set a limit for each parameter for optimization. In the trial vector, if one of the components corresponding to a parameter is higher than the maximum limit for that parameter, it should be pushed to the maximum value of the limit. Similarly, if it is less than the minimum of the limit it should be pushed back to the minimum value of the limit that has been set for that parameter. 
+
+.. math:: 
+   :name: eq.95
+
+   check:\begin{cases}
+     If \quad u>upper-bound \Rightarrow u=upper-bound  \\
+     If \quad u<lower-bound \Rightarrow u=lower-bound \\
+   \end{cases}
+
+Now, we should check in the trial vector if we should keep that particular component or replace it with the corresponding component from the member in the population list that the trial vectro has been produced based on. In this regard, we should define a cross-over value (:math:`C.R` )which is a number we should set between 0 and 1. A random number should be produced 2 times to determine each component of the trial vector. If the :math:`C.R` is larger than the random number, then the component is kept inside the trial vector and if it is less than the produced random number it should be replaced with the component of the corresponding member in the population list: 
+
+.. math:: 
+   :name: eq.96
+
+    X_{nj}=\begin{cases}
+    u_{nj}  \quad if \quad urand < C.R \\
+     x_{nj}  \quad if \quad urand  > C.R
+   \end{cases}
+
+In the above, the :math:`\vec{X}` is called **Child** and corresponding member in the population list is called **Parent**. 
+Now we should decide if we should keep the child or the parent. This should be done by replacing the component of the **Child Vector** and **Parent Vector** in the function that we want to minimize and evaluate the function. We should choose the one resulting in the smaller value of the function. Based on that, only one of the **Child** or **Parent** will survive in the population list. 
+
+  
+
+.. math:: 
+   :name: eq.97
+
+     Population-Update:\begin{cases}
+     If \quad f(X_1)<f(x_1) \Rightarrow  Replace \quad x_1 \quad with \quad X_1 \quad in \quad Population \\
+     Elif \quad f(X_1)>f(x_1) \quad keep \quad x_1 \quad in \quad Population \\
+     . \\
+     . \\
+     . \\
+          If \quad f(X_n)<f(x_n) \Rightarrow  Replace \quad x_n \quad with \quad X_n \quad in \quad Population \\
+     Elif \quad f(X_n)>f(x_n) \Rightarrow Keep \quad x_n \quad in \quad Population 
+   \end{cases}
+
+
+After the above step, the population list has been updated. 
+Finally, we should compare all members in the population list to see which one leads to a smaller value of the function that we want to minimize. Then we should select that particular member as the best vector containing the best optimum parameters. 
+
+
+.. math:: 
+   :name: eq.98
+
+    \textbf f = [f_1,...,f_n] \Rightarrow Select \quad \text{min}[\textbf f]
+
+Now we are done with the first generation. The same procedure should be repeated based on the updated population list. 
+
+3.1.2. Python Implementation
+"""""""""""""""""""""""""""""""""
+The python code is implemented for a simple function :math:`f = (parameter.1)^3+ (parameter.2)^3` with the limit of :math:`[-3,3]` for both parameters to find the minimum of the function :math:`f`
+
+.. code-block:: python
+
+        import random
+        import numpy as np
+        
+        def urand():
+            return random.random()
+        
+        
+        def func(X):
+        
+            return pow(X[0],3)+pow(X[1],3)
+        
+        up_bound = [3,3]
+        low_bound = [-3,-3]
+        
+        dim= 2
+        NP = 10
+        cr = 0.90  # crossover probability
+        F5 = 0.90  # Mutation factor
+        
+        Iteration_Number=20
+        
+        parent_start = []
+        parent_val_start = []
+        
+        def start():
+        
+            for j in range(NP):
+                x = []
+                for k in range (dim):
+                    x.append(random.uniform(low_bound[k],up_bound[k]))
+                parent_start.append(x)
+                parent_val_start.append(func(x))
+        
+        start()
+        
+        
+        all_ind = []
+        for j in range (len(parent_start)):
+            all_ind.append(j)
+        
+        def DE():
+        
+            generation = 0
+            iteration = []
+            param1 = []
+            param2 = []
+            cost_func = []
+        
+            for z in range(0, Iteration_Number):
+        
+                generation=generation+1
+        
+                print ("generation:",generation)
+        
+                for i in range (len(parent_start)):
+        
+                    trials = []
+        
+                    p1 = random.choice([e for k,e in zip(all_ind,all_ind) if k != i])
+                    p2 = random.choice([e for k,e in zip(all_ind,all_ind) if k != i and k != p1])
+                    p_target = random.choice([e for k,e in zip(all_ind,all_ind) if k != i and k != p1 and k != p2])
+        
+                    for k in range(0, dim):
+                        if urand() <= cr:
+                            trials.append((parent_start[p_target])[k] + F5 * ((parent_start[p1])[k] - (parent_start[p2])[k]))
+                        else:
+                            trials.append((parent_start[i])[k])
+        
+                    for s in range(dim):
+        
+                        if trials[s] > up_bound[s]:
+                            trials[s]=up_bound[s]
+                        elif trials[s] < low_bound[s]:
+                            trials[s]=low_bound[s]
+                        elif low_bound[s] <= trials[s] <= up_bound[s]:
+                            trials[s]=trials[s]
+        
+                    child_val = func(trials)
+        
+                    if child_val <= parent_val_start[i]:
+                        parent_start[i] = trials
+                        parent_val_start[i] = child_val
+        
+                    #print (parent_val_start)
+        
+        
+                soretd_val = sorted(parent_val_start,reverse=True)
+                ind = parent_val_start.index(soretd_val[0])
+        
+                iteration.append(generation)
+                param1.append(parent_start[ind][0])
+                param2.append(parent_start[ind][1])
+                cost_func.append(soretd_val[0])
+        
+            print ("Extremum = ", parent_start[ind])
+            print ("Minimum Objective Function = ",soretd_val[0])
+        
+            col_format = "{:<30}" * 4 + "\n"
+            with open("RESULTS.txt", 'w') as of:
+                for x in zip(iteration, param1, param2,cost_func):
+                    of.write(col_format.format(*x))
+        
+        DE()    
+
+
+The output of the above code is: 
+
+.. code-block:: python
+
+	Extremum =  [-3.0, -3.0]
+	Minimum Objective Function =  -54.0
+
+It means that the best values of the parameters minimizing the function are -3 and -3 resulting in the minimized objective function equal to -54.
+
+The results are stored in a text file (RESULTS.txt). We can monitor the rate of the convergence by running this code: 
+
+.. code-block:: python
+
+	import matplotlib.pyplot as plt
+
+	plt.plotfile('RESULTS.txt',  delimiter=' ', cols=(0, 3),linestyle='-',linewidth = 3,color='r',label=r'$\mathrm{f=(parameter.1)^3+(parameter.2)^3}$')
+	lg=plt.legend(ncol=1, loc=1, fontsize=25)
+
+	plt.xlabel(r'$\mathrm{Iteration}$', fontsize=20)
+	plt.ylabel(r'$\mathrm{Cost \/\/\/Function}$', fontsize=20)
+	axes = plt.gca()
+
+	axes.set_xlim([0,20])
+	plt.tick_params(axis='both', which='major', labelsize=16)
+
+	plt.show()
+
+
+
+
+.. figure:: PNG/13.png
+   :align: center
+	
+   Results of the convergence for the optimization of the parameters  
+
+3.2. Inverse FEM
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In this section we introduce how we can use differential evolution algorithm in finding the best values of some parameters in a finite element code when we have some experimental data and try to tune the parameters in a way that the numerical results are best fitted into the experimental data. 
+Lets say we have measured the displacement of two particular points in an experiment at the coordinates of :math:`(x_1,y_1)` and :math:`(x_2,y_2)` and we have a finite element code (e.g., FEniCS code) for simulation of the displacement field. Now we want to find the best value of a parameter (It could be anything like the Young's modulus etc.) in finite element code in a way that it leads to closest possible values of the displacements :math:`u` in those points in comparison with the experimental values (EXP). 
+
+The only difference is where we defined the :math:`f(X)`. With that being said we should define the objective functions as the out put of the :math:`f(X)`: 
+
+
+.. math:: 
+   :name: eq.99
+
+    \textbf{Objective Function} = \sqrt{[EXP_{(x_1,y_1)} - u(x_1,y_1)]^2+[EXP_{(x_2,y_2)} - u(x_2,y_2)]^2)}
+
+
+.. code-block:: python
+
+	def func(X):
+
+	    "Here we write the FEniCS code"
+
+	    return sqrt(("Experimental Value"-u(x,y))**2)
+ 
+.. note::
+
+   The limits of the parameter that we want to find as well as the number of populations, :math:`C.R` , :math:`F` and number of iterations should be set in way a that it leads to best possible results. It usually needs some try and error and good understanding of the physics of the problem. 
+
+
+
+
+

@@ -798,7 +798,7 @@ In the above equation:
 
 
 1.3.2 Finite Element Implementation
-"""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
 The FEniCS implementation of the neo-Hookean neraly incompressible material on a single hexahedron element under biaxial stretch is hsown as below: 
 
 .. code-block:: python
@@ -1430,7 +1430,7 @@ Then by combining the equations:
 .. math:: 
   :name: eq.68
 
-   \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial I_4} = \frac{1}{2 \lambda^2 (\theta)} c_3 [c^{c_4 (\lambda (\theta)-1)}-1] = \eta
+   \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial I_4} = \frac{1}{2 \lambda^2 (\theta)} c_3 [e^{c_4 (\lambda (\theta)-1)}-1] = \eta
 
 And then we can write: 
 
