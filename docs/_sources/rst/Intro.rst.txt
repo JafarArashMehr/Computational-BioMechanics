@@ -10,7 +10,7 @@ This is a document including some cool computational projects on an open-source 
 
 :math:`\textbf {3.}` In the third chapter, details of a **Differential Evolution** optimizaition algorithm will be described and later it will be explained how it could be used to implement Inverse FEM for tunining parameters in a numercial model to fit into the experimental data.
   
-:math:`\textbf {4.}` The last chapter goes over the thoery and implementation of a supervised machine learning technique (**Linear Discriminant Analysis**) and its real application in a disease diagnosis.  
+:math:`\textbf {4.}` The last chapter goes over the thoery and implementation of a supervised machine learning technique (**Linear Discriminant Analysis**) and going over an application in  disease diagnosis.  
 
 
 .. note:: 
