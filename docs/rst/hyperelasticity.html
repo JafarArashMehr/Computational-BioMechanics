@@ -110,7 +110,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#von-mises-fiber-model">1.6 von-Mises Fiber Model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id6">1.6.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">1.6.1. Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stress-tensor">1.6.2. Stress Tensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#strain-energy-function">1.6.3. Strain Energy Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#finite-element-implemnetation">1.6.4. Finite Element Implemnetation</a></li>
@@ -500,9 +500,9 @@ tensor is unity (e.g. <span class="math notranslate nohighlight">\(J=1\)</span>)
 </div>
 <p>The results of analytical solution and finite element implementation are compared in
 figure.1:</p>
-<div class="figure align-center" id="id7">
+<div class="figure align-center" id="id8">
 <img alt="../_images/1.png" src="../_images/1.png" />
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">The stress results for the fully incompressible material model in uniaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">The stress results for the fully incompressible material model in uniaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 <p>The analytical solution for the Biaxial stretch for different shear modulus could be obtained using the code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="n">lamda</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.35</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.25</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.75</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.25</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">2.75</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">3.25</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">3.75</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">4.25</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">4.47</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
@@ -698,9 +698,9 @@ figure.1:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-center" id="id8">
+<div class="figure align-center" id="id9">
 <img alt="../_images/2.png" src="../_images/2.png" />
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">The stress results for the fully incompressible material model in biaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">The stress results for the fully incompressible material model in biaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -840,19 +840,19 @@ figure.1:</p>
 </pre></div>
 </div>
 <p>Next figure shows how stress – stretch behavior of the model alters as the ratio <span class="math notranslate nohighlight">\(\frac{K}{\mu}\)</span> increases.</p>
-<div class="figure align-center" id="id9">
+<div class="figure align-center" id="id10">
 <img alt="../_images/3.png" src="../_images/3.png" />
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Effect of compressibility in biaxial tension test– FEM (FEniCS) vs Analytical Solution</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Effect of compressibility in biaxial tension test– FEM (FEniCS) vs Analytical Solution</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>The above figure illustrates that when <span class="math notranslate nohighlight">\(\frac{K}{\mu}&gt;100\)</span> the behavior of the model starts converging to the fully incompressible Neo-Hookean model. When <span class="math notranslate nohighlight">\(\frac{K}{\mu}&gt;1000\)</span> the solution is matched with the fully incompressible material model as shown in next figure:</p>
-<div class="figure align-center" id="id10">
+<div class="figure align-center" id="id11">
 <img alt="../_images/4.png" src="../_images/4.png" />
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Nearly incompressible material in biaxial tension test– FEM (FEniCS) vs Analytical</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Nearly incompressible material in biaxial tension test– FEM (FEniCS) vs Analytical</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <p>The other test that was implemented was tracking the Jacobian when the stretch increases which is shown in the next figure:</p>
-<div class="figure align-center" id="id11">
+<div class="figure align-center" id="id12">
 <img alt="../_images/5.png" src="../_images/5.png" />
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Effect of compressibility in the Jacobian of deformation gradient tensor in biaxial tension test</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Effect of compressibility in the Jacobian of deformation gradient tensor in biaxial tension test</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 <p>It could be seen that by approaching the <span class="math notranslate nohighlight">\(\frac{K}{\mu}\)</span> ratio to 1000, the Jacobian is set to unity regardless of the value of stretch showing the material is nearly incompressible.</p>
 </div>
@@ -986,9 +986,9 @@ figure.1:</p>
 </pre></div>
 </div>
 <p>The obtained result for three different shear modulus (i.e. <span class="math notranslate nohighlight">\(\mu\)</span>) are compared in figure 10:</p>
-<div class="figure align-center" id="id12">
+<div class="figure align-center" id="id13">
 <img alt="../_images/6.png" src="../_images/6.png" />
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Stress results of neo-Hokean compressible model for a single element under biaxial stretch</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Stress results of neo-Hokean compressible model for a single element under biaxial stretch</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -1031,9 +1031,9 @@ In the above equation <span class="math notranslate nohighlight">\(dV\)</span> a
 <div class="section" id="id5">
 <h3>1.5.2. Finite Element Implementation<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>In order to generate the mesh, we considered the cross section of the sphere as a 2D axisymmetric problem. GMSH was used for mesh generation and structured mesh was created with triangular elements. The red arrows correspond to the external pressure on the sphere. The left edge (e.g., axis of symmetry) is constrained to move in the x direction while the bottom edge is constrained to move in the y direction. The parameters used for this simulation are: <span class="math notranslate nohighlight">\(\mu = 1 MPa\)</span> , <span class="math notranslate nohighlight">\(K = 1 GPa\)</span> and <span class="math notranslate nohighlight">\(P = 10 Pa\)</span> .The dimensions of the geometry, mesh, pressure load and boundary conditions are shown in next figure:</p>
-<div class="figure align-center" id="id13">
+<div class="figure align-center" id="id14">
 <img alt="../_images/7.png" src="../_images/7.png" />
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Geometry of the cross section making the hemisphere (Left), the mesh generated in GMSH (Middle), load and boundary conditions (Right)</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Geometry of the cross section making the hemisphere (Left), the mesh generated in GMSH (Middle), load and boundary conditions (Right)</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 <p>The above equations were implemented in FEniCS. The FEniCS code is presented as here:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
@@ -1126,13 +1126,13 @@ In the above equation <span class="math notranslate nohighlight">\(dV\)</span> a
 </div>
 <p>The same model with the same geometry, loading, boundary conditions and mesh was generated in ANSYS APDL.</p>
 <p>The PLANE 182 element was used for the simulation in ANSYS with axisymmetric element behavior. The displacement results in the x and y directions obtained from ANSYS and FEniCS implementation are shown in the next figures:</p>
-<div class="figure align-center" id="id14">
-<img alt="../_images/8.png" src="../_images/8.png" />
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">The displacement results in X direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
-</div>
 <div class="figure align-center" id="id15">
+<img alt="../_images/8.png" src="../_images/8.png" />
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">The displacement results in X direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id16">
 <img alt="../_images/9.png" src="../_images/9.png" />
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">The displacement results in Y direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">The displacement results in Y direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1140,10 +1140,10 @@ In the above equation <span class="math notranslate nohighlight">\(dV\)</span> a
 <h2>1.6 von-Mises Fiber Model<a class="headerlink" href="#von-mises-fiber-model" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This section is based on a a continuum model proposed in <a class="reference external" href="https://asmedigitalcollection.asme.org/biomechanical/article-abstract/131/5/051011/397644/Peripapillary-and-Posterior-Scleral-Mechanics-Part">this</a> paper:</p>
+<p class="last">Please read <a class="reference external" href="https://asmedigitalcollection.asme.org/biomechanical/article-abstract/131/5/051011/397644/Peripapillary-and-Posterior-Scleral-Mechanics-Part">this paper</a> and <a class="reference external" href="https://link.springer.com/article/10.1007/s10237-022-01590-5">this paper</a> for more details about this model.</p>
 </div>
-<div class="section" id="id6">
-<h3>1.6.1. Introduction<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>1.6.1. Introduction<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>The strain energy function is defined as follows:</p>
 <div class="math notranslate nohighlight" id="eq-52">
 <span id="equation-eq-52"></span><span class="eqno">(52)<a class="headerlink" href="#eq-52" title="Permalink to this equation">¶</a></span>\[ W = W_{matrix}+W_{fiber}\]</div>
@@ -1513,9 +1513,9 @@ We implement the numerical integration by trapezoidal rule. IN addition, in orde
 <span class="k">print</span><span class="p">(</span><span class="n">sigma_22</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-center" id="id16">
+<div class="figure align-center" id="id17">
 <img alt="../_images/10.png" src="../_images/10.png" />
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Stress results of the von-Mises fiber model when a unit cube is under biaxial stretch in comparison with the analytical solution.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Stress results of the von-Mises fiber model when a unit cube is under biaxial stretch in comparison with the analytical solution.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>

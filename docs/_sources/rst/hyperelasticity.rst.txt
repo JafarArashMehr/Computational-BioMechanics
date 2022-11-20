@@ -1289,7 +1289,7 @@ The PLANE 182 element was used for the simulation in ANSYS with axisymmetric ele
 1.6 von-Mises Fiber Model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. note:: This section is based on a a continuum model proposed in `this <https://asmedigitalcollection.asme.org/biomechanical/article-abstract/131/5/051011/397644/Peripapillary-and-Posterior-Scleral-Mechanics-Part>`_ paper:
+.. note:: Please read `this paper <https://asmedigitalcollection.asme.org/biomechanical/article-abstract/131/5/051011/397644/Peripapillary-and-Posterior-Scleral-Mechanics-Part>`_ and `this paper <https://link.springer.com/article/10.1007/s10237-022-01590-5>`_ for more details about this model. 
 
 
 1.6.1. Introduction
