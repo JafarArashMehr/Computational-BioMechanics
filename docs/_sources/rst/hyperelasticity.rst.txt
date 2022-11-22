@@ -70,7 +70,7 @@ The first term on the right hand side, we could apply the chain rule to calculat
 
 .. note::
 
-   The :math:`e_i` and :math:`e_j` are unit vectors, \otimes represents the outer product and :math:`e_i \otimes e_j =0` if :math:`i \neq j`. 
+   The :math:`e_i` and :math:`e_j` are unit vectors, :math:`\otimes` represents the outer product and :math:`e_i \otimes e_j =0` if :math:`i \neq j`. 
 
 .. math:: 
   :name: eq.7
