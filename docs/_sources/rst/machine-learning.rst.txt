@@ -142,7 +142,7 @@ According to these 3 classes, we are given 1211 eye globes including 360 normal 
 
 
 .. csv-table:: The criteria defining different levels of globe flattening
-   :name: tab.1
+   :name: tab.3
    :widths: 10,7,10
 
 
@@ -447,5 +447,5 @@ This case, clearly falls within the normal class.
 
 .. note:: 
 
-     The accuracy of the prediction of the LDA analysis to determine the class that they belong to could are verified after doing the FEM simulation based on the defined criteria defined in :ref:`Table.1 <tab.1>`
+     The accuracy of the prediction of the LDA analysis to determine the class that they belong to could are verified after doing the FEM simulation based on the defined criteria defined in :ref:`Table.3 <tab.3>`
 
