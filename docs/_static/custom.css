@@ -1,14 +1,14 @@
-.wy-side-nav-search, .wy-nav-side {background: 			#FFB6C1			;}
+.wy-side-nav-search, .wy-nav-side {background: 			#191970		;}
 
-.wy-side-nav-search, .wy-nav-top {background: 		#87CEFF	;}
+.wy-side-nav-search, .wy-nav-top {background: #87CEFF;}
 
 
 .wy-nav-side {font-weight: bold;}
 
 
 
-@import url("default.css");span.caption-text {color: black;}
+@import url("default.css");span.caption-text {color: white;}
 
-a:visited {color: 	#000000	;}
+a:visited {color: 	#white	;}
 
 
