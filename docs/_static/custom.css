@@ -3,11 +3,12 @@
 .wy-side-nav-search, .wy-nav-top {background: 		#87CEFF	;}
 
 
-.wy-nav-content {max-width: 1000px;}
+.wy-nav-side {font-weight: bold;}
+
 
 
 @import url("default.css");span.caption-text {color: black;}
 
-a:visited {color: black;}
+a:visited {color: 	#000000	;}
 
 
