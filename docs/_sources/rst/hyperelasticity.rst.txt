@@ -1286,6 +1286,8 @@ The PLANE 182 element was used for the simulation in ANSYS with axisymmetric ele
 
    The displacement results in Y direction (FEniCS) vs ANSYS
 
+
+
 1.6 von-Mises Fiber Model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1527,7 +1529,6 @@ We implement the numerical integration by trapezoidal rule. IN addition, in orde
         sys.setrecursionlimit(10000)
         import numpy as np
 
-        parameters["form_compiler"]["representation"] = "tsfc"
 
         stretch = [1.,1.05,1.1,1.15,1.2,1.25,1.3,1.35,1.4,1.45,1.5,1.55,1.6]
 
@@ -1617,29 +1618,9 @@ We implement the numerical integration by trapezoidal rule. IN addition, in orde
 
             return (1. / (np.pi)) * np.exp(K * np.cos(x))
 
-        coeff = trapezoidal(bessel, 0, np.pi, 20)
-
-        DG = FunctionSpace(mesh, "DG", 0)  # Define a Discontinuous Galerkin (DG) function space
-
-        ######### Building the unit vectors defining the plane of fibers for each element using DG method   #########
-
-        a1 = Function(DG)
-        a1.vector()[[0,1,2,3,4,5]] = [1,1,1,1,1,1]
-
-        a2 = Function(DG)
-        a2.vector()[[0,1,2,3,4,5]] = [0,0,0,0,0,0]
-
-        a3 = Function(DG)
-        a3.vector()[[0,1,2,3,4,5]] = [0,0,0,0,0,0]
-
-        b1 = Function(DG)
-        b1.vector()[[0,1,2,3,4,5]] = [0,0,0,0,0,0]
-
-        b2 = Function(DG)
-        b2.vector()[[0,1,2,3,4,5]] = [1,1,1,1,1,1]
-
-        b3 = Function(DG)
-        b3.vector()[[0,1,2,3,4,5]] = [0,0,0,0,0,0]
+		  .
+		  .
+		  .
 
         ######### Theta_p : Fiber preferred orientation  #########
 
@@ -1652,38 +1633,10 @@ We implement the numerical integration by trapezoidal rule. IN addition, in orde
         def stress_integral(theta):
             a_vector = as_vector([cos(theta) * a1, cos(theta) * a2, cos(theta) * a3])
             b_vector = as_vector([sin(theta) * b1, sin(theta) * b2, sin(theta) * b3])
-            #c_vector = as_vector([sin(theta) * c1, sin(theta) * c2, sin(theta) * c3])
-
-            ######### Calculation of LAMBDA using unified form language (UFL)  #########
-
-            direction = a_vector + b_vector
-            #direction = a_vector + c_vector
-
-            LM = dot(direction, C_bar)
-            LM_SQ = dot(LM, direction)
-            LMDA = pow(LM_SQ, 0.5)
-
-            P_theta = (1 / (np.pi * coeff)) * exp(K * cos(2 * (theta - theta_p)))
-
-            exp_term = exp(c_4 * (LMDA - 1))
-
-            return P_theta * (c_3 / 2.) * (exp_term - 1.) * (outer(direction, direction) - 1. / 3 * Identity(3))
-
-
-        SIGMA_INTEGRAL_TERM = trapezoidal(stress_integral, theta_p - np.pi / 2., theta_p + np.pi / 2., 100)
-
-        SIGMA = (KK * ln(J) / J) * Identity(3) + (2. / J) * (c_1 * (B_bar - (1. / 3.) * Ic_bar * Identity(3)) + SIGMA_INTEGRAL_TERM)
-
-        F_total = inner(SIGMA, grad(v)) * dx
-
-        J1 = derivative(F_total, u , du)
-
-
-        def border(x, on_boundary):
-            return on_boundary
-
-        bound_x =  Expression(("t*x[0]"), degree=1, t=0)
-        bound_y =  Expression(("t*x[1]"), degree=1, t=0)
+				.
+				.	
+				.
+				.
 
 
         sigma_11 = []
@@ -1692,109 +1645,26 @@ We implement the numerical integration by trapezoidal rule. IN addition, in orde
 
 
         for i in range(len(BC)):
+			.
+		  	.
+			.
+			.
 
-
-            bound_x.t = BC[i]
-            bound_y.t = BC[i]
-
-            bc_x = DirichletBC(V.sub(0), bound_x, border)
-            bc_y = DirichletBC(V.sub(1), bound_y, border)
-            bc_front = DirichletBC(V.sub(2), Constant((0)), FRONT)
-            bc_back = DirichletBC(V.sub(2), Constant((0)), BACK)
-
-
-            bc_all = [bc_x,bc_y,bc_front]
-
-            #problem = NonlinearVariationalProblem(F1, u, bc_all, Jac)
-            problem = NonlinearVariationalProblem(F_total, u, bc_all, J1)
-
-            solver = NonlinearVariationalSolver(problem)
-
-            prm = solver.parameters
-            prm['newton_solver']['relaxation_parameter'] = 0.1
-            prm['newton_solver']['convergence_criterion'] = 'incremental'
-            prm['newton_solver']['absolute_tolerance'] = 1E-5
-            prm['newton_solver']['maximum_iterations'] = 1000
-            prm['newton_solver']["linear_solver"] = "mumps"
-
-            solver.solve()
-
-
-            def stress_integral_xx(theta):
-                a_vector = as_vector([cos(theta) * a1, cos(theta) * a2, cos(theta) * a3])
-                b_vector = as_vector([sin(theta) * b1, sin(theta) * b2, sin(theta) * b3])
-
-                ######### Calculation of LAMBDA using unified form language (UFL)  #########
-
-                direction = a_vector + b_vector
-                LM = dot(direction, C_bar)
-                LM_SQ = dot(LM, direction)
-                LMDA = pow(LM_SQ, 0.5)
-
-                P_theta = (1 / (np.pi * coeff)) * exp(K * cos(2 * (theta - theta_p)))
-
-                exp_term = exp(c_4 * (LMDA - 1))
-
-                return P_theta * (c_3 / 2.) * (exp_term - 1.) * (pow((cos(theta) * a1 + sin(theta) * b1), 2) - 1. / 3)
-
-
-            #####################################
-
-            def stress_integral_yy(theta):
-                a_vector = as_vector([cos(theta) * a1, cos(theta) * a2, cos(theta) * a3])
-                b_vector = as_vector([sin(theta) * b1, sin(theta) * b2, sin(theta) * b3])
-
-                ######### Calculation of LAMBDA using unified form language (UFL)  #########
-
-                direction = a_vector + b_vector
-                LM = dot(direction, C_bar)
-                LM_SQ = dot(LM, direction)
-                LMDA = pow(LM_SQ, 0.5)
-
-                P_theta = (1 / (np.pi * coeff)) * exp(K * cos(2 * (theta - theta_p)))
-
-                exp_term = exp(c_4 * (LMDA - 1))
-
-                return P_theta * (c_3 / 2.) * (exp_term - 1.) * (pow((cos(theta) * a2 + sin(theta) * b2), 2) - 1. / 3)
-
-
-            SIGMA_XX_INTEGRAL_TERM = trapezoidal(stress_integral_xx, theta_p - np.pi / 2., theta_p + np.pi / 2., 100)
-
-            SIGMA_XX = (KK * ln(J) / J) * I[0, 0] + (2. / J) * (
-                        c_1 * (B_bar[0, 0] - (1. / 3.) * Ic_bar * I[0, 0]) + SIGMA_XX_INTEGRAL_TERM)
-
-            SIGMA_YY_INTEGRAL_TERM = trapezoidal(stress_integral_yy, theta_p - np.pi / 2., theta_p + np.pi / 2., 100)
-
-            SIGMA_YY = (KK * ln(J) / J) * I[1, 1] + (2. / J) * (
-                        c_1 * (B_bar[1, 1] - (1. / 3.) * Ic_bar * I[1, 1]) + SIGMA_YY_INTEGRAL_TERM)
-
-            W = FunctionSpace(mesh, 'P', 1)
-
-            STRESS_XX = project(SIGMA_XX, W)
-            STRESS_YY = project(SIGMA_YY, W)
-
-            # File("SIG_X.pvd") << STRESS_XX
-            # File("SIG_Y.pvd") << STRESS_YY
-            JJ = project(J, W)
-
-            JJJ.append((JJ.vector().get_local()[0]))
-
-            sigma_11.append(STRESS_XX.vector().get_local()[0])
-            sigma_22.append(STRESS_YY.vector().get_local()[0])
-
-            # File("dz.pvd") << u
 
         print(sigma_11)
         print(sigma_22)
 
 
+Here is the results and comparison with the analytical solution: 
+
 .. figure:: PNG/10.png
    :align: center
-	
-   Stress results of the von-Mises fiber model when a unit cube is under biaxial stretch in comparison with the analytical solution. 
+
+   Stress results of the von-Mises fiber model when a unit cube is under biaxial stretch in comparison with the analytical solution
 
 
+.. note::
 
-
+   The complete FEniCS code is available upon request (Please refer to the section : **About the Author**)
 
 
