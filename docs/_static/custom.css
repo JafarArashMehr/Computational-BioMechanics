@@ -1,4 +1,4 @@
-.wy-side-nav-search, .wy-nav-side {background: 			#87CEFF		;}
+.wy-side-nav-search, .wy-nav-side {background: 			midnightblue		;}
 
 .wy-side-nav-search, .wy-nav-top {background: #87CEFF;}
 
@@ -9,4 +9,4 @@
 
 @import url("default.css");span.caption-text {color: black;}
 
-a:visited {color: 	black	;}
+a:visited {color: 	#black	;}
