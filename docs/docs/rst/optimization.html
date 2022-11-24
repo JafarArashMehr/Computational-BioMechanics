@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3. Inverse Finite Element (Optimization) &mdash; Jafar Arash Mehr 2022 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Jafar Arash Mehr 2022 documentation" href="../index.html"/>
+        <link rel="next" title="4. Machine Learning in Diagnosis" href="machine-learning.html"/>
+        <link rel="prev" title="2. Multi-Physics Problem" href="multi-physics.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/profile.jpg" class="logo" />
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html"><strong>What is this document about?</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="resource.html">Useful Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">Required Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>3. Inverse Finite Element (Optimization)</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#optimization">3.1. Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#differential-evolution">3.1.1. Differential Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-implementation">3.1.2. Python Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inverse-fem">3.2. Inverse FEM</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="machine-learning.html"><strong>4. Machine Learning in Diagnosis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">About the Author</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Jafar Arash Mehr</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li><strong>3. Inverse Finite Element (Optimization)</strong></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/rst/optimization.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="inverse-finite-element-optimization">
+<h1><strong>3. Inverse Finite Element (Optimization)</strong><a class="headerlink" href="#inverse-finite-element-optimization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="optimization">
+<h2>3.1. Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h2>
+<p>In this section we implement a powerful optimization algorithm which is called <strong>Differential Evolution</strong> (Storn &amp; Price, 1997). This algorithm is it one of the most popular population-based algorithms that is very useful in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:</p>
+<div class="section" id="differential-evolution">
+<h3>3.1.1. Differential Evolution<a class="headerlink" href="#differential-evolution" title="Permalink to this headline">¶</a></h3>
+<p>Lets say we have a 2 dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The poplulation list include vectors <span class="math notranslate nohighlight">\(\vec{x_1} , ... , \vec{x_n}\)</span>. Each vector has two components corresponding to the unknowns of interest. The number of the vectors should be set by the user:</p>
+<div class="math notranslate nohighlight" id="eq-93">
+<span id="equation-eq-93"></span><span class="eqno">(93)<a class="headerlink" href="#eq-93" title="Permalink to this equation">¶</a></span>\[\begin{split}Populations:\begin{cases}
+  \vec{x_1}=(a_1,b_1) \\
+  . \\
+  . \\
+  . \\
+  \vec{x_n} = (a_n,b_n)
+\end{cases}\end{split}\]</div>
+<p>Then we need to define a trial vector <span class="math notranslate nohighlight">\(\vec{u}\)</span> for each member in the population list. The components of the trial vector are determined based on the below equation:</p>
+<div class="math notranslate nohighlight" id="eq-94">
+<span id="equation-eq-94"></span><span class="eqno">(94)<a class="headerlink" href="#eq-94" title="Permalink to this equation">¶</a></span>\[u_{nj}=x_{kj}+F \times (x_{lj} - x_{mj}) \quad    n \neq k \neq l \neq m\]</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the above equation the <span class="math notranslate nohighlight">\(F\)</span> is called <strong>Mutation Factor</strong> that should be in the range of [0,2]</p>
+</div>
+<p>It should be noted that we need to set a limit for each parameter for optimization. In the trial vector, if one of the components corresponding to a parameter is higher than the maximum limit for that parameter, it should be pushed to the maximum value of the limit. Similarly, if it is less than the minimum of the limit it should be pushed back to the minimum value of the limit that has been set for that parameter.</p>
+<div class="math notranslate nohighlight" id="eq-95">
+<span id="equation-eq-95"></span><span class="eqno">(95)<a class="headerlink" href="#eq-95" title="Permalink to this equation">¶</a></span>\[\begin{split}check:\begin{cases}
+  If \quad u&gt;upper-bound \Rightarrow u=upper-bound  \\
+  If \quad u&lt;lower-bound \Rightarrow u=lower-bound \\
+\end{cases}\end{split}\]</div>
+<p>Now, we should check in the trial vector if we should keep that particular component or replace it with the corresponding component from the member in the population list that the trial vectro has been produced based on. In this regard, we should define a cross-over value (<span class="math notranslate nohighlight">\(C.R\)</span> )which is a number we should set between 0 and 1. A random number should be produced 2 times to determine each component of the trial vector. If the <span class="math notranslate nohighlight">\(C.R\)</span> is larger than the random number, then the component is kept inside the trial vector and if it is less than the produced random number it should be replaced with the component of the corresponding member in the population list:</p>
+<div class="math notranslate nohighlight" id="eq-96">
+<span id="equation-eq-96"></span><span class="eqno">(96)<a class="headerlink" href="#eq-96" title="Permalink to this equation">¶</a></span>\[\begin{split} X_{nj}=\begin{cases}
+ u_{nj}  \quad if \quad urand &lt; C.R \\
+  x_{nj}  \quad if \quad urand  &gt; C.R
+\end{cases}\end{split}\]</div>
+<p>In the above, the <span class="math notranslate nohighlight">\(\vec{X}\)</span> is called <strong>Child</strong> and corresponding member in the population list is called <strong>Parent</strong>.
+Now we should decide if we should keep the child or the parent. This should be done by replacing the component of the <strong>Child Vector</strong> and <strong>Parent Vector</strong> in the function that we want to minimize and evaluate the function. We should choose the one resulting in the smaller value of the function. Based on that, only one of the <strong>Child</strong> or <strong>Parent</strong> will survive in the population list.</p>
+<div class="math notranslate nohighlight" id="eq-97">
+<span id="equation-eq-97"></span><span class="eqno">(97)<a class="headerlink" href="#eq-97" title="Permalink to this equation">¶</a></span>\[\begin{split}  Population-Update:\begin{cases}
+  If \quad f(X_1)&lt;f(x_1) \Rightarrow  Replace \quad x_1 \quad with \quad X_1 \quad in \quad Population \\
+  Elif \quad f(X_1)&gt;f(x_1) \quad keep \quad x_1 \quad in \quad Population \\
+  . \\
+  . \\
+  . \\
+       If \quad f(X_n)&lt;f(x_n) \Rightarrow  Replace \quad x_n \quad with \quad X_n \quad in \quad Population \\
+  Elif \quad f(X_n)&gt;f(x_n) \Rightarrow Keep \quad x_n \quad in \quad Population
+\end{cases}\end{split}\]</div>
+<p>After the above step, the population list has been updated.
+Finally, we should compare all members in the population list to see which one leads to a smaller value of the function that we want to minimize. Then we should select that particular member as the best vector containing the best optimum parameters.</p>
+<div class="math notranslate nohighlight" id="eq-98">
+<span id="equation-eq-98"></span><span class="eqno">(98)<a class="headerlink" href="#eq-98" title="Permalink to this equation">¶</a></span>\[ \textbf f = [f_1,...,f_n] \Rightarrow Select \quad \text{min}[\textbf f]\]</div>
+<p>Now we are done with the first generation. The same procedure should be repeated based on the updated population list.</p>
+</div>
+<div class="section" id="python-implementation">
+<h3>3.1.2. Python Implementation<a class="headerlink" href="#python-implementation" title="Permalink to this headline">¶</a></h3>
+<p>The python code is implemented for a simple function <span class="math notranslate nohighlight">\(f = (parameter.1)^3+ (parameter.2)^3\)</span> with the limit of <span class="math notranslate nohighlight">\([-3,3]\)</span> for both parameters to find the minimum of the function <span class="math notranslate nohighlight">\(f\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">urand</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="nb">pow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">up_bound</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">low_bound</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="n">dim</span><span class="o">=</span> <span class="mi">2</span>
+<span class="n">NP</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="mf">0.90</span>  <span class="c1"># crossover probability</span>
+<span class="n">F5</span> <span class="o">=</span> <span class="mf">0.90</span>  <span class="c1"># Mutation factor</span>
+
+<span class="n">Iteration_Number</span><span class="o">=</span><span class="mi">20</span>
+
+<span class="n">parent_start</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">parent_val_start</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NP</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low_bound</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">up_bound</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+        <span class="n">parent_start</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">parent_val_start</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">start</span><span class="p">()</span>
+
+
+<span class="n">all_ind</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent_start</span><span class="p">)):</span>
+    <span class="n">all_ind</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">DE</span><span class="p">():</span>
+
+    <span class="n">generation</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">iteration</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">param1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">param2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cost_func</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Iteration_Number</span><span class="p">):</span>
+
+        <span class="n">generation</span><span class="o">=</span><span class="n">generation</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;generation:&quot;</span><span class="p">,</span><span class="n">generation</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent_start</span><span class="p">)):</span>
+
+            <span class="n">trials</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">p1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_ind</span><span class="p">,</span><span class="n">all_ind</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">i</span><span class="p">])</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_ind</span><span class="p">,</span><span class="n">all_ind</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">i</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">p1</span><span class="p">])</span>
+            <span class="n">p_target</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_ind</span><span class="p">,</span><span class="n">all_ind</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">i</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">p1</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">p2</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">urand</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">cr</span><span class="p">:</span>
+                    <span class="n">trials</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_start</span><span class="p">[</span><span class="n">p_target</span><span class="p">])[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">F5</span> <span class="o">*</span> <span class="p">((</span><span class="n">parent_start</span><span class="p">[</span><span class="n">p1</span><span class="p">])[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">parent_start</span><span class="p">[</span><span class="n">p2</span><span class="p">])[</span><span class="n">k</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">trials</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_start</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="n">k</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">up_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
+                    <span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span><span class="n">up_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
+                    <span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span><span class="n">low_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">low_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">up_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
+                    <span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+
+            <span class="n">child_val</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">trials</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">child_val</span> <span class="o">&lt;=</span> <span class="n">parent_val_start</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">parent_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">trials</span>
+                <span class="n">parent_val_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">child_val</span>
+
+            <span class="c1">#print (parent_val_start)</span>
+
+
+        <span class="n">soretd_val</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parent_val_start</span><span class="p">,</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">parent_val_start</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">iteration</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">generation</span><span class="p">)</span>
+        <span class="n">param1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_start</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">param2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_start</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">cost_func</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Extremum = &quot;</span><span class="p">,</span> <span class="n">parent_start</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Minimum Objective Function = &quot;</span><span class="p">,</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">col_format</span> <span class="o">=</span> <span class="s2">&quot;{:&lt;30}&quot;</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;RESULTS.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">of</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">,</span><span class="n">cost_func</span><span class="p">):</span>
+            <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">col_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">DE</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The output of the above code is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span class="n">Extremum</span> <span class="o">=</span>  <span class="p">[</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">]</span>
+<span class="n">Minimum</span> <span class="n">Objective</span> <span class="n">Function</span> <span class="o">=</span>  <span class="o">-</span><span class="mf">54.0</span>
+</pre></div>
+</div>
+<p>It means that the best values of the parameters minimizing the function are -3 and -3 resulting in the minimized objective function equal to -54.</p>
+<p>The results are stored in a text file (RESULTS.txt). We can monitor the rate of the convergence by running this code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plotfile</span><span class="p">(</span><span class="s1">&#39;RESULTS.txt&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\mathrm{f=(parameter.1)^3+(parameter.2)^3}$&#39;</span><span class="p">)</span>
+<span class="n">lg</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">r&#39;$\mathrm{Iteration}$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">r&#39;$\mathrm{Cost \/\/\/Function}$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+<span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-center" id="id1">
+<img alt="../_images/13.png" src="../_images/13.png" />
+<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">Results of the convergence for the optimization of the parameters</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="inverse-fem">
+<h2>3.2. Inverse FEM<a class="headerlink" href="#inverse-fem" title="Permalink to this headline">¶</a></h2>
+<p>In this section we introduce how we can use differential evolution algorithm in finding the best values of some parameters in a finite element code when we have some experimental data and try to tune the parameters in a way that the numerical results are best fitted into the experimental data.
+Lets say we have measured the displacement of two particular points in an experiment at the coordinates of <span class="math notranslate nohighlight">\((x_1,y_1)\)</span> and <span class="math notranslate nohighlight">\((x_2,y_2)\)</span> and we have a finite element code (e.g., FEniCS code) for simulation of the displacement field. Now we want to find the best value of a parameter (It could be anything like the Young’s modulus etc.) in finite element code in a way that it leads to closest possible values of the displacements <span class="math notranslate nohighlight">\(u\)</span> in those points in comparison with the experimental values (EXP).</p>
+<p>The only difference is where we defined the <span class="math notranslate nohighlight">\(f(X)\)</span>. With that being said we should define the objective functions as the out put of the <span class="math notranslate nohighlight">\(f(X)\)</span>:</p>
+<div class="math notranslate nohighlight" id="eq-99">
+<span id="equation-eq-99"></span><span class="eqno">(99)<a class="headerlink" href="#eq-99" title="Permalink to this equation">¶</a></span>\[ \textbf{Objective Function} = \sqrt{[EXP_{(x_1,y_1)} - u(x_1,y_1)]^2+[EXP_{(x_2,y_2)} - u(x_2,y_2)]^2)}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+
+    <span class="s2">&quot;Here we write the FEniCS code&quot;</span>
+
+    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="s2">&quot;Experimental Value&quot;</span><span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The limits of the parameter that we want to find as well as the number of populations, <span class="math notranslate nohighlight">\(C.R\)</span> , <span class="math notranslate nohighlight">\(F\)</span> and number of iterations should be set in way a that it leads to best possible results. It usually needs some try and error and good understanding of the physics of the problem.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="machine-learning.html" class="btn btn-neutral float-right" title="4. Machine Learning in Diagnosis" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="multi-physics.html" class="btn btn-neutral" title="2. Multi-Physics Problem" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Jafar Arash Mehr.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2022',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
