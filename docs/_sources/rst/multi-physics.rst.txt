@@ -62,14 +62,14 @@ Then the above equation could be expanded as following:
   :name: eq.84
 
    \int_{\Omega} v_c \frac{\partial{c}}{\partial t} dx+\int_{\Omega} v_c D {\nabla}^2{c} dx 
-   - \int_{\omega} v_c \mu F z \nabla{c} \nabla{\phi} dx -\int_{\Omega} v_c \mu F z {\nabla}^2{\phi} dx = 0
+   - \int_{\Omega} v_c \mu F z \nabla{c} \nabla{\phi} dx -\int_{\Omega} v_c \mu F z {\nabla}^2{\phi} dx = 0
 
 By integration by part and applying the divergence theorem, it yields to:
 
 .. math:: 
   :name: eq.85
 
-   \int_{\Omega} v_c \frac{\partial c}{\partial t} dx - \int_{\Omega} v_c D \nabla{c}.n.ds +
+   \int_{\Omega} v_c \frac{\partial c}{\partial t} dx - \int_{\partial \Omega} v_c D \nabla{c}.n.ds +
 
    \int_{\Omega} D(\nabla c.\nabla \phi) dx-\int_{\Omega} v_c \mu Fz \nabla{c} \nabla{\phi} dx -
  
@@ -121,7 +121,7 @@ After integration by part and applying the divergence theorem, it yields to:
 .. math:: 
   :name: eq.91 
 
-  \int_{\Omega} v_{\phi}\nabla \phi n.ds  -\int_{\Omega} \nabla v_{\phi}.\nabla \phi = \int_{\Omega} v_{\phi} [-\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})]dx
+  \int_{\partial \Omega} v_{\phi}\nabla \phi n.ds  -\int_{\Omega} \nabla v_{\phi}.\nabla \phi dx = \int_{\Omega} v_{\phi} [-\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})]dx
 
 The first term in the left-hand side of the Eq.14, corresponds to the Neumann boundary condition that is equal to zero. So, the Eq.14 could be rewritten by expanding the right-hand side to find the final weak from of the Poisson equation:
 
