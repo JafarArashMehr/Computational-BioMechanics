@@ -73,7 +73,7 @@ By integration by part and applying the divergence theorem, it yields to:
 
    \int_{\Omega} D(\nabla c.\nabla \phi) dx-\int_{\Omega} v_c \mu Fz \nabla{c} \nabla{\phi} dx -
  
-   \int_{\Omega} v_c \mu Fzc \nabla{\phi}.n.ds+\int_{\Omega} \mu Fz \nabla(cv_c).\nabla \phi.dx=0
+   \int_{\partial \Omega} v_c \mu Fzc \nabla{\phi}.n.ds+\int_{\Omega} \mu Fz \nabla(cv_c).\nabla \phi.dx=0
 
 In the above equation, :math:`n` is the outward normal vector on the boundaries. The terms including :math:`ds` correspond to the Neumann boundary condition that vanish as they are equal to zero:
 
