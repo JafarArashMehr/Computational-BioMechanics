@@ -77,7 +77,7 @@ The first term on the right hand side, we could apply the chain rule to calculat
 
   \frac{\partial I_1}{\partial C}=e_1 \otimes e_1 +e_2 \otimes e_2 +e_3 \otimes e_3 = \textbf{I}
 
-Similary we can can derive the :math:`\frac{\partial I_2}{\partial C}` and :math:`\frac{\partial I_3}{\partial C}`:
+Similarly we can can derive the :math:`\frac{\partial I_2}{\partial C}` and :math:`\frac{\partial I_3}{\partial C}`:
 
 
 .. math:: 
@@ -156,7 +156,7 @@ We can write the :math:`\frac{\partial W}{\partial \textbf {b}}`:
 
   \frac{\partial W}{\partial \textbf {b}}= (\frac{\partial W}{\partial I_1} + \frac{\partial W}{\partial I_2} I_1) \textbf {I} - \frac{\partial W}{\partial I_2}\textbf {b} +\frac{\partial W}{\partial I_3} I_3 \textbf {b}^{-1}
 
-After multiplying the :math:`\textbf {b}` tensor into the :ref:`Equation.16 <eq.16>` and then by substitution in :ref:`Equation.11 <eq.11>`, the stress could be defined in the form form:
+After multiplying the :math:`\textbf {b}` tensor into the :ref:`Equation.16 <eq.16>` and then by substitution in :ref:`Equation.11 <eq.11>`, the stress could be defined as following:
 
     
 .. math:: 
@@ -190,7 +190,7 @@ For the incompressible Neo-Hookean material, the strain energy function is defin
   W=c_1(I_1-3)
 
 
-For the uniaxial tension, the deformation gradient tensor is defined as:
+For the uniaxial tension, the deformation gradient tensor is expressed as:
 
 .. math::
   :name: eq.20
@@ -210,7 +210,7 @@ Considering the :ref:`equation.19 <eq.19>` and with respect to :ref:`equation.17
 
    \beta_3 = 0
 
-In the above equation :math:`c_1= \frac {\mu}{2}` where and :math:`\mu` is the shear modulus. In addition for a fully compressible material, :math:`J= 1` so :math:`\beta_2=\mu` . According to the :ref:`equation.20 <eq.20>` and :ref:`equation.13 <eq.13>` we can calculate the :math:`\textbf{b}` as following: 
+In the above equation :math:`c_1= \frac {\mu}{2}` where  :math:`\mu` is the shear modulus. In addition for a fully compressible material, :math:`J= 1` so :math:`\beta_2=\mu` . According to the :ref:`equation.20 <eq.20>` and :ref:`equation.13 <eq.13>` we can calculate the :math:`\textbf{b}` as following: 
 
 .. math::
   :name: eq.22
@@ -304,7 +304,7 @@ By subtracting the above equations:
 
 .. note:: **Alternative Way**
 
-   The stress is defined as follows:
+   The stress is defined as following:
 
    .. math:: 
      :name: eq.32 
@@ -354,7 +354,7 @@ tensor is unity (e.g. :math:`J=1`). The strain energy function is defined as fol
    W= c_1(I_1-3)+p(J-1)
 
 
-.. note:: In the above equation, the parameter :math:`p` is Lagrange multiplier enforcing the fully incompressibility condition
+.. note:: In the above equation, the parameter :math:`p` is **Lagrange Multiplier** enforcing the fully incompressibility condition
 
 The stress is defined:
 
@@ -375,7 +375,7 @@ Then the stress term is reduced to:
 .. note:: When we solve for a fully incompressible material, we should define our problem on a mixed space including a scalar space (to solve for the :math:`p`) and a vector space (to solve for the displacement)
 
 
-The analytical solution for the uniaxial stretch for different shear modulus could be obtained using the code: 
+The analytical solution for the uniaxial stretch for different shear modulus could be obtained using this code: 
 
 .. code-block:: python
 
@@ -418,7 +418,7 @@ The analytical solution for the uniaxial stretch for different shear modulus cou
 	plt.grid()
 	plt.show()
 
-The implmentation in FEniCS is presented in this code:  
+The implementation in FEniCS is presented in this code:  
 
 .. code-block:: python
 
@@ -606,7 +606,7 @@ The analytical solution for the Biaxial stretch for different shear modulus coul
 	plt.grid()
 	plt.show()
 
-And similarly the implmentation in FEniCS is presented here:
+And similarly the implmentation of the FEM code in FEniCS is presented here:
 
 .. code-block:: python
 
@@ -781,7 +781,7 @@ The strain energy function is defined as:
    W=c_1(I_1-3)+ \frac{1}{2}K(Ln(J))^2
 
 
-Where :math:`I_1` corresponds to the first invariant of the :math:`C` where :math:`C=J^{\frac{-2}{3}}C`.The stress is defined as:
+Where :math:`I_1` corresponds to the first invariant of the :math:`\tilde{C}` where :math:`C=J^{\frac{-2}{3}}C`. The stress is defined as:
 
 .. math:: 
   :name: eq.40
@@ -799,7 +799,7 @@ In the above equation:
 
 1.3.2 Finite Element Implementation
 """""""""""""""""""""""""""""""""""""
-The FEniCS implementation of the neo-Hookean neraly incompressible material on a single hexahedron element under biaxial stretch is hsown as below: 
+The FEniCS implementation of the Neo-Hookean nearly incompressible material on a single hexahedron element under biaxial stretch is shown as below: 
 
 .. code-block:: python
 
@@ -935,21 +935,21 @@ The above figure illustrates that when :math:`\frac{K}{\mu}>100` the behavior of
 
    Nearly incompressible material in biaxial tension test– FEM (FEniCS) vs Analytical
  
-The other test that was implemented was tracking the Jacobian when the stretch increases which is shown in the next figure:
+The other test that could be implemented is tracking the Jacobian when the stretch increases which is shown in the next figure:
 
 .. figure:: PNG/5.png
    :align: center
 
    Effect of compressibility in the Jacobian of deformation gradient tensor in biaxial tension test
 
-It could be seen that by approaching the :math:`\frac{K}{\mu}` ratio to 1000, the Jacobian is set to unity regardless of the value of stretch showing the material is nearly incompressible.
+It could be seen that by approaching the :math:`\frac{K}{\mu}` ratio to 1000, the Jacobian is set to unity regardless of the value of stretch indicating the material is nearly incompressible.
 
 1.4. Compressible Model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1.4.1. Constitutive Equations
 """"""""""""""""""""""""""""""""
-The strain energy function for a compressible neo-Hookean material is defined as: 
+The strain energy function for a compressible Neo-Hookean material is defined as: 
 
 
 .. math:: 
@@ -1088,7 +1088,7 @@ The obtained result for three different shear modulus (i.e. :math:`\mu`) are com
 .. figure:: PNG/6.png
    :align: center
 
-   Stress results of neo-Hokean compressible model for a single element under biaxial stretch
+   Stress results of Neo-Hokean compressible model for a single element under biaxial stretch
 
 .. note:: 
 
@@ -1115,11 +1115,11 @@ The obtained result for three different shear modulus (i.e. :math:`\mu`) are com
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-We consider a sphere which is under an external pressure that could be taken as an axisymmetric problem. This geometry could be seen as revolution of a cross section with respect to the axis of symmetry as shown in the next figure:
+We consider a sphere which is under an external pressure that could be taken as an axisymmetric problem. This geometry could be seen as revolution of a cross section with respect to the axis of symmetry.
 
 1.5.1. Constitutive Equation
 """""""""""""""""""""""""""""""
-For an axisymmetric problem, the displacement field is defined as follows:
+For an axisymmetric problem, the displacement field is defined as following:
 
 .. math:: 
   :name: eq.46
@@ -1128,14 +1128,14 @@ For an axisymmetric problem, the displacement field is defined as follows:
 
 
 The strain energy function is defined as presented in :ref:`Equation.39 <eq.39>`.
-In case of axisymmetric the gradient of displacement field is defined as: 
+In case of axisymmetric the gradient of displacement field is defined as below: 
 
 .. math:: 
   :name: eq.47 
 
    \nabla u = \begin{bmatrix} \frac {\partial u_r}{\partial r} & 0 & \frac {\partial u_r}{\partial z}\\0 & \frac {u_r}{r} & 0\\ \frac {\partial u_z}{\partial r} & 0 & \frac {\partial u_z}{\partial z}\end{bmatrix}
 
-In general, In case of nonlinear problems, the abstract formulation for nonlinear form is defined as:
+In general, in case of nonlinear problems, the abstract formulation for nonlinear form is defined as:
 
 .. math:: 
   :name: eq.48
@@ -1179,7 +1179,7 @@ In order to generate the mesh, we considered the cross section of the sphere as 
    Geometry of the cross section making the hemisphere (Left), the mesh generated in GMSH (Middle), load and boundary conditions (Right)
 
 
-The above equations were implemented in FEniCS. The FEniCS code is presented as here: 
+The above equations were implemented in FEniCS. The code is presented  here: 
 
 .. code-block:: python
 
@@ -1273,7 +1273,7 @@ The above equations were implemented in FEniCS. The FEniCS code is presented as 
 
 The same model with the same geometry, loading, boundary conditions and mesh was generated in ANSYS APDL. 
 
-The PLANE 182 element was used for the simulation in ANSYS with axisymmetric element behavior. The displacement results in the x and y directions obtained from ANSYS and FEniCS implementation are shown in the next figures:
+The PLANE 182 element was used for the simulation in ANSYS with axisymmetric element behavior. The displacement results in the x and y directions obtained from ANSYS and FEniCS implementation are shown in the figures:
 
 .. figure:: PNG/8.png
    :align: center
@@ -1296,14 +1296,14 @@ The PLANE 182 element was used for the simulation in ANSYS with axisymmetric ele
 
 1.6.1. Introduction
 """""""""""""""""""""""""
-The strain energy function is defined as follows:
+The strain energy function is defined as following:
 
 .. math:: 
   :name: eq.52
  
    W = W_{matrix}+W_{fiber}
 
-The ground substance  :math:`W_{matrix}` is defined as Neo-Hookean material with this energy:
+The ground substance  :math:`W_{matrix}` is defined as Neo-Hookean material with this energy function:
 
 .. math:: 
   :name: eq.53 
@@ -1311,7 +1311,7 @@ The ground substance  :math:`W_{matrix}` is defined as Neo-Hookean material with
    W_{matrix} = c_{1}(I_1-3)
 
 
-The strain energy part which is related to the fibers is represented as follows:
+The part of strain energy function which is related to the fibers is presented as:
 
 .. math:: 
   :name: eq.54 
@@ -1334,7 +1334,7 @@ defined as:
 
    P(\theta) = \frac{1}{\pi I_0 (k)} e^{k \cos (x)} dx 
 
-:math:`k` is the fiber concentration factor and :math:`\theta_p)` is the preferred fiber orientation. The strain energy function associated with collagen fibers family is defined such that:
+:math:`k` is the fiber concentration factor and :math:`\theta_p)` is the preferred fiber orientation. The strain energy function associated with collagen fibers family is defined as following:
 
 .. math:: 
   :name: eq.57
@@ -1358,7 +1358,7 @@ The second Piola-Kirchhoff stress tensor could be represented as:
 
 .. note::
 
-   The operator :math:`DEV[.]` is the deviatoric projection operator
+   The operator :math:`DEV[.]` is the deviatoric projection operator.
 
 
 We start with the matrix part and by using chain rule:
@@ -1405,7 +1405,7 @@ The term in the bracket could be rewritten using the chain rule:
 
    \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial C} = \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial I_4} \times \frac{I_4}{\partial C}
 
-The first term in the above equation, the right hand side could be presented again using the chain rule:
+The first term in the right hand side of the above equation, could be presented again using the chain rule:
 
 .. math:: 
   :name: eq.65
@@ -1458,7 +1458,7 @@ Now by combining with the stress obtained from the strain energy of the matrix p
    \mathbf{S} = pJC^{-1} + 2J^{\frac{-2}{3}}[c_1 (I - \frac{1}{3} I_1 C^{-1}) +
     \int_{\theta_p- \frac{\pi}{2}}^{\theta_p + \frac{\pi}{2}} P(\theta) \eta [a_0 (\theta).a_0 (\theta)-\frac{1}{3} I_4 C^{-1}] d \theta ]
 
-The Cauchy stress is obtained from:
+The Cauchy stress yields to:
 
 .. math:: 
   :name: eq.72
@@ -1502,25 +1502,25 @@ The :math:`\tilde{\lambda}` is the stretch represented as following:
 
    \tilde{\lambda}^2=\tilde{I}_4= \textbf{a}_0 (\theta).\tilde{\textbf{C}}.\textbf{a}_0(\theta)
 
-The distribution function is stated as:
+The distribution function is expressed as:
 
 .. math:: 
   :name: eq.77
 
    P(\theta)=\frac{1}{\pi I_0(k_f)}e^{k_f cos2(\theta-\theta_p)}
 
-In the above, the :math:`I_0(k_f)` is the the bessel function of the first kind:
+In the above, the :math:`I_0(k_f)` is the the Bessel function of the first kind:
 
 .. math:: 
   :name: eq.78
 
    I_0 (k_f)=\frac{1}{\pi} \int_{0}^{\pi} e^{k_fcos(x)}dx
 
-1.6.4. Finite Element Implemnetation
+1.6.4. Finite Element Implementation
 """""""""""""""""""""""""""""""""""""""""""""
 
 We implement this model in a finite element code on a cube element where the fibers are aligned in Y direction (Vertical) and the element is under biaxial stretch. The values of the constants of :math:`c_1` , :math:`c_3` and :math:`c_4` are equal to 10Pa, 50 Pa and 5 respectively. In addition the bulk modulus :math:`K` is equal to 1 GPa. 
-We implement the numerical integration by trapezoidal rule. IN addition, in order to define the plane where the fibers are confined with, we should use Discontinuous Galerkin function space and then assign the vector values :math:`\vec{a}` and :math:`\vec{b}` to each element by using the index of the elements. Here is the FEniCS implementation and validation against the analytical solution:   
+We implement the numerical integration by trapezoidal rule. In addition, in order to define the plane where the fibers are confined with, we should use Discontinuous Galerkin function space and then assign the vector values :math:`\vec{a}` and :math:`\vec{b}` to each element by using the index of the elements. Here is the FEniCS implementation and validation against the analytical solution:   
 
 .. code-block:: python
 
@@ -1666,5 +1666,4 @@ Here is the results and comparison with the analytical solution:
 .. note::
 
    The complete FEniCS code is available upon request (Please refer to the section : **About the Author**)
-
 

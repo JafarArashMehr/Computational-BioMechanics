@@ -13,6 +13,7 @@ Jafar Arash Mehr
    rst/multi-physics
    rst/optimization
    rst/machine-learning
+   rst/drug-delivery
    rst/contact
 
 

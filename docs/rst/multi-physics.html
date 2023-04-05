@@ -94,6 +94,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>3. Inverse Finite Element (Optimization)</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="machine-learning.html"><strong>4. Machine Learning in Diagnosis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>5. Drug Delivery</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">About the Author</a></li>
 </ul>
 
@@ -143,7 +144,7 @@
 <h1><strong>2. Multi-Physics Problem</strong><a class="headerlink" href="#multi-physics-problem" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The reader is encouraged to look at <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S1742706122000186">this paper</a> to make a sense out of numerical treatment of coupled physics:</p>
+<p class="last">The reader is encouraged to look at <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S1742706122000186">this paper</a> to make a sense out of numerical solution of a coupled physics problem:</p>
 </div>
 <div class="section" id="coupled-system-of-equations">
 <h2>2.1 Coupled System of Equations<a class="headerlink" href="#coupled-system-of-equations" title="Permalink to this headline">¶</a></h2>
@@ -154,13 +155,13 @@
 <p>Where  <span class="math notranslate nohighlight">\(c\)</span> is concentration of the mobile species, <span class="math notranslate nohighlight">\(D\)</span> is diffusion constant of the mobile species, <span class="math notranslate nohighlight">\(\mu = \frac{D}{RT}\)</span>  is mobility of the ionic species  ,:math:<cite>R</cite> is universal gas constant , <span class="math notranslate nohighlight">\(T\)</span> is temperature, <span class="math notranslate nohighlight">\(F\)</span> is Faraday constant and  <span class="math notranslate nohighlight">\(\phi\)</span> is Electrical potential.</p>
 <div class="math notranslate nohighlight" id="eq-80">
 <span id="equation-eq-80"></span><span class="eqno">(80)<a class="headerlink" href="#eq-80" title="Permalink to this equation">¶</a></span>\[\nabla^2 \phi = -\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})\]</div>
-<p>The approximate solution is sought in scalar spaces including <span class="math notranslate nohighlight">\(S^{(c)}\)</span> and <span class="math notranslate nohighlight">\(S^{(\phi)}\)</span> corresponding to the function spaces representing the concentration and electric potential respectively</p>
+<p>The approximate solution is sought on scalar spaces including <span class="math notranslate nohighlight">\(S^{(c)}\)</span> and <span class="math notranslate nohighlight">\(S^{(\phi)}\)</span> corresponding to the function spaces representing the concentration of the ions and electric potential respectively.</p>
 <div class="math notranslate nohighlight" id="eq-81">
 <span id="equation-eq-81"></span><span class="eqno">(81)<a class="headerlink" href="#eq-81" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned} S^{c}=span \{\omega_0^{c} ,...,\omega_N^{c} \}\\ S^{\phi}=span \{\lambda_0^{\phi} ,...,\lambda_N^{\phi} \}\end{aligned}\end{align} \]</div>
 <p>The <span class="math notranslate nohighlight">\(\omega_i\)</span>  and <span class="math notranslate nohighlight">\(\lambda_i\)</span> are the basis functions which are linearly independent. This approximation is used to discretize the problem in space. In this regard the approximate solution  and can be expressed as a linear combination of the basis functions:</p>
 <div class="math notranslate nohighlight" id="eq-82">
 <span id="equation-eq-82"></span><span class="eqno">(82)<a class="headerlink" href="#eq-82" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned} c= \sum_{j=0}^N \alpha_j \omega_j (x,y)\\ \phi= \sum_{j=0}^N \beta_j \lambda_j (x,y)\end{aligned}\end{align} \]</div>
-<p>The coefficients <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\beta_i\)</span> should be computed. A mixed scalar space is then defined as: <span class="math notranslate nohighlight">\(\textbf{S} = S^{(c)} \times S^{(\phi)}\)</span>.   along with a test function <span class="math notranslate nohighlight">\(\textbf{v} = (v_c,v_{\phi})\)</span> .The test functions are chosen as <span class="math notranslate nohighlight">\(\forall v_c , v_{\phi} \in \textbf{S}\)</span>, So we can define the test function: <span class="math notranslate nohighlight">\(v_c = \omega_i\)</span> and <span class="math notranslate nohighlight">\(v_{\phi} = \lambda_i\)</span> . In order to derive the weak form of the NP equation, we should multiply it by <span class="math notranslate nohighlight">\(v_c\)</span>:</p>
+<p>The coefficients <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\beta_i\)</span> should be computed. A mixed scalar space is then defined as: <span class="math notranslate nohighlight">\(\textbf{S} = S^{(c)} \times S^{(\phi)}\)</span> along with a test function <span class="math notranslate nohighlight">\(\textbf{v} = (v_c,v_{\phi})\)</span> .The test functions are chosen as <span class="math notranslate nohighlight">\(\forall v_c , v_{\phi} \in \textbf{S}\)</span>, So we can define the test function: <span class="math notranslate nohighlight">\(v_c = \omega_i\)</span> and <span class="math notranslate nohighlight">\(v_{\phi} = \lambda_i\)</span> . In order to derive the weak form of the NP equation, we should multiply it by <span class="math notranslate nohighlight">\(v_c\)</span>:</p>
 <div class="math notranslate nohighlight" id="eq-83">
 <span id="equation-eq-83"></span><span class="eqno">(83)<a class="headerlink" href="#eq-83" title="Permalink to this equation">¶</a></span>\[ \int_{\Omega} v_c [\frac{\partial c}{\partial t}+ \nabla . (-D \nabla c-  z \mu F c \nabla \phi)]dx\]</div>
 <p>Then the above equation could be expanded as following:</p>
@@ -173,7 +174,7 @@
 <p>In the above equation, <span class="math notranslate nohighlight">\(n\)</span> is the outward normal vector on the boundaries. The terms including <span class="math notranslate nohighlight">\(ds\)</span> correspond to the Neumann boundary condition that vanish as they are equal to zero:</p>
 <div class="math notranslate nohighlight" id="eq-86">
 <span id="equation-eq-86"></span><span class="eqno">(86)<a class="headerlink" href="#eq-86" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned} \int_{\Omega} v_c \frac{\partial c}{\partial t} dx  + \int_{\Omega} D(\nabla c.\nabla \phi) dx-\\ \int_{\Omega} v_c \mu Fz \nabla{c} \nabla{\phi} dx +\int_{\Omega} v_c \mu F(\nabla c.\nabla\phi)dx+ \int_{\Omega} \mu Fcz \nabla(v_c).\nabla\phi.dx=0\end{aligned}\end{align} \]</div>
-<p>In Eq.7 the third and fourth terms cancel out:</p>
+<p>In the above equation, the third and fourth terms cancel out:</p>
 <div class="math notranslate nohighlight" id="eq-87">
 <span id="equation-eq-87"></span><span class="eqno">(87)<a class="headerlink" href="#eq-87" title="Permalink to this equation">¶</a></span>\[ \int_{\Omega} v_c \frac{\partial c}{\partial t}dx+\int_{\Omega}D(\nabla c.\nabla v_c)dx+\int_{\Omega} \mu zcF(\nabla{\phi}.\nabla{v_c})dx = 0\]</div>
 <p>The derivative in time could be written according to the backward-Euler scheme:</p>
@@ -188,7 +189,7 @@
 <p>After integration by part and applying the divergence theorem, it yields to:</p>
 <div class="math notranslate nohighlight" id="eq-91">
 <span id="equation-eq-91"></span><span class="eqno">(91)<a class="headerlink" href="#eq-91" title="Permalink to this equation">¶</a></span>\[\int_{\partial \Omega} v_{\phi}\nabla \phi n.ds  -\int_{\Omega} \nabla v_{\phi}.\nabla \phi dx = \int_{\Omega} v_{\phi} [-\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})]dx\]</div>
-<p>The first term in the left-hand side of the Eq.14, corresponds to the Neumann boundary condition that is equal to zero. So, the Eq.14 could be rewritten by expanding the right-hand side to find the final weak from of the Poisson equation:</p>
+<p>The first term in the left-hand side of the above equation, corresponds to the Neumann boundary condition that is equal to zero. So, this could be rewritten by expanding the right-hand side to find the final weak from of the Poisson equation:</p>
 <div class="math notranslate nohighlight" id="eq-92">
 <span id="equation-eq-92"></span><span class="eqno">(92)<a class="headerlink" href="#eq-92" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned} \int_{\Omega} \nabla v_{\phi} \nabla \phi dx - \int_{\Omega} v_{\phi} \frac{F}{\varepsilon_0  \varepsilon_r}(z_{Na} c_{Na})dx-\\ \int_{\Omega} v_{\phi} \frac{F}{\varepsilon_0 \varepsilon_r}(z_{Cl} c_{Cl})dx - \int_{\Omega} v_{\phi} \frac{F}{\varepsilon_0 \varepsilon_r}(z_{fixed} c_{fixed})dx = 0\end{aligned}\end{align} \]</div>
 <p>The constants used in the simulation as well as the intial conditions are presented in below tables:</p>
@@ -259,11 +260,11 @@
 <p class="first admonition-title">Note</p>
 <p class="last">In this section we replicate the results in <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0167663603000681?casa_token=-4BiIJAI4P0AAAAA:meT7q2AJn9Nu-1TIXv2hdsQ7ubI68QJOZVEI-mHPBiQPJv5dyK_BBcbXAIjm7BaoJ-y392XY9A">this paper</a></p>
 </div>
-<p>Everything starts with importing the dolfin (The main backend of FEniCS):</p>
+<p>The summary of the FEM code implemented in FeniCS is presented here:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>Then we shoud define the constants:</p>
+<p>Then we should define the constants:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="c1"># Diffusion constant for Na+ cations GEL</span>
 <span class="n">D_Na</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">7.</span><span class="p">))</span>
 
@@ -354,7 +355,7 @@
 <span class="n">hdf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">boundaries</span><span class="p">,</span> <span class="s2">&quot;/boundaries&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The integration sympol <span class="math notranslate nohighlight">\(dx\)</span> is defined as:</p>
+<p>The integration symbol <span class="math notranslate nohighlight">\(dx\)</span> is defined as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="n">dx</span> <span class="o">=</span> <span class="n">Measure</span><span class="p">(</span><span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">subdomain_data</span><span class="o">=</span><span class="n">subdomains</span><span class="p">)</span>
 </pre></div>
 </div>

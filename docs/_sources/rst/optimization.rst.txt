@@ -1,13 +1,15 @@
+
+
 **3. Inverse Finite Element (Optimization)**
 =============================================
 
 3.1. Optimization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-In this section we implement a powerful optimization algorithm which is called **Differential Evolution** (Storn & Price, 1997). This algorithm is it one of the most popular population-based algorithms that is very useful in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:
+In this section we implement a powerful optimization algorithm which is called **Differential Evolution** (Storn & Price, 1997). This algorithm is one of the most popular population-based algorithms that is very efficient in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:
 
 3.1.1. Differential Evolution
 """""""""""""""""""""""""""""""""
-Lets say we have a 2 dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The poplulation list include vectors :math:`\vec{x_1} , ... , \vec{x_n}`. Each vector has two components corresponding to the unknowns of interest. The number of the vectors should be set by the user:
+Lets say we have a 2-dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The population list include vectors :math:`\vec{x_1} , ... , \vec{x_n}`. Each vector has two components corresponding to the unknowns of interest. The number of the population should be set by the user:
 
 
 .. math:: 
@@ -32,7 +34,7 @@ Then we need to define a trial vector :math:`\vec{u}` for each member in the pop
 
    In the above equation the :math:`F` is called **Mutation Factor** that should be in the range of [0,2]
 
-It should be noted that we need to set a limit for each parameter for optimization. In the trial vector, if one of the components corresponding to a parameter is higher than the maximum limit for that parameter, it should be pushed to the maximum value of the limit. Similarly, if it is less than the minimum of the limit it should be pushed back to the minimum value of the limit that has been set for that parameter. 
+It should be noted that we need to set a limit for each parameter for the optimization. In the trial vector, if one of the components corresponding to a parameter is higher than the maximum limit for that parameter, it will be pushed to the maximum value of the limit. Similarly, if it is less than the minimum of the limit it should be pushed back to the minimum value of the limit that has been set for that parameter. 
 
 .. math:: 
    :name: eq.95
@@ -42,7 +44,7 @@ It should be noted that we need to set a limit for each parameter for optimizati
      If \quad u<lower-bound \Rightarrow u=lower-bound \\
    \end{cases}
 
-Now, we should check in the trial vector if we should keep that particular component or replace it with the corresponding component from the member in the population list that the trial vectro has been produced based on. In this regard, we should define a cross-over value (:math:`C.R` )which is a number we should set between 0 and 1. A random number should be produced 2 times to determine each component of the trial vector. If the :math:`C.R` is larger than the random number, then the component is kept inside the trial vector and if it is less than the produced random number it should be replaced with the component of the corresponding member in the population list: 
+Now, we check in the trial vector to know if we should keep that particular component or replace it with the corresponding component from the member in the population list that the trial vector has been produced based on. In this regard, we should define a cross-over value (:math:`C.R` )which is a number we should set between 0 and 1. A random number should be produced 2 times to determine each component of the trial vector. If the :math:`C.R` is larger than the produced random number, then the component is kept inside the trial vector and if it is less than the produced random number it should be replaced with the component of the corresponding member in the population list: 
 
 .. math:: 
    :name: eq.96
@@ -202,7 +204,7 @@ The output of the above code is:
 
 It means that the best values of the parameters minimizing the function are -3 and -3 resulting in the minimized objective function equal to -54.
 
-The results are stored in a text file (RESULTS.txt). We can monitor the rate of the convergence by running this code: 
+The results are saved in a text file (RESULTS.txt). We can monitor the rate of the convergence by running this code: 
 
 .. code-block:: python
 
@@ -232,7 +234,7 @@ The results are stored in a text file (RESULTS.txt). We can monitor the rate of 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In this section we introduce how we can use differential evolution algorithm in finding the best values of some parameters in a finite element code when we have some experimental data and try to tune the parameters in a way that the numerical results are best fitted into the experimental data. 
-Lets say we have measured the displacement of two particular points in an experiment at the coordinates of :math:`(x_1,y_1)` and :math:`(x_2,y_2)` and we have a finite element code (e.g., FEniCS code) for simulation of the displacement field. Now we want to find the best value of a parameter (It could be anything like the Young's modulus etc.) in finite element code in a way that it leads to closest possible values of the displacements :math:`u` in those points in comparison with the experimental values (EXP). 
+Lets say we have measured the displacement at two points in an experiment at the coordinates of :math:`(x_1,y_1)` and :math:`(x_2,y_2)` and we have a finite element code (e.g., FEniCS code) for simulation of the displacement field. Now we want to find the best value of a parameter (It could be anything like the Young's modulus etc.) in finite element code in a way that it leads to closest possible values of the displacements :math:`u` in those points in comparison with the experimental values (EXP). 
 
 The only difference is where we defined the :math:`f(X)`. With that being said we should define the objective functions as the out put of the :math:`f(X)`: 
 
@@ -254,7 +256,6 @@ The only difference is where we defined the :math:`f(X)`. With that being said w
 .. note::
 
    The limits of the parameter that we want to find as well as the number of populations, :math:`C.R` , :math:`F` and number of iterations should be set in way a that it leads to best possible results. It usually needs some try and error and good understanding of the physics of the problem. 
-
 
 
 

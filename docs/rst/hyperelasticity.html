@@ -112,7 +112,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id7">1.6.1. Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stress-tensor">1.6.2. Stress Tensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#strain-energy-function">1.6.3. Strain Energy Function</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#finite-element-implemnetation">1.6.4. Finite Element Implemnetation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">1.6.4. Finite Element Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -120,6 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>3. Inverse Finite Element (Optimization)</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="machine-learning.html"><strong>4. Machine Learning in Diagnosis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>5. Drug Delivery</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">About the Author</a></li>
 </ul>
 
@@ -204,7 +205,7 @@
 </div>
 <div class="math notranslate nohighlight" id="eq-7">
 <span id="equation-eq-7"></span><span class="eqno">(7)<a class="headerlink" href="#eq-7" title="Permalink to this equation">¶</a></span>\[\frac{\partial I_1}{\partial C}=e_1 \otimes e_1 +e_2 \otimes e_2 +e_3 \otimes e_3 = \textbf{I}\]</div>
-<p>Similary we can can derive the <span class="math notranslate nohighlight">\(\frac{\partial I_2}{\partial C}\)</span> and <span class="math notranslate nohighlight">\(\frac{\partial I_3}{\partial C}\)</span>:</p>
+<p>Similarly we can can derive the <span class="math notranslate nohighlight">\(\frac{\partial I_2}{\partial C}\)</span> and <span class="math notranslate nohighlight">\(\frac{\partial I_3}{\partial C}\)</span>:</p>
 <div class="math notranslate nohighlight" id="eq-8">
 <span id="equation-eq-8"></span><span class="eqno">(8)<a class="headerlink" href="#eq-8" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\frac{\partial I_2}{\partial \textbf {C}}= I_1 \textbf {I} - \textbf {C}\\\frac{\partial I_3}{\partial \textbf {C}}= I_2 \textbf {I} - I_1 \textbf {C} + \textbf {C}^2\end{aligned}\end{align} \]</div>
 <p>By plugging back the  <a class="reference internal" href="#eq-7"><span class="std std-ref">Equation.7</span></a> and <a class="reference internal" href="#eq-8"><span class="std std-ref">Equation.8</span></a> into the <a class="reference internal" href="#eq-5"><span class="std std-ref">Equation.5</span></a>, we can find the second piola kirchhoff stress as:</p>
@@ -232,7 +233,7 @@
 <p>We can write the <span class="math notranslate nohighlight">\(\frac{\partial W}{\partial \textbf {b}}\)</span>:</p>
 <div class="math notranslate nohighlight" id="eq-16">
 <span id="equation-eq-16"></span><span class="eqno">(16)<a class="headerlink" href="#eq-16" title="Permalink to this equation">¶</a></span>\[\frac{\partial W}{\partial \textbf {b}}= (\frac{\partial W}{\partial I_1} + \frac{\partial W}{\partial I_2} I_1) \textbf {I} - \frac{\partial W}{\partial I_2}\textbf {b} +\frac{\partial W}{\partial I_3} I_3 \textbf {b}^{-1}\]</div>
-<p>After multiplying the <span class="math notranslate nohighlight">\(\textbf {b}\)</span> tensor into the <a class="reference internal" href="#eq-16"><span class="std std-ref">Equation.16</span></a> and then by substitution in <a class="reference internal" href="#eq-11"><span class="std std-ref">Equation.11</span></a>, the stress could be defined in the form form:</p>
+<p>After multiplying the <span class="math notranslate nohighlight">\(\textbf {b}\)</span> tensor into the <a class="reference internal" href="#eq-16"><span class="std std-ref">Equation.16</span></a> and then by substitution in <a class="reference internal" href="#eq-11"><span class="std std-ref">Equation.11</span></a>, the stress could be defined as following:</p>
 <div class="math notranslate nohighlight" id="eq-17">
 <span id="equation-eq-17"></span><span class="eqno">(17)<a class="headerlink" href="#eq-17" title="Permalink to this equation">¶</a></span>\[ \sigma=\beta_1 \textbf {I}+\beta_2 \textbf {b}+\beta_3 \textbf {b}^2\]</div>
 <p>In the above equation:</p>
@@ -246,13 +247,13 @@
 <p>For the incompressible Neo-Hookean material, the strain energy function is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-19">
 <span id="equation-eq-19"></span><span class="eqno">(19)<a class="headerlink" href="#eq-19" title="Permalink to this equation">¶</a></span>\[W=c_1(I_1-3)\]</div>
-<p>For the uniaxial tension, the deformation gradient tensor is defined as:</p>
+<p>For the uniaxial tension, the deformation gradient tensor is expressed as:</p>
 <div class="math notranslate nohighlight" id="eq-20">
 <span id="equation-eq-20"></span><span class="eqno">(20)<a class="headerlink" href="#eq-20" title="Permalink to this equation">¶</a></span>\[\begin{split} F=\begin{bmatrix} \lambda_1 &amp; 0 &amp; 0\\0 &amp; \lambda_2 &amp; 0\\0 &amp; 0 &amp; \lambda_3\end{bmatrix}\end{split}\]</div>
 <p>Considering the <a class="reference internal" href="#eq-19"><span class="std std-ref">equation.19</span></a> and with respect to <a class="reference internal" href="#eq-17"><span class="std std-ref">equation.17</span></a> and <a class="reference internal" href="#eq-18"><span class="std std-ref">equation.18</span></a> then we can calculate the <span class="math notranslate nohighlight">\(\beta_1\)</span>, <span class="math notranslate nohighlight">\(\beta_2\)</span> and <span class="math notranslate nohighlight">\(\beta_3\)</span>:</p>
 <div class="math notranslate nohighlight" id="eq-21">
 <span id="equation-eq-21"></span><span class="eqno">(21)<a class="headerlink" href="#eq-21" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned} \beta_1 = 0\\ \beta_2 = 2J^{-1}c_1\\ \beta_3 = 0\end{aligned}\end{align} \]</div>
-<p>In the above equation <span class="math notranslate nohighlight">\(c_1= \frac {\mu}{2}\)</span> where and <span class="math notranslate nohighlight">\(\mu\)</span> is the shear modulus. In addition for a fully compressible material, <span class="math notranslate nohighlight">\(J= 1\)</span> so <span class="math notranslate nohighlight">\(\beta_2=\mu\)</span> . According to the <a class="reference internal" href="#eq-20"><span class="std std-ref">equation.20</span></a> and <a class="reference internal" href="#eq-13"><span class="std std-ref">equation.13</span></a> we can calculate the <span class="math notranslate nohighlight">\(\textbf{b}\)</span> as following:</p>
+<p>In the above equation <span class="math notranslate nohighlight">\(c_1= \frac {\mu}{2}\)</span> where  <span class="math notranslate nohighlight">\(\mu\)</span> is the shear modulus. In addition for a fully compressible material, <span class="math notranslate nohighlight">\(J= 1\)</span> so <span class="math notranslate nohighlight">\(\beta_2=\mu\)</span> . According to the <a class="reference internal" href="#eq-20"><span class="std std-ref">equation.20</span></a> and <a class="reference internal" href="#eq-13"><span class="std std-ref">equation.13</span></a> we can calculate the <span class="math notranslate nohighlight">\(\textbf{b}\)</span> as following:</p>
 <div class="math notranslate nohighlight" id="eq-22">
 <span id="equation-eq-22"></span><span class="eqno">(22)<a class="headerlink" href="#eq-22" title="Permalink to this equation">¶</a></span>\[\begin{split} \textbf{b}=\begin{bmatrix} {\lambda_1}^2 &amp; 0 &amp; 0\\0 &amp; {\lambda_2}^2  &amp; 0\\0 &amp; 0 &amp; {\lambda_3}^2 \end{bmatrix}\end{split}\]</div>
 <p>Then we can write the stress as:</p>
@@ -287,7 +288,7 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p><strong>Alternative Way</strong></p>
-<p>The stress is defined as follows:</p>
+<p>The stress is defined as following:</p>
 <div class="math notranslate nohighlight" id="eq-32">
 <span id="equation-eq-32"></span><span class="eqno">(32)<a class="headerlink" href="#eq-32" title="Permalink to this equation">¶</a></span>\[ \sigma= \alpha_1 \lambda_i^{2} + \alpha_{-1} \lambda_i^{-2}-p\]</div>
 <p>Where:</p>
@@ -312,7 +313,7 @@ tensor is unity (e.g. <span class="math notranslate nohighlight">\(J=1\)</span>)
 <span id="equation-eq-36"></span><span class="eqno">(36)<a class="headerlink" href="#eq-36" title="Permalink to this equation">¶</a></span>\[ W= c_1(I_1-3)+p(J-1)\]</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In the above equation, the parameter <span class="math notranslate nohighlight">\(p\)</span> is Lagrange multiplier enforcing the fully incompressibility condition</p>
+<p class="last">In the above equation, the parameter <span class="math notranslate nohighlight">\(p\)</span> is <strong>Lagrange Multiplier</strong> enforcing the fully incompressibility condition</p>
 </div>
 <p>The stress is defined:</p>
 <div class="math notranslate nohighlight" id="eq-37">
@@ -324,7 +325,7 @@ tensor is unity (e.g. <span class="math notranslate nohighlight">\(J=1\)</span>)
 <p class="first admonition-title">Note</p>
 <p class="last">When we solve for a fully incompressible material, we should define our problem on a mixed space including a scalar space (to solve for the <span class="math notranslate nohighlight">\(p\)</span>) and a vector space (to solve for the displacement)</p>
 </div>
-<p>The analytical solution for the uniaxial stretch for different shear modulus could be obtained using the code:</p>
+<p>The analytical solution for the uniaxial stretch for different shear modulus could be obtained using this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="n">lamda</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.35</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.25</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.75</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.25</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">2.75</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">3.25</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">3.75</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">4.25</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">4.47</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
 
 <span class="c1"># Shear modulus = 0.5 MPa</span>
@@ -365,7 +366,7 @@ tensor is unity (e.g. <span class="math notranslate nohighlight">\(J=1\)</span>)
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The implmentation in FEniCS is presented in this code:</p>
+<p>The implementation in FEniCS is presented in this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Defining Stretches</span>
@@ -499,9 +500,9 @@ tensor is unity (e.g. <span class="math notranslate nohighlight">\(J=1\)</span>)
 </div>
 <p>The results of analytical solution and finite element implementation are compared in
 figure.1:</p>
-<div class="figure align-center" id="id8">
+<div class="figure align-center" id="id9">
 <img alt="../_images/1.png" src="../_images/1.png" />
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">The stress results for the fully incompressible material model in uniaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">The stress results for the fully incompressible material model in uniaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p>The analytical solution for the Biaxial stretch for different shear modulus could be obtained using the code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="n">lamda</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.35</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.25</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.75</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.25</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">2.75</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">3.25</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">3.75</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">4.25</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">4.47</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
@@ -545,7 +546,7 @@ figure.1:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>And similarly the implmentation in FEniCS is presented here:</p>
+<p>And similarly the implmentation of the FEM code in FEniCS is presented here:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Defining Stretches</span>
@@ -697,9 +698,9 @@ figure.1:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-center" id="id9">
+<div class="figure align-center" id="id10">
 <img alt="../_images/2.png" src="../_images/2.png" />
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">The stress results for the fully incompressible material model in biaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">The stress results for the fully incompressible material model in biaxial loading - Finite Element (Right) vs Analytical (Left)</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -711,7 +712,7 @@ figure.1:</p>
 <p>The strain energy function is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-39">
 <span id="equation-eq-39"></span><span class="eqno">(39)<a class="headerlink" href="#eq-39" title="Permalink to this equation">¶</a></span>\[ W=c_1(I_1-3)+ \frac{1}{2}K(Ln(J))^2\]</div>
-<p>Where <span class="math notranslate nohighlight">\(I_1\)</span> corresponds to the first invariant of the <span class="math notranslate nohighlight">\(C\)</span> where <span class="math notranslate nohighlight">\(C=J^{\frac{-2}{3}}C\)</span>.The stress is defined as:</p>
+<p>Where <span class="math notranslate nohighlight">\(I_1\)</span> corresponds to the first invariant of the <span class="math notranslate nohighlight">\(\tilde{C}\)</span> where <span class="math notranslate nohighlight">\(C=J^{\frac{-2}{3}}C\)</span>. The stress is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-40">
 <span id="equation-eq-40"></span><span class="eqno">(40)<a class="headerlink" href="#eq-40" title="Permalink to this equation">¶</a></span>\[ \sigma=pI+ \frac{2}{J}[c_1 b - \frac{1}{3} (c_1 I_1)I]\]</div>
 <p>In the above equation:</p>
@@ -720,7 +721,7 @@ figure.1:</p>
 </div>
 <div class="section" id="id2">
 <h3>1.3.2 Finite Element Implementation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>The FEniCS implementation of the neo-Hookean neraly incompressible material on a single hexahedron element under biaxial stretch is hsown as below:</p>
+<p>The FEniCS implementation of the Neo-Hookean nearly incompressible material on a single hexahedron element under biaxial stretch is shown as below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;form_compiler&quot;</span><span class="p">][</span><span class="s2">&quot;representation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;tsfc&quot;</span>
@@ -839,28 +840,28 @@ figure.1:</p>
 </pre></div>
 </div>
 <p>Next figure shows how stress – stretch behavior of the model alters as the ratio <span class="math notranslate nohighlight">\(\frac{K}{\mu}\)</span> increases.</p>
-<div class="figure align-center" id="id10">
+<div class="figure align-center" id="id11">
 <img alt="../_images/3.png" src="../_images/3.png" />
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Effect of compressibility in biaxial tension test– FEM (FEniCS) vs Analytical Solution</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Effect of compressibility in biaxial tension test– FEM (FEniCS) vs Analytical Solution</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <p>The above figure illustrates that when <span class="math notranslate nohighlight">\(\frac{K}{\mu}&gt;100\)</span> the behavior of the model starts converging to the fully incompressible Neo-Hookean model. When <span class="math notranslate nohighlight">\(\frac{K}{\mu}&gt;1000\)</span> the solution is matched with the fully incompressible material model as shown in next figure:</p>
-<div class="figure align-center" id="id11">
-<img alt="../_images/4.png" src="../_images/4.png" />
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Nearly incompressible material in biaxial tension test– FEM (FEniCS) vs Analytical</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
-<p>The other test that was implemented was tracking the Jacobian when the stretch increases which is shown in the next figure:</p>
 <div class="figure align-center" id="id12">
-<img alt="../_images/5.png" src="../_images/5.png" />
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Effect of compressibility in the Jacobian of deformation gradient tensor in biaxial tension test</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<img alt="../_images/4.png" src="../_images/4.png" />
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Nearly incompressible material in biaxial tension test– FEM (FEniCS) vs Analytical</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
-<p>It could be seen that by approaching the <span class="math notranslate nohighlight">\(\frac{K}{\mu}\)</span> ratio to 1000, the Jacobian is set to unity regardless of the value of stretch showing the material is nearly incompressible.</p>
+<p>The other test that could be implemented is tracking the Jacobian when the stretch increases which is shown in the next figure:</p>
+<div class="figure align-center" id="id13">
+<img alt="../_images/5.png" src="../_images/5.png" />
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Effect of compressibility in the Jacobian of deformation gradient tensor in biaxial tension test</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+<p>It could be seen that by approaching the <span class="math notranslate nohighlight">\(\frac{K}{\mu}\)</span> ratio to 1000, the Jacobian is set to unity regardless of the value of stretch indicating the material is nearly incompressible.</p>
 </div>
 </div>
 <div class="section" id="compressible-model">
 <h2>1.4. Compressible Model<a class="headerlink" href="#compressible-model" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
 <h3>1.4.1. Constitutive Equations<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>The strain energy function for a compressible neo-Hookean material is defined as:</p>
+<p>The strain energy function for a compressible Neo-Hookean material is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-42">
 <span id="equation-eq-42"></span><span class="eqno">(42)<a class="headerlink" href="#eq-42" title="Permalink to this equation">¶</a></span>\[      W=\frac{\lambda}{2}{(lnJ)}^2 + \mu(lnJ) + \frac{1}{2} \mu (I_b-3)\]</div>
 <p>In the above equation, the <span class="math notranslate nohighlight">\(\lambda\)</span> is the Lame constant which is equal to <span class="math notranslate nohighlight">\(\frac{E \nu}{(1+\nu)(1-2 \nu)}\)</span> where <span class="math notranslate nohighlight">\(E\)</span> is Young modulus and <span class="math notranslate nohighlight">\(\nu\)</span> is the Poisson ratio. In addition, the stress terms is represented as:</p>
@@ -985,9 +986,9 @@ figure.1:</p>
 </pre></div>
 </div>
 <p>The obtained result for three different shear modulus (i.e. <span class="math notranslate nohighlight">\(\mu\)</span>) are compared in figure 10:</p>
-<div class="figure align-center" id="id13">
+<div class="figure align-center" id="id14">
 <img alt="../_images/6.png" src="../_images/6.png" />
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Stress results of neo-Hokean compressible model for a single element under biaxial stretch</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Stress results of Neo-Hokean compressible model for a single element under biaxial stretch</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -1003,17 +1004,17 @@ figure.1:</p>
 </div>
 <div class="section" id="axisymmetric-model">
 <h2>1.5. Axisymmetric Model<a class="headerlink" href="#axisymmetric-model" title="Permalink to this headline">¶</a></h2>
-<p>We consider a sphere which is under an external pressure that could be taken as an axisymmetric problem. This geometry could be seen as revolution of a cross section with respect to the axis of symmetry as shown in the next figure:</p>
+<p>We consider a sphere which is under an external pressure that could be taken as an axisymmetric problem. This geometry could be seen as revolution of a cross section with respect to the axis of symmetry.</p>
 <div class="section" id="constitutive-equation">
 <h3>1.5.1. Constitutive Equation<a class="headerlink" href="#constitutive-equation" title="Permalink to this headline">¶</a></h3>
-<p>For an axisymmetric problem, the displacement field is defined as follows:</p>
+<p>For an axisymmetric problem, the displacement field is defined as following:</p>
 <div class="math notranslate nohighlight" id="eq-46">
 <span id="equation-eq-46"></span><span class="eqno">(46)<a class="headerlink" href="#eq-46" title="Permalink to this equation">¶</a></span>\[ u = u_r e_r + u_z e_z\]</div>
 <p>The strain energy function is defined as presented in <a class="reference internal" href="#eq-39"><span class="std std-ref">Equation.39</span></a>.
-In case of axisymmetric the gradient of displacement field is defined as:</p>
+In case of axisymmetric the gradient of displacement field is defined as below:</p>
 <div class="math notranslate nohighlight" id="eq-47">
 <span id="equation-eq-47"></span><span class="eqno">(47)<a class="headerlink" href="#eq-47" title="Permalink to this equation">¶</a></span>\[\begin{split} \nabla u = \begin{bmatrix} \frac {\partial u_r}{\partial r} &amp; 0 &amp; \frac {\partial u_r}{\partial z}\\0 &amp; \frac {u_r}{r} &amp; 0\\ \frac {\partial u_z}{\partial r} &amp; 0 &amp; \frac {\partial u_z}{\partial z}\end{bmatrix}\end{split}\]</div>
-<p>In general, In case of nonlinear problems, the abstract formulation for nonlinear form is defined as:</p>
+<p>In general, in case of nonlinear problems, the abstract formulation for nonlinear form is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-48">
 <span id="equation-eq-48"></span><span class="eqno">(48)<a class="headerlink" href="#eq-48" title="Permalink to this equation">¶</a></span>\[ F(u,v)=0 \ \forall v \in V\]</div>
 <p>In order to find the F in the above equation, first we need to define total potential energy with regard to axisymmetric formulation:</p>
@@ -1030,11 +1031,11 @@ In the above equation <span class="math notranslate nohighlight">\(dV\)</span> a
 <div class="section" id="id5">
 <h3>1.5.2. Finite Element Implementation<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>In order to generate the mesh, we considered the cross section of the sphere as a 2D axisymmetric problem. GMSH was used for mesh generation and structured mesh was created with triangular elements. The red arrows correspond to the external pressure on the sphere. The left edge (e.g., axis of symmetry) is constrained to move in the x direction while the bottom edge is constrained to move in the y direction. The parameters used for this simulation are: <span class="math notranslate nohighlight">\(\mu = 1 MPa\)</span> , <span class="math notranslate nohighlight">\(K = 1 GPa\)</span> and <span class="math notranslate nohighlight">\(P = 10 Pa\)</span> .The dimensions of the geometry, mesh, pressure load and boundary conditions are shown in next figure:</p>
-<div class="figure align-center" id="id14">
+<div class="figure align-center" id="id15">
 <img alt="../_images/7.png" src="../_images/7.png" />
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Geometry of the cross section making the hemisphere (Left), the mesh generated in GMSH (Middle), load and boundary conditions (Right)</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Geometry of the cross section making the hemisphere (Left), the mesh generated in GMSH (Middle), load and boundary conditions (Right)</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
-<p>The above equations were implemented in FEniCS. The FEniCS code is presented as here:</p>
+<p>The above equations were implemented in FEniCS. The code is presented  here:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;form_compiler&quot;</span><span class="p">][</span><span class="s2">&quot;representation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;tsfc&quot;</span>
@@ -1124,14 +1125,14 @@ In the above equation <span class="math notranslate nohighlight">\(dV\)</span> a
 </pre></div>
 </div>
 <p>The same model with the same geometry, loading, boundary conditions and mesh was generated in ANSYS APDL.</p>
-<p>The PLANE 182 element was used for the simulation in ANSYS with axisymmetric element behavior. The displacement results in the x and y directions obtained from ANSYS and FEniCS implementation are shown in the next figures:</p>
-<div class="figure align-center" id="id15">
-<img alt="../_images/8.png" src="../_images/8.png" />
-<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">The displacement results in X direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</div>
+<p>The PLANE 182 element was used for the simulation in ANSYS with axisymmetric element behavior. The displacement results in the x and y directions obtained from ANSYS and FEniCS implementation are shown in the figures:</p>
 <div class="figure align-center" id="id16">
+<img alt="../_images/8.png" src="../_images/8.png" />
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">The displacement results in X direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id17">
 <img alt="../_images/9.png" src="../_images/9.png" />
-<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">The displacement results in Y direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">The displacement results in Y direction (FEniCS) vs ANSYS</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1143,13 +1144,13 @@ In the above equation <span class="math notranslate nohighlight">\(dV\)</span> a
 </div>
 <div class="section" id="id7">
 <h3>1.6.1. Introduction<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>The strain energy function is defined as follows:</p>
+<p>The strain energy function is defined as following:</p>
 <div class="math notranslate nohighlight" id="eq-52">
 <span id="equation-eq-52"></span><span class="eqno">(52)<a class="headerlink" href="#eq-52" title="Permalink to this equation">¶</a></span>\[ W = W_{matrix}+W_{fiber}\]</div>
-<p>The ground substance  <span class="math notranslate nohighlight">\(W_{matrix}\)</span> is defined as Neo-Hookean material with this energy:</p>
+<p>The ground substance  <span class="math notranslate nohighlight">\(W_{matrix}\)</span> is defined as Neo-Hookean material with this energy function:</p>
 <div class="math notranslate nohighlight" id="eq-53">
 <span id="equation-eq-53"></span><span class="eqno">(53)<a class="headerlink" href="#eq-53" title="Permalink to this equation">¶</a></span>\[ W_{matrix} = c_{1}(I_1-3)\]</div>
-<p>The strain energy part which is related to the fibers is represented as follows:</p>
+<p>The part of strain energy function which is related to the fibers is presented as:</p>
 <div class="math notranslate nohighlight" id="eq-54">
 <span id="equation-eq-54"></span><span class="eqno">(54)<a class="headerlink" href="#eq-54" title="Permalink to this equation">¶</a></span>\[ W_{matrix} = \int_{\theta_p- \frac{\pi}{2}}^{\theta_p + \frac{\pi}{2}} P(\theta) W_{fiber} \circ I_4 (\theta) d \theta\]</div>
 <p>In the above equation, the fourth invariant of <span class="math notranslate nohighlight">\(C\)</span> tensor <span class="math notranslate nohighlight">\(I_4 (\theta)\)</span> is:</p>
@@ -1159,7 +1160,7 @@ In the above equation <span class="math notranslate nohighlight">\(dV\)</span> a
 defined as:</p>
 <div class="math notranslate nohighlight" id="eq-56">
 <span id="equation-eq-56"></span><span class="eqno">(56)<a class="headerlink" href="#eq-56" title="Permalink to this equation">¶</a></span>\[ P(\theta) = \frac{1}{\pi I_0 (k)} e^{k \cos (x)} dx\]</div>
-<p><span class="math notranslate nohighlight">\(k\)</span> is the fiber concentration factor and <span class="math notranslate nohighlight">\(\theta_p)\)</span> is the preferred fiber orientation. The strain energy function associated with collagen fibers family is defined such that:</p>
+<p><span class="math notranslate nohighlight">\(k\)</span> is the fiber concentration factor and <span class="math notranslate nohighlight">\(\theta_p)\)</span> is the preferred fiber orientation. The strain energy function associated with collagen fibers family is defined as following:</p>
 <div class="math notranslate nohighlight" id="eq-57">
 <span id="equation-eq-57"></span><span class="eqno">(57)<a class="headerlink" href="#eq-57" title="Permalink to this equation">¶</a></span>\[ \lambda (\theta) \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial \lambda(\theta)} = c_3 (e^{c_4 (\lambda (\theta) - 1} -1)\]</div>
 <p>Where <span class="math notranslate nohighlight">\(c_3\)</span> is the exponential fiber stress coefficient and <span class="math notranslate nohighlight">\(c_4\)</span> is the rate of uncrimping collagen fibers.</p>
@@ -1171,7 +1172,7 @@ defined as:</p>
 <span id="equation-eq-58"></span><span class="eqno">(58)<a class="headerlink" href="#eq-58" title="Permalink to this equation">¶</a></span>\[ \mathbf{S} = pJ \mathbf{C^{-1}} + 2J^{\frac{-2}{3}} DEV[\frac{\partial W}{\partial C}]\]</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The operator <span class="math notranslate nohighlight">\(DEV[.]\)</span> is the deviatoric projection operator</p>
+<p class="last">The operator <span class="math notranslate nohighlight">\(DEV[.]\)</span> is the deviatoric projection operator.</p>
 </div>
 <p>We start with the matrix part and by using chain rule:</p>
 <div class="math notranslate nohighlight" id="eq-59">
@@ -1192,7 +1193,7 @@ function for the fibers is derived from <span class="math notranslate nohighligh
 <p>The term in the bracket could be rewritten using the chain rule:</p>
 <div class="math notranslate nohighlight" id="eq-64">
 <span id="equation-eq-64"></span><span class="eqno">(64)<a class="headerlink" href="#eq-64" title="Permalink to this equation">¶</a></span>\[ \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial C} = \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial I_4} \times \frac{I_4}{\partial C}\]</div>
-<p>The first term in the above equation, the right hand side could be presented again using the chain rule:</p>
+<p>The first term in the right hand side of the above equation, could be presented again using the chain rule:</p>
 <div class="math notranslate nohighlight" id="eq-65">
 <span id="equation-eq-65"></span><span class="eqno">(65)<a class="headerlink" href="#eq-65" title="Permalink to this equation">¶</a></span>\[ \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial I_4} = \frac{\partial W_{fiber} \circ I_4 (\theta)}{\partial \lambda (\theta)} \times \frac{\partial \lambda (\theta)}{\partial I_4}\]</div>
 <p>We know that <span class="math notranslate nohighlight">\(I_4 (\theta)= \lambda^2 (\theta)\)</span> . Thus, the second term in the right hand side of the above equation could be simplified to:</p>
@@ -1213,7 +1214,7 @@ function for the fibers is derived from <span class="math notranslate nohighligh
 <div class="math notranslate nohighlight" id="eq-71">
 <span id="equation-eq-71"></span><span class="eqno">(71)<a class="headerlink" href="#eq-71" title="Permalink to this equation">¶</a></span>\[ \mathbf{S} = pJC^{-1} + 2J^{\frac{-2}{3}}[c_1 (I - \frac{1}{3} I_1 C^{-1}) +
   \int_{\theta_p- \frac{\pi}{2}}^{\theta_p + \frac{\pi}{2}} P(\theta) \eta [a_0 (\theta).a_0 (\theta)-\frac{1}{3} I_4 C^{-1}] d \theta ]\]</div>
-<p>The Cauchy stress is obtained from:</p>
+<p>The Cauchy stress yields to:</p>
 <div class="math notranslate nohighlight" id="eq-72">
 <span id="equation-eq-72"></span><span class="eqno">(72)<a class="headerlink" href="#eq-72" title="Permalink to this equation">¶</a></span>\[ \mathbf{\sigma} = \frac{1}{J} F.S.F^T = P \mathbf{I}+ \frac{2}{J}[c_1(\mathbf{B}-\frac{1}{3}I_1 \mathbf{I}]+\int_{\theta_p- \frac{\pi}{2}}^{\theta_p + \frac{\pi}{2}} P(\theta,k)W_4 I_4 [a_0 (\theta) \otimes a_0 (\theta)-\frac{1}{3} \mathbf{I}] d \theta]\]</div>
 <div class="admonition note">
@@ -1235,17 +1236,17 @@ function for the fibers is derived from <span class="math notranslate nohighligh
 <p>The <span class="math notranslate nohighlight">\(\tilde{\lambda}\)</span> is the stretch represented as following:</p>
 <div class="math notranslate nohighlight" id="eq-76">
 <span id="equation-eq-76"></span><span class="eqno">(76)<a class="headerlink" href="#eq-76" title="Permalink to this equation">¶</a></span>\[ \tilde{\lambda}^2=\tilde{I}_4= \textbf{a}_0 (\theta).\tilde{\textbf{C}}.\textbf{a}_0(\theta)\]</div>
-<p>The distribution function is stated as:</p>
+<p>The distribution function is expressed as:</p>
 <div class="math notranslate nohighlight" id="eq-77">
 <span id="equation-eq-77"></span><span class="eqno">(77)<a class="headerlink" href="#eq-77" title="Permalink to this equation">¶</a></span>\[ P(\theta)=\frac{1}{\pi I_0(k_f)}e^{k_f cos2(\theta-\theta_p)}\]</div>
-<p>In the above, the <span class="math notranslate nohighlight">\(I_0(k_f)\)</span> is the the bessel function of the first kind:</p>
+<p>In the above, the <span class="math notranslate nohighlight">\(I_0(k_f)\)</span> is the the Bessel function of the first kind:</p>
 <div class="math notranslate nohighlight" id="eq-78">
 <span id="equation-eq-78"></span><span class="eqno">(78)<a class="headerlink" href="#eq-78" title="Permalink to this equation">¶</a></span>\[ I_0 (k_f)=\frac{1}{\pi} \int_{0}^{\pi} e^{k_fcos(x)}dx\]</div>
 </div>
-<div class="section" id="finite-element-implemnetation">
-<h3>1.6.4. Finite Element Implemnetation<a class="headerlink" href="#finite-element-implemnetation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>1.6.4. Finite Element Implementation<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>We implement this model in a finite element code on a cube element where the fibers are aligned in Y direction (Vertical) and the element is under biaxial stretch. The values of the constants of <span class="math notranslate nohighlight">\(c_1\)</span> , <span class="math notranslate nohighlight">\(c_3\)</span> and <span class="math notranslate nohighlight">\(c_4\)</span> are equal to 10Pa, 50 Pa and 5 respectively. In addition the bulk modulus <span class="math notranslate nohighlight">\(K\)</span> is equal to 1 GPa.
-We implement the numerical integration by trapezoidal rule. IN addition, in order to define the plane where the fibers are confined with, we should use Discontinuous Galerkin function space and then assign the vector values <span class="math notranslate nohighlight">\(\vec{a}\)</span> and <span class="math notranslate nohighlight">\(\vec{b}\)</span> to each element by using the index of the elements. Here is the FEniCS implementation and validation against the analytical solution:</p>
+We implement the numerical integration by trapezoidal rule. In addition, in order to define the plane where the fibers are confined with, we should use Discontinuous Galerkin function space and then assign the vector values <span class="math notranslate nohighlight">\(\vec{a}\)</span> and <span class="math notranslate nohighlight">\(\vec{b}\)</span> to each element by using the index of the elements. Here is the FEniCS implementation and validation against the analytical solution:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
@@ -1378,9 +1379,9 @@ We implement the numerical integration by trapezoidal rule. IN addition, in orde
 </pre></div>
 </div>
 <p>Here is the results and comparison with the analytical solution:</p>
-<div class="figure align-center" id="id17">
+<div class="figure align-center" id="id18">
 <img alt="../_images/10.png" src="../_images/10.png" />
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Stress results of the von-Mises fiber model when a unit cube is under biaxial stretch in comparison with the analytical solution</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Stress results of the von-Mises fiber model when a unit cube is under biaxial stretch in comparison with the analytical solution</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>

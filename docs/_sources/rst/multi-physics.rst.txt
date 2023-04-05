@@ -1,7 +1,7 @@
 **2. Multi-Physics Problem**
 ===========================================
 
-.. note:: The reader is encouraged to look at `this paper <https://www.sciencedirect.com/science/article/abs/pii/S1742706122000186>`_ to make a sense out of numerical treatment of coupled physics:
+.. note:: The reader is encouraged to look at `this paper <https://www.sciencedirect.com/science/article/abs/pii/S1742706122000186>`_ to make a sense out of numerical solution of a coupled physics problem:
 
 	
  
@@ -25,7 +25,7 @@ Where  :math:`c` is concentration of the mobile species, :math:`D` is diffusion 
   \nabla^2 \phi = -\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})
 
 
-The approximate solution is sought in scalar spaces including :math:`S^{(c)}` and :math:`S^{(\phi)}` corresponding to the function spaces representing the concentration and electric potential respectively
+The approximate solution is sought on scalar spaces including :math:`S^{(c)}` and :math:`S^{(\phi)}` corresponding to the function spaces representing the concentration of the ions and electric potential respectively.
 
 .. math:: 
   :name: eq.81 
@@ -47,7 +47,7 @@ The :math:`\omega_i`  and :math:`\lambda_i` are the basis functions which are li
    \phi= \sum_{j=0}^N \beta_j \lambda_j (x,y)
 
 
-The coefficients :math:`\alpha_i` and :math:`\beta_i` should be computed. A mixed scalar space is then defined as: :math:`\textbf{S} = S^{(c)} \times S^{(\phi)}`.   along with a test function :math:`\textbf{v} = (v_c,v_{\phi})` .The test functions are chosen as :math:`\forall v_c , v_{\phi} \in \textbf{S}`, So we can define the test function: :math:`v_c = \omega_i` and :math:`v_{\phi} = \lambda_i` . In order to derive the weak form of the NP equation, we should multiply it by :math:`v_c`:
+The coefficients :math:`\alpha_i` and :math:`\beta_i` should be computed. A mixed scalar space is then defined as: :math:`\textbf{S} = S^{(c)} \times S^{(\phi)}` along with a test function :math:`\textbf{v} = (v_c,v_{\phi})` .The test functions are chosen as :math:`\forall v_c , v_{\phi} \in \textbf{S}`, So we can define the test function: :math:`v_c = \omega_i` and :math:`v_{\phi} = \lambda_i` . In order to derive the weak form of the NP equation, we should multiply it by :math:`v_c`:
 
 
    
@@ -85,7 +85,7 @@ In the above equation, :math:`n` is the outward normal vector on the boundaries.
    \int_{\Omega} v_c \mu Fz \nabla{c} \nabla{\phi} dx +\int_{\Omega} v_c \mu F(\nabla c.\nabla\phi)dx+ \int_{\Omega} \mu Fcz \nabla(v_c).\nabla\phi.dx=0
 
 
-In Eq.7 the third and fourth terms cancel out:
+In the above equation, the third and fourth terms cancel out:
 
 
 
@@ -123,7 +123,7 @@ After integration by part and applying the divergence theorem, it yields to:
 
   \int_{\partial \Omega} v_{\phi}\nabla \phi n.ds  -\int_{\Omega} \nabla v_{\phi}.\nabla \phi dx = \int_{\Omega} v_{\phi} [-\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})]dx
 
-The first term in the left-hand side of the Eq.14, corresponds to the Neumann boundary condition that is equal to zero. So, the Eq.14 could be rewritten by expanding the right-hand side to find the final weak from of the Poisson equation:
+The first term in the left-hand side of the above equation, corresponds to the Neumann boundary condition that is equal to zero. So, this could be rewritten by expanding the right-hand side to find the final weak from of the Poisson equation:
 
 .. math:: 
   :name: eq.92 
@@ -160,13 +160,13 @@ The constants used in the simulation as well as the intial conditions are presen
    In this section we replicate the results in `this paper <https://www.sciencedirect.com/science/article/pii/S0167663603000681?casa_token=-4BiIJAI4P0AAAAA:meT7q2AJn9Nu-1TIXv2hdsQ7ubI68QJOZVEI-mHPBiQPJv5dyK_BBcbXAIjm7BaoJ-y392XY9A>`_
 
 
-Everything starts with importing the dolfin (The main backend of FEniCS): 
+The summary of the FEM code implemented in FeniCS is presented here: 
 
 .. code-block:: python
 
         from dolfin import *
 
-Then we shoud define the constants: 
+Then we should define the constants: 
 
 .. code-block:: python
 
@@ -239,7 +239,7 @@ Next we should present the mesh in the simulation. The domains include a hydroge
 
 .. note:: 
 
-   The density of the element should be significantly increased near the boundaries of the hydrogel and solution to capture the steep gradient of the concentration of the mobile ions 
+	The density of the element should be significantly increased near the boundaries of the hydrogel and solution to capture the steep gradient of the concentration of the mobile ions 
 
 
 The domains and the mesh are shown here:
@@ -267,7 +267,7 @@ The domains and the mesh are shown here:
         boundaries = MeshFunction('size_t', mesh, mesh.topology().dim() - 1)
         hdf.read(boundaries, "/boundaries")
 
-The integration sympol :math:`dx` is defined as: 
+The integration symbol :math:`dx` is defined as: 
 
 .. code-block:: python
 

@@ -98,6 +98,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="machine-learning.html"><strong>4. Machine Learning in Diagnosis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>5. Drug Delivery</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">About the Author</a></li>
 </ul>
 
@@ -147,10 +148,10 @@
 <h1><strong>3. Inverse Finite Element (Optimization)</strong><a class="headerlink" href="#inverse-finite-element-optimization" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="optimization">
 <h2>3.1. Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h2>
-<p>In this section we implement a powerful optimization algorithm which is called <strong>Differential Evolution</strong> (Storn &amp; Price, 1997). This algorithm is it one of the most popular population-based algorithms that is very useful in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:</p>
+<p>In this section we implement a powerful optimization algorithm which is called <strong>Differential Evolution</strong> (Storn &amp; Price, 1997). This algorithm is one of the most popular population-based algorithms that is very efficient in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:</p>
 <div class="section" id="differential-evolution">
 <h3>3.1.1. Differential Evolution<a class="headerlink" href="#differential-evolution" title="Permalink to this headline">¶</a></h3>
-<p>Lets say we have a 2 dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The poplulation list include vectors <span class="math notranslate nohighlight">\(\vec{x_1} , ... , \vec{x_n}\)</span>. Each vector has two components corresponding to the unknowns of interest. The number of the vectors should be set by the user:</p>
+<p>Lets say we have a 2-dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The population list include vectors <span class="math notranslate nohighlight">\(\vec{x_1} , ... , \vec{x_n}\)</span>. Each vector has two components corresponding to the unknowns of interest. The number of the population should be set by the user:</p>
 <div class="math notranslate nohighlight" id="eq-93">
 <span id="equation-eq-93"></span><span class="eqno">(93)<a class="headerlink" href="#eq-93" title="Permalink to this equation">¶</a></span>\[\begin{split}Populations:\begin{cases}
   \vec{x_1}=(a_1,b_1) \\
@@ -166,13 +167,13 @@
 <p class="first admonition-title">Note</p>
 <p class="last">In the above equation the <span class="math notranslate nohighlight">\(F\)</span> is called <strong>Mutation Factor</strong> that should be in the range of [0,2]</p>
 </div>
-<p>It should be noted that we need to set a limit for each parameter for optimization. In the trial vector, if one of the components corresponding to a parameter is higher than the maximum limit for that parameter, it should be pushed to the maximum value of the limit. Similarly, if it is less than the minimum of the limit it should be pushed back to the minimum value of the limit that has been set for that parameter.</p>
+<p>It should be noted that we need to set a limit for each parameter for the optimization. In the trial vector, if one of the components corresponding to a parameter is higher than the maximum limit for that parameter, it will be pushed to the maximum value of the limit. Similarly, if it is less than the minimum of the limit it should be pushed back to the minimum value of the limit that has been set for that parameter.</p>
 <div class="math notranslate nohighlight" id="eq-95">
 <span id="equation-eq-95"></span><span class="eqno">(95)<a class="headerlink" href="#eq-95" title="Permalink to this equation">¶</a></span>\[\begin{split}check:\begin{cases}
   If \quad u&gt;upper-bound \Rightarrow u=upper-bound  \\
   If \quad u&lt;lower-bound \Rightarrow u=lower-bound \\
 \end{cases}\end{split}\]</div>
-<p>Now, we should check in the trial vector if we should keep that particular component or replace it with the corresponding component from the member in the population list that the trial vectro has been produced based on. In this regard, we should define a cross-over value (<span class="math notranslate nohighlight">\(C.R\)</span> )which is a number we should set between 0 and 1. A random number should be produced 2 times to determine each component of the trial vector. If the <span class="math notranslate nohighlight">\(C.R\)</span> is larger than the random number, then the component is kept inside the trial vector and if it is less than the produced random number it should be replaced with the component of the corresponding member in the population list:</p>
+<p>Now, we check in the trial vector to know if we should keep that particular component or replace it with the corresponding component from the member in the population list that the trial vector has been produced based on. In this regard, we should define a cross-over value (<span class="math notranslate nohighlight">\(C.R\)</span> )which is a number we should set between 0 and 1. A random number should be produced 2 times to determine each component of the trial vector. If the <span class="math notranslate nohighlight">\(C.R\)</span> is larger than the produced random number, then the component is kept inside the trial vector and if it is less than the produced random number it should be replaced with the component of the corresponding member in the population list:</p>
 <div class="math notranslate nohighlight" id="eq-96">
 <span id="equation-eq-96"></span><span class="eqno">(96)<a class="headerlink" href="#eq-96" title="Permalink to this equation">¶</a></span>\[\begin{split} X_{nj}=\begin{cases}
  u_{nj}  \quad if \quad urand &lt; C.R \\
@@ -310,7 +311,7 @@ Finally, we should compare all members in the population list to see which one l
 </pre></div>
 </div>
 <p>It means that the best values of the parameters minimizing the function are -3 and -3 resulting in the minimized objective function equal to -54.</p>
-<p>The results are stored in a text file (RESULTS.txt). We can monitor the rate of the convergence by running this code:</p>
+<p>The results are saved in a text file (RESULTS.txt). We can monitor the rate of the convergence by running this code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plotfile</span><span class="p">(</span><span class="s1">&#39;RESULTS.txt&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\mathrm{f=(parameter.1)^3+(parameter.2)^3}$&#39;</span><span class="p">)</span>
@@ -335,7 +336,7 @@ Finally, we should compare all members in the population list to see which one l
 <div class="section" id="inverse-fem">
 <h2>3.2. Inverse FEM<a class="headerlink" href="#inverse-fem" title="Permalink to this headline">¶</a></h2>
 <p>In this section we introduce how we can use differential evolution algorithm in finding the best values of some parameters in a finite element code when we have some experimental data and try to tune the parameters in a way that the numerical results are best fitted into the experimental data.
-Lets say we have measured the displacement of two particular points in an experiment at the coordinates of <span class="math notranslate nohighlight">\((x_1,y_1)\)</span> and <span class="math notranslate nohighlight">\((x_2,y_2)\)</span> and we have a finite element code (e.g., FEniCS code) for simulation of the displacement field. Now we want to find the best value of a parameter (It could be anything like the Young’s modulus etc.) in finite element code in a way that it leads to closest possible values of the displacements <span class="math notranslate nohighlight">\(u\)</span> in those points in comparison with the experimental values (EXP).</p>
+Lets say we have measured the displacement at two points in an experiment at the coordinates of <span class="math notranslate nohighlight">\((x_1,y_1)\)</span> and <span class="math notranslate nohighlight">\((x_2,y_2)\)</span> and we have a finite element code (e.g., FEniCS code) for simulation of the displacement field. Now we want to find the best value of a parameter (It could be anything like the Young’s modulus etc.) in finite element code in a way that it leads to closest possible values of the displacements <span class="math notranslate nohighlight">\(u\)</span> in those points in comparison with the experimental values (EXP).</p>
 <p>The only difference is where we defined the <span class="math notranslate nohighlight">\(f(X)\)</span>. With that being said we should define the objective functions as the out put of the <span class="math notranslate nohighlight">\(f(X)\)</span>:</p>
 <div class="math notranslate nohighlight" id="eq-99">
 <span id="equation-eq-99"></span><span class="eqno">(99)<a class="headerlink" href="#eq-99" title="Permalink to this equation">¶</a></span>\[ \textbf{Objective Function} = \sqrt{[EXP_{(x_1,y_1)} - u(x_1,y_1)]^2+[EXP_{(x_2,y_2)} - u(x_2,y_2)]^2)}\]</div>
