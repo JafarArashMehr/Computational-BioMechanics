@@ -11,9 +11,12 @@ Jafar Arash Mehr
    rst/package
    rst/hyperelasticity
    rst/multi-physics
-   rst/optimization
-   rst/machine-learning
    rst/drug-delivery
+   rst/optimization
+   rst/Statistical Analysis
+   rst/Linear Regression
+   rst/ML
+   rst/LDA
    rst/contact
 
 

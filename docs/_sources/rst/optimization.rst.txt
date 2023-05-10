@@ -1,13 +1,13 @@
 
 
-**3. Inverse Finite Element (Optimization)**
+**4. Inverse Finite Element (Optimization)**
 =============================================
 
-3.1. Optimization
+4.1. Optimization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 In this section we implement a powerful optimization algorithm which is called **Differential Evolution** (Storn & Price, 1997). This algorithm is one of the most popular population-based algorithms that is very efficient in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:
 
-3.1.1. Differential Evolution
+4.1.1. Differential Evolution
 """""""""""""""""""""""""""""""""
 Lets say we have a 2-dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The population list include vectors :math:`\vec{x_1} , ... , \vec{x_n}`. Each vector has two components corresponding to the unknowns of interest. The number of the population should be set by the user:
 
@@ -84,7 +84,7 @@ Finally, we should compare all members in the population list to see which one l
 
 Now we are done with the first generation. The same procedure should be repeated based on the updated population list. 
 
-3.1.2. Python Implementation
+4.1.2. Python Implementation
 """""""""""""""""""""""""""""""""
 The python code is implemented for a simple function :math:`f = (parameter.1)^3+ (parameter.2)^3` with the limit of :math:`[-3,3]` for both parameters to find the minimum of the function :math:`f`
 
@@ -230,7 +230,7 @@ The results are saved in a text file (RESULTS.txt). We can monitor the rate of t
 	
    Results of the convergence for the optimization of the parameters  
 
-3.2. Inverse FEM
+4.2. Inverse FEM
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In this section we introduce how we can use differential evolution algorithm in finding the best values of some parameters in a finite element code when we have some experimental data and try to tune the parameters in a way that the numerical results are best fitted into the experimental data. 
