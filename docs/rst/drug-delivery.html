@@ -1,72 +1,37 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>5. Drug Delivery &mdash; Jafar Arash Mehr 2022 documentation</title>
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Drug Delivery &mdash; Jafar Arash Mehr 2022 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-
-  
-
-  
-  
-    
-
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Jafar Arash Mehr 2022 documentation" href="../index.html"/>
-        <link rel="next" title="About the Author" href="contact.html"/>
-        <link rel="prev" title="4. Machine Learning in Diagnosis" href="machine-learning.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Inverse Finite Element (Optimization)" href="optimization.html" />
+    <link rel="prev" title="2. Multi-Physics Problem" href="multi-physics.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
-
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
+        <div class="wy-side-nav-search" >
             <a href="../index.html">
-          
-
-          
-            
-            <img src="../_static/profile.jpg" class="logo" />
-          
+            <img src="../_static/profile.jpg" class="logo" alt="Logo"/>
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -74,106 +39,85 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul class="current">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Intro.html"><strong>What is this document about?</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="resource.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package.html">Required Packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>3. Inverse Finite Element (Optimization)</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="machine-learning.html"><strong>4. Machine Learning in Diagnosis</strong></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>5. Drug Delivery</strong></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#iontophoresis">5.1 Iontophoresis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#illustration-of-the-ocular-iontophoresis">5.2 Illustration of the ocular iontophoresis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simulation-of-delivery-of-the-drug-to-the-posterior-of-the-eye">5.3 Simulation of delivery  of the drug to the posterior of the eye</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>3. Drug Delivery</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#iontophoresis">3.1 Iontophoresis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simulation-of-drug-delivery">3.2 Simulation of drug delivery</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse Finite Element (Optimization)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>6. Statistical Analysis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear%20Regression.html"><strong>7. Linear Regression</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>8. Fundamentals of Machine Learning</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDA.html"><strong>9. Machine Learning in Diagnosis</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">About the Author</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Jafar Arash Mehr</a>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Jafar Arash Mehr</a>
       </nav>
 
-
-      
       <div class="wy-nav-content">
         <div class="rst-content">
-          
-
- 
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li><strong>5. Drug Delivery</strong></li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><strong>3. Drug Delivery</strong></li>
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/rst/drug-delivery.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
   </ul>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="drug-delivery">
-<h1><strong>5. Drug Delivery</strong><a class="headerlink" href="#drug-delivery" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="iontophoresis">
-<h2>5.1 Iontophoresis<a class="headerlink" href="#iontophoresis" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="drug-delivery">
+<h1><strong>3. Drug Delivery</strong><a class="headerlink" href="#drug-delivery" title="Permalink to this heading"></a></h1>
+<section id="iontophoresis">
+<h2>3.1 Iontophoresis<a class="headerlink" href="#iontophoresis" title="Permalink to this heading"></a></h2>
 <p>Iontophoresis is a noninvasive delivery system designed to overcome barriers to ocular penetration of topical ophthalmic medications by employing a low-amplitude electrical current to promote the migration of a charged drug substance across biological membranes.This method is used for enhancing the drug delivery into the biological tissues.In general, an increase in the electric current density and the duration of the application enhances drug penetration. Despite the increase in drug permeation achieved with increased electric current density and time, importantly, it must be remembered that the safety of ocular iontophoresis is correlated with these parameters. Iontophoresis is a non-invasive method of transferring ionized drugs through membranes with low electrical current. The drugs are moved across the membranes by two mechanisms including migration and electro-osmosis.</p>
 <p>The most important eye diseases related to the posterior of the eye includes glaucoma. Drug penetration into the eye may be increased with iontophoresis, the process of moving a charged molecule by an electric current across the cornea or sclera. Transcorneal iontophoresis has been shown to result in significantly higher drug levels than those found after multiple drop treatments. The properties of the sclera (hydration, leakiness, low electrical resistance) make the iontophoretic delivery feasible at low electric currents or voltages. The important parameters determininig the drug’s penetration are: Intensity of the electric field, drug concentration and duration of the iontophoresis procedure. A good review about</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In this section we replicate the results in <a class="reference external" href="https://www.mdpi.com/1999-4923/12/3/269">this paper</a></p>
+<p class="admonition-title">Note</p>
+<p>In this section we replicate the results in <a class="reference external" href="https://www.mdpi.com/1999-4923/12/3/269">this paper</a></p>
 </div>
-</div>
-<div class="section" id="illustration-of-the-ocular-iontophoresis">
-<h2>5.2 Illustration of the ocular iontophoresis<a class="headerlink" href="#illustration-of-the-ocular-iontophoresis" title="Permalink to this headline">¶</a></h2>
-<p>The process of drug delivery to the posterior of the eye is shown in this figure:</p>
-<div class="figure align-center" id="id1">
+<p><strong>Ocular iontophoresis</strong></p>
+<p>This is the process of delivery of the drug to a particular area of the eye as shown in this figure:</p>
+<figure class="align-center" id="id1">
 <img alt="../_images/19.png" src="../_images/19.png" />
-<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Illustration of OCULAR iontophoresis. The target is the sclera at the posterior of the eye globe</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Illustration of OCULAR iontophoresis. The target is the sclera at the posterior of the eye globe</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>The drug which is usually positively charged particles are injected into the eye globe. The electrodes should be attached at appropriate locations to the eye globe. The sclera tissue itself contains negative charges due to existence of glycosamonoglycans (GAGs). After injection of the drug, some of the injected drug penetrates inside the sclera by free diffusion in order to maintain th electro-neutrality condition. However, it is always desirable to enhance the penetration of the drug into the tissue. This could be done by applying an external electrical voltage.</p>
-</div>
-<div class="section" id="simulation-of-delivery-of-the-drug-to-the-posterior-of-the-eye">
-<h2>5.3 Simulation of delivery  of the drug to the posterior of the eye<a class="headerlink" href="#simulation-of-delivery-of-the-drug-to-the-posterior-of-the-eye" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="simulation-of-drug-delivery">
+<h2>3.2 Simulation of drug delivery<a class="headerlink" href="#simulation-of-drug-delivery" title="Permalink to this heading"></a></h2>
 <p>The numerical simulation of the iontophoresis is based on solving the PNP system as described in chapter 2. The computational domain is presented as a simplified 2D geometry of the eye globe.  The main sub-domains including sclera, aqueous humor and cornea are shown in this figure:</p>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <img alt="../_images/20.png" src="../_images/20.png" />
-<p class="caption"><span class="caption-number">Fig. 20 </span><span class="caption-text">The 2D geometry of the eye globe used in the simulation of drug delivery to the posterior of the eye globe</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">The 2D geometry of the eye globe used in the simulation of drug delivery to the posterior of the eye globe</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>For the simplicity, the sclera and the cornea are considered as a single subdomain.</p>
 <p>In this simulation, it is assumed that the drug has been injected into the eye inside the aqueous humor. The location of the electrodes and the target where the enhancement of drug delivery is desired were illustrated in the Figure 19. It should be noted that, the drug consist of positively charged particles. After injection of the drug, it diffuses inside the sclera because of the fact that the sclera tissue contain fixed negative charges stemming from glycosaminoglycans (GAGs) which are negatively charged chemical groups.  After application of the drug, in order to maintain the electroneutrality, a part of the injected drug freely diffuses inside the sclera. However, the purpose of the iontophoresis is to increase the concentration of the drug inside a specific target. For example in this example, the target is an area at the posterior of the eye globe. After application of the voltage to the electrodes, the diffusion of the drug increases in time at the target zone.
 It should be noted that aside from the positively charged drug particles, there exists some negatively charged ions inside the eye (e.g., Chloride anions). In this simulation we assume the concentration of the positively charged drug and the negatively charged anions is equal to 10 mM while the concentration of the fixed charges attached to the sclera tissue is 5 mM.  The process of the iontophoresis is done under application of 2V for nearly 4 minutes.</p>
 <p>The FEniCS code for this simulation is presented here:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Heaviside</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
@@ -238,12 +182,12 @@ It should be noted that aside from the positively charged drug particles, there 
 
 
 <span class="c1">#Faraday number</span>
-<span class="n">Faraday</span> <span class="o">=</span> <span class="mf">96485.34</span>
+<span class="n">Faraday</span> <span class="o">=</span> <span class="mf">96483.34</span>
 
 <span class="c1">#Reading the mesh</span>
 <span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">()</span>
 <span class="n">hdf</span> <span class="o">=</span> <span class="n">HDF5File</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">mpi_comm</span><span class="p">(),</span> <span class="s2">&quot;0file.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">hdf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;/mesh&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">hdf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;/mesh&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 <span class="n">subdomains</span> <span class="o">=</span> <span class="n">MeshFunction</span><span class="p">(</span><span class="s1">&#39;size_t&#39;</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">topology</span><span class="p">()</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
 
 
@@ -291,8 +235,8 @@ It should be noted that aside from the positively charged drug particles, there 
 <span class="c1"># Defining the initial conditions for the drug</span>
 <span class="k">class</span> <span class="nc">Drug_initial</span><span class="p">(</span><span class="n">UserExpression</span><span class="p">):</span>
 
-         <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-                  <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                  <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
 
                   <span class="bp">self</span><span class="o">.</span><span class="n">c_Drug_sclera</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;c_Drug_sclera&quot;</span><span class="p">]</span>
@@ -318,9 +262,9 @@ It should be noted that aside from the positively charged drug particles, there 
 <span class="c1"># Defining the initial conditions for the negative charges</span>
 <span class="k">class</span> <span class="nc">negative_charges_initial</span><span class="p">(</span><span class="n">UserExpression</span><span class="p">):</span>
 
-         <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-                  <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+                  <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
                   <span class="bp">self</span><span class="o">.</span><span class="n">c_negative_charges_sclera</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;c_negative_charges_sclera&quot;</span><span class="p">]</span>
                   <span class="bp">self</span><span class="o">.</span><span class="n">c_negative_charges_aqueous_humor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;c_negative_charges_aqueous_humor&quot;</span><span class="p">]</span>
                   <span class="bp">self</span><span class="o">.</span><span class="n">materials</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;materials&quot;</span><span class="p">]</span>
@@ -408,7 +352,7 @@ It should be noted that aside from the positively charged drug particles, there 
          <span class="n">solver</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;newton_aqueous_humorver&#39;</span><span class="p">][</span><span class="s1">&#39;linear_aqueous_humorver&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mumps&#39;</span>
          <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
 
-         <span class="p">(</span><span class="n">c_Drug</span><span class="p">,</span> <span class="n">c_negative_charges</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+         <span class="p">(</span><span class="n">c_Drug</span><span class="p">,</span> <span class="n">c_negative_charges</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
          <span class="n">C_previous_Drug</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">c_Drug</span><span class="p">)</span>
          <span class="n">C_previous_negative_charges</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">c_negative_charges</span><span class="p">)</span>
@@ -420,78 +364,41 @@ It should be noted that aside from the positively charged drug particles, there 
 </div>
 <p>Finally the video of this simulation is presented here which is 6X faster. It could be clearly seen how diffusion of the drug increases with time at the posterior of the globe due to application of the electrical field.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YLKbN2PTGeI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The geometry was created based on almost real dimensions of the eye globe and the mesh was generated in GMSH. The mesh file and the FEniCS code are available inside the repository in the folder: <strong>Drug Delivery</strong></p>
+<p class="admonition-title">Note</p>
+<p>The geometry was created based on almost real dimensions of the eye globe and the mesh was generated in GMSH. The mesh file and the FEniCS code are available inside the repository in the folder: <strong>Drug Delivery</strong></p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="contact.html" class="btn btn-neutral float-right" title="About the Author" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="machine-learning.html" class="btn btn-neutral" title="4. Machine Learning in Diagnosis" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="multi-physics.html" class="btn btn-neutral float-left" title="2. Multi-Physics Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="optimization.html" class="btn btn-neutral float-right" title="4. Inverse Finite Element (Optimization)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2022, Jafar Arash Mehr.
-
-    </p>
+    <p>&#169; Copyright 2022, Jafar Arash Mehr.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'2022',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
