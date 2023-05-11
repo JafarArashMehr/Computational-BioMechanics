@@ -1,6 +1,6 @@
 
 
-**8. Fundamentals of Machine Learning**
+**7. Fundamentals of Machine Learning**
 ================================================
 
 .. note:: 
@@ -18,7 +18,7 @@ There are two main types of ML including:
 
 Two types of machine learning are linear regression and decision tree regression. The linear regression is used for continuous variable while the decision tree is used for both continuous and categorical variables. 
 
-8.1. Feature Engineering
+7.1. Feature Engineering
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -110,7 +110,7 @@ Feature extraction involves combining existing columns meaningfully to construct
 We need to understand more about what class imbalance is, when it becomes problematic, and some issues that can arise if it isn’t addressed. We need to learn two of the general categories for balancing datasets, upsampling, and downsampling. 
 
 
-8.2. Imbalanced Datasets
+7.2. Imbalanced Datasets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -161,7 +161,7 @@ Manipulating the class distribution of your data doesn’t come without conseque
 Changing the class distribution affects the underlying class probabilities learned by the model. Consider, for example, how the **Naive Bayes** algorithm works. To calculate the probability of a class, given the features, it uses the background probability of a class in the data.
 
 
-8.3. Naive Bayes classifiers
+7.3. Naive Bayes classifiers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This is a supervised classification technique based on Baye's theorem with an assumption of independence among predictor.When it comes to supervised machine learning techniques, Naive Bayes is a perfect example of that. Naive Bayes models remain relevant because they are simple, fast, and good predictors. In certain situations, Naive Bayes is also known to outperform much more advanced classification methods. Even if a more advanced model is required, producing a Naive Bayes model can also be a great starting point. Therefore, the Naive Bayes classifier is something that every data professional needs in their machine learning skill set.
@@ -228,7 +228,7 @@ Another assumption of the data is that no predictor variable has any more predic
 
 
 
-8.3.1 Building a Bayes’ model
+7.3.1 Building a Bayes’ model
 """"""""""""""""""""""""""""""""""""
 
 
@@ -615,7 +615,7 @@ Splitting the data was important for ensuring that there was new data for the mo
 :math:`\bullet` Notably, the model performed better at predicting true positives than it did at predicting true negatives. In other words, it more accurately identified those players who will likely play for more than five years than it did those who likely will not.
 
 
-8.4. K-means algorithm
+7.4. K-means algorithm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -646,7 +646,7 @@ This is important K-means multiple times with different initial positions of the
 In scikit-learn, this implementation is called K-means++. K-means++ still randomly initializes centroids in the data, but it does so based on a probability calibration. Basically, it randomly chooses one point within the data to be the first centroid, then it uses other data points as centroids, selecting them pseudo-randomly. The probability that a point will be selected as a centroid increases the farther it is from other centroids. This helps to ensure that centroids aren’t initially placed very close together, which is when convergence in local minima is most likely to occur. 
 
 
-8.4.1 Example of K-means for color compression
+7.4.1 Example of K-means for color compression
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 In this example, we will solve worked example of K-means on non-synthetic data. We will use K-means to cluster the pixels of a photograph of some tulips based on their encoded color values. We will explore how different values of k affect the clustering of the pixels, and thus the appearance of the photograph. 
@@ -828,7 +828,7 @@ Here is the output:
 
 .. code-block:: python
 
-	column means:  [125.64397135  78.93165365  43.51584635]
+	column means:  [125.64397135  77.93165365  43.51584635]
 
 Now, we can compare this to what the K-means model calculated as the final location of its one centroid.
 
@@ -841,7 +841,7 @@ The output of the above line is:
 
 .. code-block:: python
 
-	column means:  [125.64397135  78.93165365  43.51584635]
+	column means:  [125.64397135  77.93165365  43.51584635]
 
 Which is the same as the average of the values calculated manually. Now return to the 3-D rendering of our data, only this time we'll add the centroid:
 
@@ -880,7 +880,7 @@ Which is the same as the average of the values calculated manually. Now return t
                  z = [centroid[2]],
                  mode='markers',
                  marker=dict(size=7,
-                             color=['rgb(125.79706706,78.8178776,42.58090169)'],
+                             color=['rgb(125.79706706,77.8178776,42.58090169)'],
                              opacity=1)))
 	fig.update_layout(scene = dict(
                     xaxis_title='R',
@@ -892,7 +892,7 @@ Which is the same as the average of the values calculated manually. Now return t
 
 Here is the output:
 
-.. figure:: PNG/58.png
+.. figure:: PNG/57.png
    :align: center
 
 We can see the centroid as a large circle in the middle of the colorspace. (If you can't, just click on the image and spin/zoom it.) Notice that this is the "center of gravity" of all the points in the graph.
@@ -1025,7 +1025,7 @@ From the above figure, it could be observed that as we group the data into more 
 
 
 
-8.4.2 Evaluation of the K-mean
+7.4.2 Evaluation of the K-mean
 """""""""""""""""""""""""""""""""
 
 You know that the evaluation metrics you used for supervised learning models don’t apply to unsupervised learning models. This is because unsupervised learning model results cannot be categorized as “correct” or “incorrect.” While supervised learning models use predictor variables to predict a defined target variable, unsupervised learning methods have metrics that seek an underlying structure within the data.
@@ -1152,7 +1152,7 @@ We can summarize the key points regarding the inertia and Silhouette score:
 :math:`\bullet` Can be between -1 and +1 (greater values are better)
 
 
-8.4.3 Build a K-means model
+7.4.3 Build a K-means model
 """""""""""""""""""""""""""""""""
 
 In this example, the dataset is a spreadsheet that includes datapoints across a sample size of 345 penguins, such as species, island, and sex. We will use a K-means clustering model to group this data and identify patterns that provide important insights about penguins
@@ -1333,7 +1333,7 @@ Here is the output of the above code which is the 10 inertia corresponding to th
 .. code-block:: python
 
 	[885.6224143652249,
- 	578.8284278107235,
+ 	577.8284278107235,
  	386.1453442477329,
  	284.5464837898288,
  	217.92858573807678,
@@ -1551,13 +1551,13 @@ In summary we can state that:
 
 
 
-8.5. Tree-based learning
+7.5. Tree-based learning
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This is a type a supervised ML performing classification and regression tasks. Decision trees are a flowchart-like structure that uses branching paths to predict the outcomes of events, the probability of certain outcomes, or to reach a decision.They can be used for classification problems, where a specific class or outcome is predicted—like whether or not a sports team will win a game. They can also be used for regression problems, where a continuous variable is predicted—like the price of a car.
 
 
-8.5.1 Structure of a classification tree
+7.5.1 Structure of a classification tree
 """""""""""""""""""""""""""""""""""""""""""""
 
 Decision trees only resemble actual trees if you flip them upside down, because they start with the root at the top and grow downward so the “leaves” are at the bottom. Decision trees are made of nodes. Nodes are groups of samples. There are different types of nodes, depending on how they function in the tree. The first node in a decision tree is called the **root node**. The first split always comes off of the root node, which divides the samples into two new nodes based on the values they contain for a particular feature.
@@ -1608,7 +1608,7 @@ Where :math:`i` refers to the classes and :math:`P_{i}` is the probability of sa
 
 In an example where we want to split a node including fruits based on the color: 
 
-.. figure:: PNG/68.png
+.. figure:: PNG/67.png
    :align: center
 
 
@@ -1624,7 +1624,7 @@ We can calculate the **Gini impurity** of each child node:
 
 
 
-8.5.2 Hyperparameter tuning
+7.5.2 Hyperparameter tuning
 """"""""""""""""""""""""""""""""
 
 
@@ -1680,7 +1680,7 @@ A grid search is a technique that will train a model for every combination of pr
    With more hyperparameters and a more expansive array of values to search over, grid searches can quickly become computationally expensive. One helpful search strategy is to try a wider array of values for each hyperparameter
 
 
-8.5.3 Model validation
+7.5.3 Model validation
 """"""""""""""""""""""""""""""""
 
 Fitting a model to training data and evaluating it on test data might be an adequate way of evaluating how well a single model generalizes to new data, but it’s not a recommended way to compare multiple models to determine which one is best. That’s because, by selecting the model that performs best on the test data, you never get a truly objective measure of future performance. The measure would be optimistic.Usually the test data is used to select a final model. However, there are better, more rigorous ways of evaluating models and selecting the best!
@@ -1723,7 +1723,7 @@ Once you have selected a champion model, it’s time to evaluate it using the te
 A rigorous approach to model development might use both cross-validation and validation. The cross-validation can be used to tune hyperparameters, while the separate validation set lets you compare the scores of different algorithms (e.g., logistic regression vs. Naive Bayes vs. decision tree) to select a champion model. Finally, the test set gives you a benchmark score for performance on new data.
 
 
-8.5.4 Build a decision tree in Python
+7.5.4 Build a decision tree in Python
 """""""""""""""""""""""""""""""""""""""""
 
 We want to build a decision tree model that makes predictions for a target based on multiple features. We have data from an airline which is interested in predicting whether a future customer would be satisfied with their services given customer feedback given previous customer feedback about their flight experience. In addition, we are interested in knowing which features are most important to customer satisfaction.
@@ -2074,7 +2074,7 @@ This is the output:
 :math:`\bullet` The confusion matrix is useful as it shows a similar number of true positives and true negatives.
 
 
-8.5.5 Bagging 
+7.5.5 Bagging 
 """""""""""""""
 
 First we need to define two concepts including the **ensemble learning** and **base learner**:
@@ -2117,7 +2117,7 @@ There are 3 main advantages of bagging:
 
 
 
-8.6. Random Forest
+7.6. Random Forest
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Random forest is domination of **Bagging** and **Random Feature Sampling**
@@ -2138,7 +2138,7 @@ Random forest goes further. It randomizes the data by features too. This means t
 
    This is possible for a model to perform better even with less bootstrap sample size and less features samples. 
 
-8.6.1 Build a random forest model in Python
+7.6.1 Build a random forest model in Python
 """"""""""""""""""""""""""""""""""""""""""""""
 
 

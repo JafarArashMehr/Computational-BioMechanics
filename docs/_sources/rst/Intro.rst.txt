@@ -15,7 +15,7 @@
 
 :math:`\textbf {5.}` This chapter talks about some statistical concepts including **probability distribution** and **hypothesis testing**
   
-:math:`\textbf {6.}` The main focus of this chapter is **linear regression** and how it could used for prediction of a variable
+:math:`\textbf {6.}` The main focus of this chapter is **linear regression** and its application for prediction of a variable
 
 :math:`\textbf {7.}` This chapter goes through some concepts about :math:`Machine\: Learning` including **feature engineering**, **Bayes model**, **K-mean model**, **tree-based learning** and **random forest** 
 

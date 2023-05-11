@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9. Machine Learning in Diagnosis &mdash; Jafar Arash Mehr 2022 documentation</title>
+  <title>8. Machine Learning in Diagnosis &mdash; Jafar Arash Mehr 2022 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="About the Author" href="contact.html" />
-    <link rel="prev" title="8. Fundamentals of Machine Learning" href="ML.html" /> 
+    <link rel="prev" title="7. Fundamentals of Machine Learning" href="ML.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,19 +49,19 @@
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse Finite Element (Optimization)</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>6. Statistical Analysis</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Linear%20Regression.html"><strong>7. Linear Regression</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>8. Fundamentals of Machine Learning</strong></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>9. Machine Learning in Diagnosis</strong></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#linear-discriminant-analysis">9.1. Linear Discriminant Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mathematical-background">9.2. Mathematical Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a-real-medical-application">9.3. A Real Medical Application</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#disease-background">9.3.1 Disease Background</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#python-implementation">9.3.2. Python Implementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#prediction-of-an-unknown-case">9.3.3. Prediction of an Unknown Case</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#case-1">9.3.3.1. Case.1</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#case-2">9.3.3.2. Case.2</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#case-3">9.3.3.3. Case.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>5. Statistical Analysis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear%20Regression.html"><strong>6. Linear Regression</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>7. Fundamentals of Machine Learning</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>8. Machine Learning in Diagnosis</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linear-discriminant-analysis">8.1. Linear Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-background">8.2. Mathematical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-real-medical-application">8.3. A Real Medical Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#disease-background">8.3.1 Disease Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-implementation">8.3.2. Python Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prediction-of-an-unknown-case">8.3.3. Prediction of an Unknown Case</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-1">8.3.3.1. Case.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-2">8.3.3.2. Case.2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-3">8.3.3.3. Case.3</a></li>
 </ul>
 </li>
 </ul>
@@ -85,7 +85,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><strong>9. Machine Learning in Diagnosis</strong></li>
+      <li><strong>8. Machine Learning in Diagnosis</strong></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/rst/LDA.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,9 +96,9 @@
            <div itemprop="articleBody">
              
   <section id="machine-learning-in-diagnosis">
-<h1><strong>9. Machine Learning in Diagnosis</strong><a class="headerlink" href="#machine-learning-in-diagnosis" title="Permalink to this heading"></a></h1>
+<h1><strong>8. Machine Learning in Diagnosis</strong><a class="headerlink" href="#machine-learning-in-diagnosis" title="Permalink to this heading"></a></h1>
 <section id="linear-discriminant-analysis">
-<h2>9.1. Linear Discriminant Analysis<a class="headerlink" href="#linear-discriminant-analysis" title="Permalink to this heading"></a></h2>
+<h2>8.1. Linear Discriminant Analysis<a class="headerlink" href="#linear-discriminant-analysis" title="Permalink to this heading"></a></h2>
 <p>Machine Learning (ML) is a branch of artificial intelligence that employs a wide range of techniques and tools which are helpful in diagnostic applications in a variety of medical areas like
 diagnosis and detection of diseases. These methods are being used in a variety of applications in order to identify, classify and detect different diseases ranging from cancer and Alzheimer
 to ophthalmology. Linear Discriminant Analysis is a supervised classification technique in machine learning for
@@ -106,7 +106,7 @@ dimensionality reduction applications. In this method we seek to reduce the dime
 space to a lower dimensional space where the data achieves maximum class separability</p>
 </section>
 <section id="mathematical-background">
-<h2>9.2. Mathematical Background<a class="headerlink" href="#mathematical-background" title="Permalink to this heading"></a></h2>
+<h2>8.2. Mathematical Background<a class="headerlink" href="#mathematical-background" title="Permalink to this heading"></a></h2>
 <p>In the LDA, the derived features are linear combinations of the original features. For implementation we can start off by calculating two matrices including within-class <span class="math notranslate nohighlight">\(S_W`and
 between-class :math:`S_B\)</span>. The <span class="math notranslate nohighlight">\(S_W\)</span> and <span class="math notranslate nohighlight">\(S_B\)</span> are two <span class="math notranslate nohighlight">\(n \times n\)</span> matrices indicating the number of features in the data where <span class="math notranslate nohighlight">\(n\)</span> is the number of the features.
 The <span class="math notranslate nohighlight">\(S_W\)</span> corresponds to the separability between different classes (i.e. the distance between the mean of different classes). The optimal transformation in classical LDA is achieved by minimizing the <span class="math notranslate nohighlight">\(S_W\)</span> distance and maximizing the <span class="math notranslate nohighlight">\(S_B\)</span> distance simultaneously, leading to maximum discrimination. The <span class="math notranslate nohighlight">\(S_W\)</span> is represented as following:</p>
@@ -149,9 +149,9 @@ In other words, we can look at it as a constrained optimization problem with <sp
 matrix.</p>
 </section>
 <section id="a-real-medical-application">
-<h2>9.3. A Real Medical Application<a class="headerlink" href="#a-real-medical-application" title="Permalink to this heading"></a></h2>
+<h2>8.3. A Real Medical Application<a class="headerlink" href="#a-real-medical-application" title="Permalink to this heading"></a></h2>
 <section id="disease-background">
-<h3>9.3.1 Disease Background<a class="headerlink" href="#disease-background" title="Permalink to this heading"></a></h3>
+<h3>8.3.1 Disease Background<a class="headerlink" href="#disease-background" title="Permalink to this heading"></a></h3>
 <p>In this section, we use the LDA in a real world application in order to detect an eye-related disease. This eye disorder is called Idiopathic intracranial hypertension (IIH). The IIH occurs most frequently among obese women and astronauts coming back from long-duration space mission. The most common symptoms of this disease include daily and persistent headache , transient visual obscuration and nausea.
 Flattening of the posterior eye globe in the magnetic resonance (MR) images is known as one of the most important signs in the patients diagnosed with IIH. In this regards, mechanical factors have been proposed to play role in such phenomenon. These mechanical factors include the material properties of the tissue within the optic nerve head and also the pressure loads like ICP and intraocular pressure (IOP). This eye disease has also been studied using numerical model based on finite element method:</p>
 <div class="admonition note">
@@ -164,7 +164,7 @@ Flattening of the posterior eye globe in the magnetic resonance (MR) images is k
 <p>In general, the degree of flattening of the posterior of the eye globe could represent the severity of this disease. To be more specific, the higher the degree of flattening, the more severe the disease.
 The eye globe could be modeled as an axisymetric finite element model where the flattening of the posterior of the globe is represented by <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. Now a new parameter is introduced which is called Cut-Off angle (<span class="math notranslate nohighlight">\(\beta\)</span>) as an angle (<span class="math notranslate nohighlight">\(\theta\)</span>) in which the slopes (<span class="math notranslate nohighlight">\(\alpha\)</span>) up to the <span class="math notranslate nohighlight">\(\beta\)</span> are fairly small (−0.5° ≤ <span class="math notranslate nohighlight">\(\alpha\)</span> ≤ 0.5°). The simplified eye model consisted of different tissues including Sclera (SC), Peripapillary Sclera (PSC), Dura Mater (DM), Retina (RET), Vessel (VES), Lamina Cribrosa (LC), Pia Mater (PM) and Optic Nerve (ON). These parameters are all shown in next figure:</p>
 <figure class="align-center" id="id1">
-<img alt="../_images/19.png" src="../_images/19.png" />
+<img alt="../_images/18.png" src="../_images/18.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 17 </span><span class="caption-text">Illustration of the parameters <span class="math notranslate nohighlight">\(\alpha\)</span> , <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>. The tissues within the eye globe are shown in the left.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
 </figcaption>
@@ -173,7 +173,7 @@ The eye globe could be modeled as an axisymetric finite element model where the 
 For a normal eye where there is no flattening at the posterior of the globe, the <span class="math notranslate nohighlight">\(\beta=90°\)</span>. For an eye globe where the area of flattening is relatively small, the <span class="math notranslate nohighlight">\(\beta=80°\)</span>. Finally the eye globe with largest degree of globe flattening is the eye with the <span class="math notranslate nohighlight">\(\beta=70°\)</span>.</p>
 </section>
 <section id="python-implementation">
-<h3>9.3.2. Python Implementation<a class="headerlink" href="#python-implementation" title="Permalink to this heading"></a></h3>
+<h3>8.3.2. Python Implementation<a class="headerlink" href="#python-implementation" title="Permalink to this heading"></a></h3>
 <p>According to these 3 classes, we are given 1211 eye globes including 360 normal eye globe, 550 eye globes with low globe flattening and 301 eye globe with high globe flattening. The different classes are shown in this table:</p>
 <table class="docutils align-default" id="tab-3">
 <caption><span class="caption-number">Table 4 </span><span class="caption-text">The criteria defining different levels of globe flattening</span><a class="headerlink" href="#tab-3" title="Permalink to this table"></a></caption>
@@ -307,7 +307,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Variance</span> <span class="n">explained</span><span class="p">:</span>
 
                 <span class="n">eigenvalue</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">80.74</span><span class="o">%</span>
-                <span class="n">eigenvalue</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">19.26</span><span class="o">%</span>
+                <span class="n">eigenvalue</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">18.26</span><span class="o">%</span>
                 <span class="n">eigenvalue</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.00</span><span class="o">%</span>
                 <span class="n">eigenvalue</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.00</span><span class="o">%</span>
                 <span class="n">eigenvalue</span> <span class="mi">5</span><span class="p">:</span> <span class="mf">0.00</span><span class="o">%</span>
@@ -327,7 +327,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 </figure>
 </section>
 <section id="prediction-of-an-unknown-case">
-<h3>9.3.3. Prediction of an Unknown Case<a class="headerlink" href="#prediction-of-an-unknown-case" title="Permalink to this heading"></a></h3>
+<h3>8.3.3. Prediction of an Unknown Case<a class="headerlink" href="#prediction-of-an-unknown-case" title="Permalink to this heading"></a></h3>
 <p>Now, lets say how we can use the LDA as a supervised machine learning technique to make prediction on an eye globe where we do not know which class it belongs to. We have the information about the values of the features including the material properties and also the pressures for that eye globe.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -422,7 +422,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 </div>
 <p>The new unknown data will be shown on the space as a black ★. This way we can see inside which class the new data will fall in.</p>
 <section id="case-1">
-<h4>9.3.3.1. Case.1<a class="headerlink" href="#case-1" title="Permalink to this heading"></a></h4>
+<h4>8.3.3.1. Case.1<a class="headerlink" href="#case-1" title="Permalink to this heading"></a></h4>
 <p>Here is the information regarding the first unknow case that should be added as a line to the data (<strong>LARGE-NORMALIZED.txt</strong>). Here is the line:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.3333333333</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.33325</span><span class="p">,</span><span class="n">D</span>
 </pre></div>
@@ -437,7 +437,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 <p>It could be clearly seen that this case belongs to the high-flattened class.</p>
 </section>
 <section id="case-2">
-<h4>9.3.3.2. Case.2<a class="headerlink" href="#case-2" title="Permalink to this heading"></a></h4>
+<h4>8.3.3.2. Case.2<a class="headerlink" href="#case-2" title="Permalink to this heading"></a></h4>
 <p>Here is the information regarding the second unknown case that should be added as a line to the data (<strong>LARGE-NORMALIZED.txt</strong>). Here is the line:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.04</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.3333333333</span><span class="p">,</span><span class="mf">0.1111111111</span><span class="p">,</span><span class="mf">0.33325</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">D</span>
 </pre></div>
@@ -452,7 +452,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 <p>It is obvious that this case belongs to the low-flattened class.</p>
 </section>
 <section id="case-3">
-<h4>9.3.3.3. Case.3<a class="headerlink" href="#case-3" title="Permalink to this heading"></a></h4>
+<h4>8.3.3.3. Case.3<a class="headerlink" href="#case-3" title="Permalink to this heading"></a></h4>
 <p>Here is the information regarding the third unknown case that should be added as a line to the data (<strong>LARGE-NORMALIZED.txt</strong>). Here is the line:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">,</span><span class="mf">0.11</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.03</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.22</span><span class="p">,</span><span class="mf">0.3333333333</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.11</span><span class="p">,</span><span class="n">D</span>
 </pre></div>
@@ -478,7 +478,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="ML.html" class="btn btn-neutral float-left" title="8. Fundamentals of Machine Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ML.html" class="btn btn-neutral float-left" title="7. Fundamentals of Machine Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="contact.html" class="btn btn-neutral float-right" title="About the Author" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

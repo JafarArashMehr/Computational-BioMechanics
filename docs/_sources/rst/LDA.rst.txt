@@ -1,9 +1,9 @@
 
 
-**9. Machine Learning in Diagnosis**
+**8. Machine Learning in Diagnosis**
 ================================================
 
-9.1. Linear Discriminant Analysis
+8.1. Linear Discriminant Analysis
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -13,7 +13,7 @@ to ophthalmology. Linear Discriminant Analysis is a supervised classification te
 dimensionality reduction applications. In this method we seek to reduce the dimensions by taking off the unimportant and redundant features by transforming the features from higher dimensional
 space to a lower dimensional space where the data achieves maximum class separability
 
-9.2. Mathematical Background
+8.2. Mathematical Background
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 In the LDA, the derived features are linear combinations of the original features. For implementation we can start off by calculating two matrices including within-class :math:`S_W`and
 between-class :math:`S_B`. The :math:`S_W` and :math:`S_B` are two :math:`n \times n` matrices indicating the number of features in the data where :math:`n` is the number of the features. 
@@ -108,10 +108,10 @@ The above equation could be written as following:
 Solving this equation gives the eigenvalues (:math:`\lambda_i`) and corresponding eigenvectors of the :math:`S_W^{-1} S_B`
 matrix.
 
-9.3. A Real Medical Application   
+8.3. A Real Medical Application   
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-9.3.1 Disease Background  
+8.3.1 Disease Background  
 """"""""""""""""""""""""""""""""""""""""""
 
 In this section, we use the LDA in a real world application in order to detect an eye-related disease. This eye disorder is called Idiopathic intracranial hypertension (IIH). The IIH occurs most frequently among obese women and astronauts coming back from long-duration space mission. The most common symptoms of this disease include daily and persistent headache , transient visual obscuration and nausea.
@@ -126,7 +126,7 @@ Flattening of the posterior eye globe in the magnetic resonance (MR) images is k
 In general, the degree of flattening of the posterior of the eye globe could represent the severity of this disease. To be more specific, the higher the degree of flattening, the more severe the disease.  
 The eye globe could be modeled as an axisymetric finite element model where the flattening of the posterior of the globe is represented by :math:`\alpha` and :math:`\beta`. Now a new parameter is introduced which is called Cut-Off angle (:math:`\beta`) as an angle (:math:`\theta`) in which the slopes (:math:`\alpha`) up to the :math:`\beta` are fairly small (−0.5° ≤ :math:`\alpha` ≤ 0.5°). The simplified eye model consisted of different tissues including Sclera (SC), Peripapillary Sclera (PSC), Dura Mater (DM), Retina (RET), Vessel (VES), Lamina Cribrosa (LC), Pia Mater (PM) and Optic Nerve (ON). These parameters are all shown in next figure: 
 
-.. figure:: PNG/19.png
+.. figure:: PNG/18.png
    :align: center
 
    Illustration of the parameters :math:`\alpha` , :math:`\beta` and :math:`\theta`. The tissues within the eye globe are shown in the left.
@@ -135,7 +135,7 @@ In general, the lower value of :math:`\beta` indicates larger flattening area at
 For a normal eye where there is no flattening at the posterior of the globe, the :math:`\beta=90°`. For an eye globe where the area of flattening is relatively small, the :math:`\beta=80°`. Finally the eye globe with largest degree of globe flattening is the eye with the :math:`\beta=70°`.
 
 
-9.3.2. Python Implementation   
+8.3.2. Python Implementation   
 """""""""""""""""""""""""""""""""""""""""
 According to these 3 classes, we are given 1211 eye globes including 360 normal eye globe, 550 eye globes with low globe flattening and 301 eye globe with high globe flattening. The different classes are shown in this table: 
  
@@ -266,7 +266,7 @@ Here is the output of the code:
 			Variance explained:
 
 					eigenvalue 1: 80.74%
-					eigenvalue 2: 19.26%
+					eigenvalue 2: 18.26%
 					eigenvalue 3: 0.00%
 					eigenvalue 4: 0.00%
 					eigenvalue 5: 0.00%
@@ -286,7 +286,7 @@ In the below figure, we can see how the classes have been projected on the 2D sp
 
 
 
-9.3.3. Prediction of an Unknown Case   
+8.3.3. Prediction of an Unknown Case   
 """""""""""""""""""""""""""""""""""""""""
 
 Now, lets say how we can use the LDA as a supervised machine learning technique to make prediction on an eye globe where we do not know which class it belongs to. We have the information about the values of the features including the material properties and also the pressures for that eye globe.
@@ -386,7 +386,7 @@ We should normalize the given data from this unknown case and then add a new lin
 
 The new unknown data will be shown on the space as a black ★. This way we can see inside which class the new data will fall in. 
 
-9.3.3.1. Case.1   
+8.3.3.1. Case.1   
 ##################
 
 Here is the information regarding the first unknow case that should be added as a line to the data (**LARGE-NORMALIZED.txt**). Here is the line:
@@ -405,7 +405,7 @@ We can visualize where the data is located in this figure:
 
 It could be clearly seen that this case belongs to the high-flattened class. 
 
-9.3.3.2. Case.2   
+8.3.3.2. Case.2   
 ##################
 
 Here is the information regarding the second unknown case that should be added as a line to the data (**LARGE-NORMALIZED.txt**). Here is the line:
@@ -424,7 +424,7 @@ We can visualize where the second unknown data is located in this figure:
 
 It is obvious that this case belongs to the low-flattened class. 
 
-9.3.3.3. Case.3   
+8.3.3.3. Case.3   
 ##################
 
 Here is the information regarding the third unknown case that should be added as a line to the data (**LARGE-NORMALIZED.txt**). Here is the line:

@@ -1,13 +1,13 @@
 
 
-**6. Statistical Analysis**
+**5. Statistical Analysis**
 ================================================
 
 .. note:: 
 
     All of required CSV files are available in the folder: **Statistics.txt** 
 
-6.1. Descriptive statistics
+5.1. Descriptive statistics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In this chapter we have data from the United States Environmental Protection Agency (EPA). We want to analyze data on air quality. The data includes information from more than 200 sites, identified by state, county, city, and local site names. You will use Python functions to gather statistics about air quality.
@@ -83,7 +83,7 @@ Now get some descriptive statistics about the states in the data.
    
 
 
-There are 260 state values, and 52 of them are unique. California is the most commonly occurring state in the data, with a frequency of 66.
+There are 260 state values, and 52 of them are unique. California is the most commonly occurring state in the data, with a frequency of 65.
 
 
 
@@ -94,7 +94,7 @@ Now, compute the mean value from the aqi column.
 	np.mean(epa_data["aqi"])
 
 
-This means that the average aqi from the data is approximately 6.76 parts per million.
+This means that the average aqi from the data is approximately 5.76 parts per million.
  
 Now, compute the standard deviation for the aqi column:
 
@@ -110,7 +110,7 @@ Funding should be allocated for further investigation of the regions with unheal
 
 
 
-6.2. Data sampling
+5.2. Data sampling
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -202,7 +202,7 @@ To visualize the relationship between your sampling distribution of 10,000 estim
 
 Here is the output graph:
 
-.. figure:: PNG/26.png
+.. figure:: PNG/25.png
    :align: center
 
 
@@ -215,7 +215,7 @@ The sample mean of your first estimate of 50 districts, the red dashed line, is 
 
 
 
-6.3. Probability distribution
+5.3. Probability distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First we need to import relevant libraries, packages, and modules. For this lab, you will need numpy, pandas, matplotlib.pyplot, statsmodels.api, and scipy:
@@ -295,11 +295,11 @@ Now we can compute the actual percentage of data that falls within 1 standard de
 
 We can do the same thing for the second and third empirical rules. After doing this, here are the the results:
 
-About 76.15% of the data falls within 1 standard deviation of the mean.
+About 75.15% of the data falls within 1 standard deviation of the mean.
 About 95.77% of the data falls within 2 standard deviation of the mean.
 About 99.62% of the data falls within 3 standard deviations of the mean.
 
-The 95.77% is very close to 95%, and the 99.62% is very close to 99.7%. The 76.15% is not as close to 68%, but relatively close. Overall, from applying the empirical rule, the data appears to be not exactly normal, but could be considered approximately normal.
+The 95.77% is very close to 95%, and the 99.62% is very close to 99.7%. The 75.15% is not as close to 68%, but relatively close. Overall, from applying the empirical rule, the data appears to be not exactly normal, but could be considered approximately normal.
 
 The z-score is defined as: 
 
@@ -331,7 +331,7 @@ Identify the parts of the data where aqi_log is above or below 3 standard deviat
 Detecting outliers is important because they can reveal two important things, depending on the context: First, they can identify measurements that were taken incorrectly. Second, they can highlight parts of the data that can be focused on to make improvements.Z-score allows to identify potential outliers in the data.
 
 
-6.4. Confidence intervals
+5.4. Confidence intervals
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -490,7 +490,7 @@ Lastly, we can conclude that confidence interval at the 95% level of confidence 
 
 
 
-6.5. Hypothesis testing
+5.5. Hypothesis testing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Now we want to construct a hypothesis test to know if the mean AQI in Los Angeles County is statistically different from the rest of California. For this purpose, we consider a 95% level of significance. As usual, we start by importing the required packages and loading the data:

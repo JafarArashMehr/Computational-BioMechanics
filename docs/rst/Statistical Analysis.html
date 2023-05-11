@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. Statistical Analysis &mdash; Jafar Arash Mehr 2022 documentation</title>
+  <title>5. Statistical Analysis &mdash; Jafar Arash Mehr 2022 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. Linear Regression" href="Linear%20Regression.html" />
+    <link rel="next" title="6. Linear Regression" href="Linear%20Regression.html" />
     <link rel="prev" title="4. Inverse Finite Element (Optimization)" href="optimization.html" /> 
 </head>
 
@@ -49,17 +49,17 @@
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse Finite Element (Optimization)</strong></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>6. Statistical Analysis</strong></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#descriptive-statistics">6.1. Descriptive statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#data-sampling">6.2. Data sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#probability-distribution">6.3. Probability distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#confidence-intervals">6.4. Confidence intervals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hypothesis-testing">6.5. Hypothesis testing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>5. Statistical Analysis</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#descriptive-statistics">5.1. Descriptive statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-sampling">5.2. Data sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#probability-distribution">5.3. Probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#confidence-intervals">5.4. Confidence intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypothesis-testing">5.5. Hypothesis testing</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Linear%20Regression.html"><strong>7. Linear Regression</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>8. Fundamentals of Machine Learning</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDA.html"><strong>9. Machine Learning in Diagnosis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear%20Regression.html"><strong>6. Linear Regression</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>7. Fundamentals of Machine Learning</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDA.html"><strong>8. Machine Learning in Diagnosis</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">About the Author</a></li>
 </ul>
 
@@ -77,7 +77,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><strong>6. Statistical Analysis</strong></li>
+      <li><strong>5. Statistical Analysis</strong></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/rst/Statistical Analysis.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -88,13 +88,13 @@
            <div itemprop="articleBody">
              
   <section id="statistical-analysis">
-<h1><strong>6. Statistical Analysis</strong><a class="headerlink" href="#statistical-analysis" title="Permalink to this heading"></a></h1>
+<h1><strong>5. Statistical Analysis</strong><a class="headerlink" href="#statistical-analysis" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All of required CSV files are available in the folder: <strong>Statistics.txt</strong></p>
 </div>
 <section id="descriptive-statistics">
-<h2>6.1. Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading"></a></h2>
+<h2>5.1. Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading"></a></h2>
 <p>In this chapter we have data from the United States Environmental Protection Agency (EPA). We want to analyze data on air quality. The data includes information from more than 200 sites, identified by state, county, city, and local site names. You will use Python functions to gather statistics about air quality.</p>
 <p>First we need to import the relevant Python libraries <cite>pandas</cite> and <cite>numpy</cite>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -133,12 +133,12 @@
 <figure class="align-center">
 <img alt="../_images/25.png" src="../_images/25.png" />
 </figure>
-<p>There are 260 state values, and 52 of them are unique. California is the most commonly occurring state in the data, with a frequency of 66.</p>
+<p>There are 260 state values, and 52 of them are unique. California is the most commonly occurring state in the data, with a frequency of 65.</p>
 <p>Now, compute the mean value from the aqi column.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">epa_data</span><span class="p">[</span><span class="s2">&quot;aqi&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>This means that the average aqi from the data is approximately 6.76 parts per million.</p>
+<p>This means that the average aqi from the data is approximately 5.76 parts per million.</p>
 <p>Now, compute the standard deviation for the aqi column:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">epa_data</span><span class="p">[</span><span class="s2">&quot;aqi&quot;</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -148,7 +148,7 @@
 Funding should be allocated for further investigation of the regions with unhealthy levels of carbon monoxide in order to learn how to improve the conditions.</p>
 </section>
 <section id="data-sampling">
-<h2>6.2. Data sampling<a class="headerlink" href="#data-sampling" title="Permalink to this heading"></a></h2>
+<h2>5.2. Data sampling<a class="headerlink" href="#data-sampling" title="Permalink to this heading"></a></h2>
 <p>we will be using numpy, pandas, scipy stats, and statsmodels for operations, and matplotlib for plotting.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -204,7 +204,7 @@ random_state: Refers to the seed of the random number</p>
 </div>
 <p>Here is the output graph:</p>
 <figure class="align-center">
-<img alt="../_images/26.png" src="../_images/26.png" />
+<img alt="../_images/25.png" src="../_images/25.png" />
 </figure>
 <p>Here are the main conclusions based on the above graph:</p>
 <p>As the central limit theorem predicts, the histogram of the sampling distribution is well approximated by the normal distribution. The outline of the histogram closely follows the normal curve.
@@ -212,7 +212,7 @@ The mean of the sampling distribution, the blue dotted line, overlaps with the p
 The sample mean of your first estimate of 50 districts, the red dashed line, is farther away from the center. This is due to sampling variability.</p>
 </section>
 <section id="probability-distribution">
-<h2>6.3. Probability distribution<a class="headerlink" href="#probability-distribution" title="Permalink to this heading"></a></h2>
+<h2>5.3. Probability distribution<a class="headerlink" href="#probability-distribution" title="Permalink to this heading"></a></h2>
 <p>First we need to import relevant libraries, packages, and modules. For this lab, you will need numpy, pandas, matplotlib.pyplot, statsmodels.api, and scipy:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -259,10 +259,10 @@ The sample mean of your first estimate of 50 districts, the red dashed line, is 
 </pre></div>
 </div>
 <p>We can do the same thing for the second and third empirical rules. After doing this, here are the the results:</p>
-<p>About 76.15% of the data falls within 1 standard deviation of the mean.
+<p>About 75.15% of the data falls within 1 standard deviation of the mean.
 About 95.77% of the data falls within 2 standard deviation of the mean.
 About 99.62% of the data falls within 3 standard deviations of the mean.</p>
-<p>The 95.77% is very close to 95%, and the 99.62% is very close to 99.7%. The 76.15% is not as close to 68%, but relatively close. Overall, from applying the empirical rule, the data appears to be not exactly normal, but could be considered approximately normal.</p>
+<p>The 95.77% is very close to 95%, and the 99.62% is very close to 99.7%. The 75.15% is not as close to 68%, but relatively close. Overall, from applying the empirical rule, the data appears to be not exactly normal, but could be considered approximately normal.</p>
 <p>The z-score is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-112">
 <span id="equation-eq-112"></span><span class="eqno">(100)<a class="headerlink" href="#eq-112" title="Permalink to this equation"></a></span>\[ z_{score}= \frac {x-\mu}{\sigma}\]</div>
@@ -281,7 +281,7 @@ About 99.62% of the data falls within 3 standard deviations of the mean.</p>
 <p>Detecting outliers is important because they can reveal two important things, depending on the context: First, they can identify measurements that were taken incorrectly. Second, they can highlight parts of the data that can be focused on to make improvements.Z-score allows to identify potential outliers in the data.</p>
 </section>
 <section id="confidence-intervals">
-<h2>6.4. Confidence intervals<a class="headerlink" href="#confidence-intervals" title="Permalink to this heading"></a></h2>
+<h2>5.4. Confidence intervals<a class="headerlink" href="#confidence-intervals" title="Permalink to this heading"></a></h2>
 <p>In this section, we will work again with the air quality data in order to calculate the confidence interval. We start with importing the required packages and loading the data from the csv file:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -392,7 +392,7 @@ Lastly, we can conclude that confidence interval at the 95% level of confidence 
 </div>
 </section>
 <section id="hypothesis-testing">
-<h2>6.5. Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this heading"></a></h2>
+<h2>5.5. Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this heading"></a></h2>
 <p>Now we want to construct a hypothesis test to know if the mean AQI in Los Angeles County is statistically different from the rest of California. For this purpose, we consider a 95% level of significance. As usual, we start by importing the required packages and loading the data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -484,7 +484,7 @@ Lastly, we can conclude that confidence interval at the 95% level of confidence 
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="optimization.html" class="btn btn-neutral float-left" title="4. Inverse Finite Element (Optimization)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Linear%20Regression.html" class="btn btn-neutral float-right" title="7. Linear Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Linear%20Regression.html" class="btn btn-neutral float-right" title="6. Linear Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

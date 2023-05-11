@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7. Linear Regression &mdash; Jafar Arash Mehr 2022 documentation</title>
+  <title>6. Linear Regression &mdash; Jafar Arash Mehr 2022 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. Fundamentals of Machine Learning" href="ML.html" />
-    <link rel="prev" title="6. Statistical Analysis" href="Statistical%20Analysis.html" /> 
+    <link rel="next" title="7. Fundamentals of Machine Learning" href="ML.html" />
+    <link rel="prev" title="5. Statistical Analysis" href="Statistical%20Analysis.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,16 +49,16 @@
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse Finite Element (Optimization)</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>6. Statistical Analysis</strong></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>7. Linear Regression</strong></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#simple-linear-regression">7.1. Simple linear regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#multiple-linear-regression">7.2. Multiple linear regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hypothesis-testing">7.3. Hypothesis testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#logistic-regression">7.4. Logistic regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>5. Statistical Analysis</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>6. Linear Regression</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#simple-linear-regression">6.1. Simple linear regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-linear-regression">6.2. Multiple linear regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypothesis-testing">6.3. Hypothesis testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logistic-regression">6.4. Logistic regression</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>8. Fundamentals of Machine Learning</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="LDA.html"><strong>9. Machine Learning in Diagnosis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>7. Fundamentals of Machine Learning</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="LDA.html"><strong>8. Machine Learning in Diagnosis</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">About the Author</a></li>
 </ul>
 
@@ -76,7 +76,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><strong>7. Linear Regression</strong></li>
+      <li><strong>6. Linear Regression</strong></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/rst/Linear Regression.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -87,13 +87,13 @@
            <div itemprop="articleBody">
              
   <section id="linear-regression">
-<h1><strong>7. Linear Regression</strong><a class="headerlink" href="#linear-regression" title="Permalink to this heading"></a></h1>
+<h1><strong>6. Linear Regression</strong><a class="headerlink" href="#linear-regression" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All of required CSV files are available in the folder: <strong>Linear Regression.txt</strong></p>
 </div>
 <section id="simple-linear-regression">
-<h2>7.1. Simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this heading"></a></h2>
+<h2>6.1. Simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this heading"></a></h2>
 <p>Using linear regression we define a linear relationship between a dependent variable (Y) and an independent variable (X):</p>
 <div class="math notranslate nohighlight" id="eq-113">
 <span id="equation-eq-113"></span><span class="eqno">(103)<a class="headerlink" href="#eq-113" title="Permalink to this equation"></a></span>\[ Y= aX+b\]</div>
@@ -314,7 +314,7 @@ Sales (in millions)=−0.1263+3.5614∗TV (in millions)</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> The interval (3.558 million, 3.565 million) has a 95% probability of containing the true estimate of the increase in sales for a one million dollar increase in the TV promotional budget. Therefore, the estimate provided in the previous bullet is very confident.</p>
 </section>
 <section id="multiple-linear-regression">
-<h2>7.2. Multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this heading"></a></h2>
+<h2>6.2. Multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this heading"></a></h2>
 <p>multiple linear regression helps you estimate the linear relationship between one continuous dependent variable and two or more independent variables. This is a useful skill because it allows you to compare more than one variable to the variable you’re measuring.</p>
 <p>In this new data sheet, each row corresponds to an independent marketing promotion where their business uses TV, social media, radio, and influencer promotions to increase sales. We want to conduct a multiple linear regression analysis to estimate sales from a combination of independent variables.</p>
 <p>As usual, we need to import the required packages in the first step:</p>
@@ -396,7 +396,7 @@ Sales (in millions)=−0.1263+3.5614∗TV (in millions)</p>
 </div>
 <p>This is the output:</p>
 <figure class="align-center">
-<img alt="../_images/37.png" src="../_images/37.png" />
+<img alt="../_images/36.png" src="../_images/36.png" />
 </figure>
 <p>The most important conclusions could be listed as below:</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> TV was selected, as the analysis above showed a strong relationship between the TV promotional budget and the average Sales.</p>
@@ -551,7 +551,7 @@ Sales (in millions)=−0.1263+3.5614∗TV (in millions)</p>
 </div>
 </section>
 <section id="hypothesis-testing">
-<h2>7.3. Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this heading"></a></h2>
+<h2>6.3. Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this heading"></a></h2>
 <p>Analysis of variance (commonly called ANOVA) is a group of statistical techniques that test the difference of means among three or more groups. It’s a powerful tool for determining whether population means are different across groups.</p>
 <p>In the dataset used in this section, each row corresponds to an independent marketing promotion and there are 4 factors including TV, social media, radio, and influencer promotions to increase sales. We want to know if sales are significantly different among various <strong>categorical variables</strong> including TV and influencer promotion types.
 In this regards, a one-way ANOVA test will be used to determine if there is a statistically significant difference in sales among groups.
@@ -711,7 +711,7 @@ Here are the steps we should take:</p>
 <img alt="../_images/45.png" src="../_images/45.png" />
 </figure>
 <p>Based on the above graph, the variance where there are fitted values is similarly distributed, validating that the constant variance assumption is met.</p>
-<p>Using TV as the independent variable results in a linear regression model with  <span class="math notranslate nohighlight">\(R^{2}=0.871\)</span>. In other words, the model explains  87.1% of the variation in Sales. This makes the model an effective predictor of Sales.</p>
+<p>Using TV as the independent variable results in a linear regression model with  <span class="math notranslate nohighlight">\(R^{2}=0.871\)</span>. In other words, the model explains  86.1% of the variation in Sales. This makes the model an effective predictor of Sales.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The default TV category for the model is High, because there are coefficients for the other two TV categories, Medium and Low. According to the model, Sales with a Medium or Low TV category are lower on average than Sales with a High TV category. For example, the model predicts that a Low TV promotion would be 209.8691 (in millions of dollars) lower in Sales on average than a High TV promotion.</p>
@@ -729,7 +729,7 @@ Here are the steps we should take:</p>
 <p>In this example:</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> The null hypothesis is that there is no difference in Sales based on the TV promotion budget.</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> The alternative hypothesis is that there is a difference in Sales based on the TV promotion budget.</p>
-<p>The F-test statistic is 1917.75 and the p-value is  1.38E−253 (i.e., very small). Because the p-value is less than 0.05, you would reject the null hypothesis that there is no difference in Sales based on the TV promotion budget.</p>
+<p>The F-test statistic is 1916.75 and the p-value is  1.38E−253 (i.e., very small). Because the p-value is less than 0.05, you would reject the null hypothesis that there is no difference in Sales based on the TV promotion budget.</p>
 <p><strong>ANOVA post hoc test</strong></p>
 <p>We can apply ANOVA post hoc tests such as the Tukey’s HSD post hoc test to compare if there is a significant difference between each pair of categories for TV.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform the Tukey&#39;s HSD post hoc test.</span>
@@ -741,7 +741,7 @@ Here are the steps we should take:</p>
 </div>
 <p>Here is the output:</p>
 <figure class="align-center">
-<img alt="../_images/47.png" src="../_images/47.png" />
+<img alt="../_images/46.png" src="../_images/46.png" />
 </figure>
 <p>According to the above graph, The first row, which compares the High and Low TV groups, indicates that you can reject the null hypothesis that there is no significant difference between the Sales of these two groups.</p>
 <p>We can also reject the null hypotheses for the two other pairwise comparisons that compare High to Medium and Low to Medium.</p>
@@ -750,15 +750,15 @@ Here are the steps we should take:</p>
 <p>A post hoc test was conducted to determine which TV groups are different and how many are different from each other. This provides more detail than the <strong>one-way ANOVA</strong> results, <strong>which can at most determine that at least one group is different</strong>. Further, using the Tukey HSD controls for the increasing probability of incorrectly rejecting a null hypothesis from peforming multiple tests.</p>
 </div>
 <p>The following are estimates for the average difference between each pair of TV promotions:</p>
-<p><span class="math notranslate nohighlight">\(\bullet\)</span> Estimated average difference between High and Low TV promotions: $209.87 million (with 95% confidence that the exact value for this average difference is between 201.89 and 217.84 million dollars).</p>
-<p><span class="math notranslate nohighlight">\(\bullet\)</span> Estimated average difference between High and Medium TV promotions: $105.50 million (with 95% confidence that the exact value for this average difference is between 97.56 and 113.43 million dollars).</p>
+<p><span class="math notranslate nohighlight">\(\bullet\)</span> Estimated average difference between High and Low TV promotions: $209.87 million (with 95% confidence that the exact value for this average difference is between 201.89 and 216.84 million dollars).</p>
+<p><span class="math notranslate nohighlight">\(\bullet\)</span> Estimated average difference between High and Medium TV promotions: $105.50 million (with 95% confidence that the exact value for this average difference is between 96.56 and 113.43 million dollars).</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> Estimated average difference between Medium and Low TV promotions: $104.37 million (with 95% confidence that the exact value for this average difference is between 96.83 and 111.92 million dollars).</p>
 <p>Finally, The linear regression model estimating Sales from TV had an R-squared of $0.871, making it a fairly accurate estimator. The model showed a statistically significant relationship between the TV promotion budget and Sales. The model estimated the following relationships:</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> Using a high TV promotion budget instead of a medium TV promotion budget increased sales by 105.4952 million dollars (95% CI - 98.859, 112.131 million dollars).</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> Using a high TV promotion budget instead of a low TV promotion budget increased sales by 209.8691 million dollars (95% CI - 203.203 million, 216.535 million dollars).</p>
 </section>
 <section id="logistic-regression">
-<h2>7.4. Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this heading"></a></h2>
+<h2>6.4. Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this heading"></a></h2>
 <p>In this section we will conduct a bionomial logistic regression.</p>
 <p><strong>Bionomial Logistic Regression</strong>: This is a technique that models probability of an observation falling into one of two categories based on one or more independent variable. The below figure, compares the linear regression and logistic regression models:</p>
 <figure class="align-center">
@@ -911,8 +911,8 @@ Here are the steps we should take:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Statistical%20Analysis.html" class="btn btn-neutral float-left" title="6. Statistical Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ML.html" class="btn btn-neutral float-right" title="8. Fundamentals of Machine Learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Statistical%20Analysis.html" class="btn btn-neutral float-left" title="5. Statistical Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ML.html" class="btn btn-neutral float-right" title="7. Fundamentals of Machine Learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
