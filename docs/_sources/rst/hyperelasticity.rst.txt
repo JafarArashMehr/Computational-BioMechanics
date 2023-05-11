@@ -19,9 +19,9 @@
 The strain energy function :math:`W` is defined as:
 
 .. math:: 
-    :name: eq.1 
+  :name: eq.1 
 
-     W=W(I_1 (\textbf {C})),I_2 (\textbf {C})),I_3 (\textbf {C}))
+   W=W(I_1 (\textbf {C})),I_2 (\textbf {C})),I_3 (\textbf {C}))
 
 In the above equations, :math:`\textbf {C}` is the right Cauchy deformation tensor:
 

@@ -376,17 +376,24 @@ Then we load the data:
 The features in the data are:
 
 :math:`\bullet` TV promotional budget (in "Low," "Medium," and "High" categories)
+
 :math:`\bullet` Social media promotional budget (in millions of dollars)
+
 :math:`\bullet` Radio promotional budget (in millions of dollars)
+
 :math:`\bullet` Sales (in millions of dollars)
+
 :math:`\bullet` Influencer size (in "Mega," "Macro," "Nano," and "Micro" categories)
 
 
 The initial actions we need to take include:
 
 :math:`\bullet` Understanding which variables are present in the data
+
 :math:`\bullet` Reviewing the distribution of features, such as minimum, mean, and maximum values
+
 :math:`\bullet` Plotting the relationship between the independent and dependent variables to visualize which features have a linear relationship
+
 :math:`\bullet` Identifying issues with the data, such as incorrect values (e.g., typos) or missing values
 
 
@@ -469,7 +476,7 @@ Now we can fit a multiple linear regression model that predicts sales:
 
 This is the output: 
 
-.. figure:: PNG/36.png
+.. figure:: PNG/37.png
    :align: center
 
 
