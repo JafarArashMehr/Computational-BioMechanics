@@ -1608,7 +1608,7 @@ Where :math:`i` refers to the classes and :math:`P_{i}` is the probability of sa
 
 In an example where we want to split a node including fruits based on the color: 
 
-.. figure:: PNG/67.png
+.. figure:: PNG/68.png
    :align: center
 
 
