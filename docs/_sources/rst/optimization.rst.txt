@@ -1,6 +1,6 @@
 
 
-**4. Inverse Finite Element (Optimization)**
+**4. Inverse FEM (Optimization)**
 =============================================
 
 4.1. Optimization
