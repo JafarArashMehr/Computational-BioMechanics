@@ -126,7 +126,7 @@ Flattening of the posterior eye globe in the magnetic resonance (MR) images is k
 In general, the degree of flattening of the posterior of the eye globe could represent the severity of this disease. To be more specific, the higher the degree of flattening, the more severe the disease.  
 The eye globe could be modeled as an axisymetric finite element model where the flattening of the posterior of the globe is represented by :math:`\alpha` and :math:`\beta`. Now a new parameter is introduced which is called Cut-Off angle (:math:`\beta`) as an angle (:math:`\theta`) in which the slopes (:math:`\alpha`) up to the :math:`\beta` are fairly small (−0.5° ≤ :math:`\alpha` ≤ 0.5°). The simplified eye model consisted of different tissues including Sclera (SC), Peripapillary Sclera (PSC), Dura Mater (DM), Retina (RET), Vessel (VES), Lamina Cribrosa (LC), Pia Mater (PM) and Optic Nerve (ON). These parameters are all shown in next figure: 
 
-.. figure:: PNG/18.png
+.. figure:: PNG/14.png
    :align: center
 
    Illustration of the parameters :math:`\alpha` , :math:`\beta` and :math:`\theta`. The tissues within the eye globe are shown in the left.
