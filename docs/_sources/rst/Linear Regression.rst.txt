@@ -5,7 +5,7 @@
 
 .. note:: 
 
-    All of required CSV files are available in the folder: **Linear Regression.txt** 
+    All of required CSV files are available in the folder: **Linear Regression** 
 
 6.1. Simple linear regression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

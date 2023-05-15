@@ -5,7 +5,7 @@
 
 .. note:: 
 
-    All of required CSV files are available in the folder: **Machine-Learning.txt** 
+    All of required CSV files are available in the folder: **Machine-Learning** 
 
 Machine learning (ML) is a computational tool to discover patterns in data and make informed predictions.
 There are two main types of ML including: 

@@ -5,7 +5,7 @@
 
 .. note:: 
 
-    All of required CSV files are available in the folder: **Statistics.txt** 
+    All of required CSV files are available in the folder: **Statistics** 
 
 5.1. Descriptive statistics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
