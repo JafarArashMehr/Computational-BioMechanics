@@ -1,6 +1,6 @@
 
 
-**4. Optimization**
+**4. Optimization (Python vs C++)**
 =========================================================
 
 4.1. Differential Evolution Algorithm
