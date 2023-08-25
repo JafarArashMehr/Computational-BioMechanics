@@ -1,13 +1,13 @@
-.wy-side-nav-search, .wy-nav-side {background: 			#FFBBFF			;}
+.wy-side-nav-search, .wy-nav-side {background: 			#551A8B		;}
 
-.wy-side-nav-search, .wy-nav-top {background: 		#B0E2FF	;}
-
-
-.wy-nav-content {max-width: 1000px;}
+.wy-side-nav-search, .wy-nav-top {background: #00C5CD	;}
 
 
-@import url("default.css");span.caption-text {color: black;}
-
-a:visited {color: black;}
+.wy-nav-side {font-weight: bold;}
 
 
+.wy-nav-content {max-width: 1200px !important;}
+
+@import url("default.css");span.caption-text {color: #white;}
+
+a:visited {color: 	#white	;}

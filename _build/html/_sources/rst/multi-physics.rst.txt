@@ -1,7 +1,7 @@
 **2. Multi-Physics Problem**
 ===========================================
 
-.. note:: The reader is encouraged to look at `this paper <https://www.sciencedirect.com/science/article/abs/pii/S1742706122000186>`_ to make a sense out of numerical treatment of coupled physics:
+.. note:: The reader is encouraged to look at `this paper <https://www.sciencedirect.com/science/article/abs/pii/S1742706122000186>`_ to make a sense out of numerical solution of a coupled physics problem:
 
 	
  
@@ -25,7 +25,7 @@ Where  :math:`c` is concentration of the mobile species, :math:`D` is diffusion 
   \nabla^2 \phi = -\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})
 
 
-The approximate solution is sought in scalar spaces including :math:`S^{(c)}` and :math:`S^{(\phi)}` corresponding to the function spaces representing the concentration and electric potential respectively
+The approximate solution is sought on scalar spaces including :math:`S^{(c)}` and :math:`S^{(\phi)}` corresponding to the function spaces representing the concentration of the ions and electric potential respectively.
 
 .. math:: 
   :name: eq.81 
@@ -47,7 +47,7 @@ The :math:`\omega_i`  and :math:`\lambda_i` are the basis functions which are li
    \phi= \sum_{j=0}^N \beta_j \lambda_j (x,y)
 
 
-The coefficients :math:`\alpha_i` and :math:`\beta_i` should be computed. A mixed scalar space is then defined as: :math:`\textbf{S} = S^{(c)} \times S^{(\phi)}`.   along with a test function :math:`\textbf{v} = (v_c,v_{\phi})` .The test functions are chosen as :math:`\forall v_c , v_{\phi} \in \textbf{S}`, So we can define the test function: :math:`v_c = \omega_i` and :math:`v_{\phi} = \lambda_i` . In order to derive the weak form of the NP equation, we should multiply it by :math:`v_c`:
+The coefficients :math:`\alpha_i` and :math:`\beta_i` should be computed. A mixed scalar space is then defined as: :math:`\textbf{S} = S^{(c)} \times S^{(\phi)}` along with a test function :math:`\textbf{v} = (v_c,v_{\phi})` .The test functions are chosen as :math:`\forall v_c , v_{\phi} \in \textbf{S}`, So we can define the test function: :math:`v_c = \omega_i` and :math:`v_{\phi} = \lambda_i` . In order to derive the weak form of the NP equation, we should multiply it by :math:`v_c`:
 
 
    
@@ -62,18 +62,18 @@ Then the above equation could be expanded as following:
   :name: eq.84
 
    \int_{\Omega} v_c \frac{\partial{c}}{\partial t} dx+\int_{\Omega} v_c D {\nabla}^2{c} dx 
-   - \int_{\omega} v_c \mu F z \nabla{c} \nabla{\phi} dx -\int_{\Omega} v_c \mu F z {\nabla}^2{\phi} dx = 0
+   - \int_{\Omega} v_c \mu F z \nabla{c} \nabla{\phi} dx -\int_{\Omega} v_c \mu F z {\nabla}^2{\phi} dx = 0
 
 By integration by part and applying the divergence theorem, it yields to:
 
 .. math:: 
   :name: eq.85
 
-   \int_{\Omega} v_c \frac{\partial c}{\partial t} dx - \int_{\Omega} v_c D \nabla{c}.n.ds +
+   \int_{\Omega} v_c \frac{\partial c}{\partial t} dx - \int_{\partial \Omega} v_c D \nabla{c}.n.ds +
 
    \int_{\Omega} D(\nabla c.\nabla \phi) dx-\int_{\Omega} v_c \mu Fz \nabla{c} \nabla{\phi} dx -
  
-   \int_{\Omega} v_c \mu Fzc \nabla{\phi}.n.ds+\int_{\Omega} \mu Fz \nabla(cv_c).\nabla \phi.dx=0
+   \int_{\partial \Omega} v_c \mu Fzc \nabla{\phi}.n.ds+\int_{\Omega} \mu Fz \nabla(cv_c).\nabla \phi.dx=0
 
 In the above equation, :math:`n` is the outward normal vector on the boundaries. The terms including :math:`ds` correspond to the Neumann boundary condition that vanish as they are equal to zero:
 
@@ -85,7 +85,7 @@ In the above equation, :math:`n` is the outward normal vector on the boundaries.
    \int_{\Omega} v_c \mu Fz \nabla{c} \nabla{\phi} dx +\int_{\Omega} v_c \mu F(\nabla c.\nabla\phi)dx+ \int_{\Omega} \mu Fcz \nabla(v_c).\nabla\phi.dx=0
 
 
-In Eq.7 the third and fourth terms cancel out:
+In the above equation, the third and fourth terms cancel out:
 
 
 
@@ -121,9 +121,9 @@ After integration by part and applying the divergence theorem, it yields to:
 .. math:: 
   :name: eq.91 
 
-  \int_{\Omega} v_{\phi}\nabla \phi n.ds  -\int_{\Omega} \nabla v_{\phi}.\nabla \phi = \int_{\Omega} v_{\phi} [-\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})]dx
+  \int_{\partial \Omega} v_{\phi}\nabla \phi n.ds  -\int_{\Omega} \nabla v_{\phi}.\nabla \phi dx = \int_{\Omega} v_{\phi} [-\frac{F}{\varepsilon_0 \varepsilon_r}(z_{Na} c_{Na} + z_{Cl} c_{Cl} + z_{fixed} c_{fixed})]dx
 
-The first term in the left-hand side of the Eq.14, corresponds to the Neumann boundary condition that is equal to zero. So, the Eq.14 could be rewritten by expanding the right-hand side to find the final weak from of the Poisson equation:
+The first term in the left-hand side of the above equation, corresponds to the Neumann boundary condition that is equal to zero. So, this could be rewritten by expanding the right-hand side to find the final weak from of the Poisson equation:
 
 .. math:: 
   :name: eq.92 
@@ -160,13 +160,13 @@ The constants used in the simulation as well as the intial conditions are presen
    In this section we replicate the results in `this paper <https://www.sciencedirect.com/science/article/pii/S0167663603000681?casa_token=-4BiIJAI4P0AAAAA:meT7q2AJn9Nu-1TIXv2hdsQ7ubI68QJOZVEI-mHPBiQPJv5dyK_BBcbXAIjm7BaoJ-y392XY9A>`_
 
 
-Everything starts with importing the dolfin (The main backend of FEniCS): 
+The summary of the FEM code implemented in FeniCS is presented here: 
 
 .. code-block:: python
 
         from dolfin import *
 
-Then we shoud define the constants: 
+Then we should define the constants: 
 
 .. code-block:: python
 
@@ -239,7 +239,7 @@ Next we should present the mesh in the simulation. The domains include a hydroge
 
 .. note:: 
 
-   The density of the element should be significantly increased near the boundaries of the hydrogel and solution to capture the steep gradient of the concentration of the mobile ions 
+	The density of the element should be significantly increased near the boundaries of the hydrogel and solution to capture the steep gradient of the concentration of the mobile ions 
 
 
 The domains and the mesh are shown here:
@@ -248,12 +248,11 @@ The domains and the mesh are shown here:
 .. figure:: PNG/11.png
    :align: center
 
-   Domains (Left) and Mesh (Right)
+   Computational Domains (Left) and Mesh (Right)
 
 .. note:: 
 
    The mesh file is available in the github repository in the folder **PNP-MESH**. 
-
 
 
 
@@ -268,7 +267,7 @@ The domains and the mesh are shown here:
         boundaries = MeshFunction('size_t', mesh, mesh.topology().dim() - 1)
         hdf.read(boundaries, "/boundaries")
 
-The integration sympol :math:`dx` is defined as: 
+The integration symbol :math:`dx` is defined as: 
 
 .. code-block:: python
 
@@ -286,192 +285,8 @@ Next we should define the appropriate element and then form the mixed-function s
         
         W = FunctionSpace(mesh, W_elem)
 
-The test functions and trial functions should be defined on the same function space as following:
 
-
-.. code-block:: python
-
-        # Defining the "Trial" functions
-        z = Function(W)
-        dz = TrialFunction(W)
-        
-        c_Na, c_Cl, phi = split(z)
-        
-        (v_1, v_2, v_6) = TestFunctions(W)
-
-Then we need to define the time variable including the time step (:math:`\delta t`) and the ultimate time (:math:`T`)
-
-.. code-block:: python
-
-        # Time variables
-        dt = 0.01
-        t = 0
-        T = 10
-
-We should define 3 different function spaces corresponding to the 3 unknowns (:math:`c_{Na}` ,:math:`c_{Cl}` and :math:`\phi`) to be able to evaulate the initial conditions:
-
-.. code-block:: python
-
-
-        V_c_Na = FunctionSpace(mesh, Element1)
-        V_c_Cl = FunctionSpace(mesh, Element1)
-        V_phi = FunctionSpace(mesh, Element1)
-
-Now we can define different classes in order to define the initial conditions for the chemical concentrations: 
-
-.. code-block:: python
-
-        # Previous solution for the cation Na+
-        class Na_initial(UserExpression):
-        
-            def __init__(self, **kwargs):
-                super().__init__()
-        
-                self.c_Na_Gel = kwargs["c_Na_Gel"]
-                self.c_Na_Sol = kwargs["c_Na_Sol"]
-        
-            def eval(self, value, x):
-        
-                if x[0] >= 0.023 - DOLFIN_EPS and x[0] <= 0.027 + DOLFIN_EPS and (x[1] >= 0.02 - DOLFIN_EPS) and (
-                        x[1] <= 0.03 + DOLFIN_EPS):
-                    value[0] = self.c_Na_Gel
-        
-                else:
-                    value[0] = self.c_Na_Sol
-        
-            def value_shape(self):
-                return ()
-        
-        
-        IC_Na = Na_initial(c_Na_Gel=c_init_Na_gel, c_Na_Sol=c_init_Na_sol, degree=0)
-        
-        # Previous solution
-        C_previous_Na = interpolate(IC_Na, V_c_Na)
-        
-        
-        # Previous solution for the cation Na+
-        class Cl_initial(UserExpression):
-        
-            def __init__(self, **kwargs):
-                super().__init__()
-        
-                self.c_Cl_Gel = kwargs["c_Cl_Gel"]
-                self.c_Cl_Sol = kwargs["c_Cl_Sol"]
-        
-            def eval(self, value, x):
-        
-                if x[0] >= 0.023 - DOLFIN_EPS and x[0] <= 0.027 + DOLFIN_EPS and (x[1] >= 0.02 - DOLFIN_EPS) and (
-                        x[1] <= 0.03 + DOLFIN_EPS):
-                    value[0] = self.c_Cl_Gel
-        
-                else:
-                    value[0] = self.c_Cl_Sol
-        
-            def value_shape(self):
-                return ()
-        
-        
-        IC_Cl = Cl_initial(c_Cl_Gel=c_init_Cl_gel, c_Cl_Sol=c_init_Cl_sol, degree=0)
-        
-        # Previous solution
-        C_previous_Cl = interpolate(IC_Cl, V_c_Cl)
-
-
-One of the most important parts, is deriving the weak form equations which is presented as following: 
-
-.. code-block:: python
-
-        # Varitional form for the Nernst-Planck equation in the hydrogel domain for Na+ and Cl-
-        Weak_NP_Na = c_Na * v_1 * dx(33) + dt * D_Na * dot(grad(c_Na), grad(v_1)) * dx(33) + \
-                     dt * z_Na * mu_Na * Faraday * c_Na * dot(grad(phi), grad(v_1)) * dx(33) - C_previous_Na * v_1 * dx(33)
-        
-        Weak_NP_Cl = c_Cl * v_2 * dx(33) + dt * D_Cl * dot(grad(c_Cl), grad(v_2)) * dx(33) + \
-                     dt * z_Cl * mu_Cl * Faraday * c_Cl * dot(grad(phi), grad(v_2)) * dx(33) - C_previous_Cl * v_2 * dx(33)
-        
-        # Varitional form for the Poisson equation in the hydrogel domain for Na+ and Cl- and fixed charge
-        Weak_Poisson = dot(grad(phi), grad(v_6)) * dx(33) - (Faraday / epsilon_p) * z_Na * c_Na * v_6 * dx(33) \
-                       - (Faraday / epsilon_p) * z_Cl * c_Cl * v_6 * dx(33) - (
-                                   Faraday / epsilon_p) * z_Fixed * c_init_Fixed_gel * v_6 * dx(33)
-        
-        ##################################
-        
-        # Varitional form for the Nernst-Planck equation in the solution domain for Na+ and Cl-
-        Weak_NP_Na_sol = c_Na * v_1 * dx(34) + dt * D_Na_s * dot(grad(c_Na), grad(v_1)) * dx(34) + \
-                         dt * z_Na * mu_Na * Faraday * c_Na * dot(grad(phi), grad(v_1)) * dx(34) - C_previous_Na * v_1 * dx(34)
-        
-        Weak_NP_Cl_sol = c_Cl * v_2 * dx(34) + dt * D_Cl_s * dot(grad(c_Cl), grad(v_2)) * dx(34) + \
-                         dt * z_Cl * mu_Cl * Faraday * c_Cl * dot(grad(phi), grad(v_2)) * dx(34) - C_previous_Cl * v_2 * dx(34)
-        
-        # Varitional form for the Poisson equation in the solution domain for Na+ and Cl- and fixed charge
-        Weak_Poisson_sol = dot(grad(phi), grad(v_6)) * dx(34) - (Faraday / epsilon) * z_Na * c_Na * v_6 * dx(34) \
-                           - (Faraday / epsilon) * z_Cl * c_Cl * v_6 * dx(34)
-        
-        # Summing up variational forms
-        F = Weak_NP_Na + Weak_NP_Cl + Weak_Poisson + Weak_NP_Cl_sol + Weak_NP_Na_sol + Weak_Poisson_sol
-
-
-.. note:: 
-
-   The :math:`dx(33)` and :math:`dx(34)` correspond to the hydrogel domain and solution domain respectively. 
-
-We need to define the boundary conditions by applying the values of concentrations on the left and right boundaries of the solution domain: 
-
-.. code-block:: python
-
-        bc_left_c = DirichletBC(W.sub(0), Constant(1.), boundaries, 35)
-        bc_right_c = DirichletBC(W.sub(0), Constant(1.), boundaries, 36)
-        
-        bc_left_c_1 = DirichletBC(W.sub(1), Constant(1.), boundaries, 35)
-        bc_right_c_1 = DirichletBC(W.sub(1), Constant(1.), boundaries, 36)
-
-.. note:: 
-
-   The W.sub(0) and W.sub(1) correspond to the :math:`c_{Na}` and :math:`c_{Cl}` respectively. In addition, :math:`35` and :math:`36` correspond to the left and right boundaries of the solution domain.
-
-
-
-We should define 3 files for saving and storing the results in each time step:
-
-.. code-block:: python
-
-        Na_Ion = File("Na.pvd")
-        Cl_Ion = File("Cl.pvd")
-        Voltage = File("phi.pvd")
-
-Finally we can solve the system in a while loop and then split the unknowns in ever time step and save them in 3 separate PVD files: 
-
-.. code-block:: python
-
-        while t <= T:
-            bc_left_volt = DirichletBC(W.sub(2), -0.1, boundaries, 35)
-            bc_right_volt = DirichletBC(W.sub(2), 0.1, boundaries, 36)
-            bcs = [bc_left_volt, bc_right_volt, bc_left_c, bc_right_c, bc_left_c_1, bc_right_c_1]
-        
-            J = derivative(F, z, dz)
-        
-            problem = NonlinearVariationalProblem(F, z, bcs, J)
-            solver = NonlinearVariationalSolver(problem)
-            solver.parameters['newton_solver']['convergence_criterion'] = 'incremental'
-            solver.parameters['newton_solver']['linear_solver'] = 'mumps'
-            solver.solve()
-        
-            (c_Na, c_Cl, phi) = z.split(True)
-        
-            C_previous_Na.assign(c_Na)
-            C_previous_Cl.assign(c_Cl)
-        
-            t += dt
-        
-            print(counter)
-        
-            Na_Ion << c_Na
-            Cl_Ion << c_Cl
-            Voltage << phi
-        
-            counter = counter + 1
-
-
-The complete FEniCS code is presented here: 
+The summary of the FEniCS code is presented here: 
 
 
 
@@ -558,126 +373,34 @@ The complete FEniCS code is presented here:
         # File("domains.pvd") << subdomains
         # lable domain
         dx = Measure('dx', domain=mesh, subdomain_data=subdomains)
-        
-        # Defining element for scalar variables (e.g. concentrations and voltage)
-        Element1 = FiniteElement("CG", mesh.ufl_cell(), 1)
-        
-        # Defining the mixed function space
-        W_elem = MixedElement([Element1, Element1, Element1])
-        
-        W = FunctionSpace(mesh, W_elem)
-        
-        # Defining the "Trial" functions
-        z = Function(W)
-        dz = TrialFunction(W)
-        
-        c_Na, c_Cl, phi = split(z)
-        
-        (v_1, v_2, v_6) = TestFunctions(W)
-        
-        # Time variables
-        dt = 0.01
-        t = 0
-        T = 10
-        
-        V_c_Na = FunctionSpace(mesh, Element1)
-        V_c_Cl = FunctionSpace(mesh, Element1)
-        V_phi = FunctionSpace(mesh, Element1)
-        
-        
-        # Previous solution for the cation Na+
-        class Na_initial(UserExpression):
-        
-            def __init__(self, **kwargs):
-                super().__init__()
-        
-                self.c_Na_Gel = kwargs["c_Na_Gel"]
-                self.c_Na_Sol = kwargs["c_Na_Sol"]
-        
-            def eval(self, value, x):
-        
-                if x[0] >= 0.023 - DOLFIN_EPS and x[0] <= 0.027 + DOLFIN_EPS and (x[1] >= 0.02 - DOLFIN_EPS) and (
-                        x[1] <= 0.03 + DOLFIN_EPS):
-                    value[0] = self.c_Na_Gel
-        
-                else:
-                    value[0] = self.c_Na_Sol
-        
-            def value_shape(self):
-                return ()
-        
-        
-        IC_Na = Na_initial(c_Na_Gel=c_init_Na_gel, c_Na_Sol=c_init_Na_sol, degree=0)
-        
-        # Previous solution
-        C_previous_Na = interpolate(IC_Na, V_c_Na)
-        
-        
-        # Previous solution for the cation Na+
-        class Cl_initial(UserExpression):
-        
-            def __init__(self, **kwargs):
-                super().__init__()
-        
-                self.c_Cl_Gel = kwargs["c_Cl_Gel"]
-                self.c_Cl_Sol = kwargs["c_Cl_Sol"]
-        
-            def eval(self, value, x):
-        
-                if x[0] >= 0.023 - DOLFIN_EPS and x[0] <= 0.027 + DOLFIN_EPS and (x[1] >= 0.02 - DOLFIN_EPS) and (
-                        x[1] <= 0.03 + DOLFIN_EPS):
-                    value[0] = self.c_Cl_Gel
-        
-                else:
-                    value[0] = self.c_Cl_Sol
-        
-            def value_shape(self):
-                return ()
-        
-        
-        IC_Cl = Cl_initial(c_Cl_Gel=c_init_Cl_gel, c_Cl_Sol=c_init_Cl_sol, degree=0)
-        
-        # Previous solution
-        C_previous_Cl = interpolate(IC_Cl, V_c_Cl)
+        .        
+        .
+        .
         
         # Varitional form for the Nernst-Planck equation in the hydrogel domain for Na+ and Cl-
-        Weak_NP_Na = c_Na * v_1 * dx(33) + dt * D_Na * dot(grad(c_Na), grad(v_1)) * dx(33) + \
-                     dt * z_Na * mu_Na * Faraday * c_Na * dot(grad(phi), grad(v_1)) * dx(33) - C_previous_Na * v_1 * dx(33)
-        
-        Weak_NP_Cl = c_Cl * v_2 * dx(33) + dt * D_Cl * dot(grad(c_Cl), grad(v_2)) * dx(33) + \
-                     dt * z_Cl * mu_Cl * Faraday * c_Cl * dot(grad(phi), grad(v_2)) * dx(33) - C_previous_Cl * v_2 * dx(33)
+        Weak_NP_Na = ...
+        Weak_NP_Cl = ...
         
         # Varitional form for the Poisson equation in the hydrogel domain for Na+ and Cl- and fixed charge
-        Weak_Poisson = dot(grad(phi), grad(v_6)) * dx(33) - (Faraday / epsilon_p) * z_Na * c_Na * v_6 * dx(33) \
-                       - (Faraday / epsilon_p) * z_Cl * c_Cl * v_6 * dx(33) - (
-                                   Faraday / epsilon_p) * z_Fixed * c_init_Fixed_gel * v_6 * dx(33)
+        Weak_Poisson = ...
         
         ##################################
         
         # Varitional form for the Nernst-Planck equation in the solution domain for Na+ and Cl-
-        Weak_NP_Na_sol = c_Na * v_1 * dx(34) + dt * D_Na_s * dot(grad(c_Na), grad(v_1)) * dx(34) + \
-                         dt * z_Na * mu_Na * Faraday * c_Na * dot(grad(phi), grad(v_1)) * dx(34) - C_previous_Na * v_1 * dx(34)
+        Weak_NP_Na_sol = ...
         
-        Weak_NP_Cl_sol = c_Cl * v_2 * dx(34) + dt * D_Cl_s * dot(grad(c_Cl), grad(v_2)) * dx(34) + \
-                         dt * z_Cl * mu_Cl * Faraday * c_Cl * dot(grad(phi), grad(v_2)) * dx(34) - C_previous_Cl * v_2 * dx(34)
+        Weak_NP_Cl_sol = ...
         
         # Varitional form for the Poisson equation in the solution domain for Na+ and Cl- and fixed charge
-        Weak_Poisson_sol = dot(grad(phi), grad(v_6)) * dx(34) - (Faraday / epsilon) * z_Na * c_Na * v_6 * dx(34) \
-                           - (Faraday / epsilon) * z_Cl * c_Cl * v_6 * dx(34)
+        Weak_Poisson_sol = ...
         
         # Summing up variational forms
         F = Weak_NP_Na + Weak_NP_Cl + Weak_Poisson + Weak_NP_Cl_sol + Weak_NP_Na_sol + Weak_Poisson_sol
+
+        .
+        .
+        .
         
-        bc_left_c = DirichletBC(W.sub(0), Constant(1.), boundaries, 35)
-        bc_right_c = DirichletBC(W.sub(0), Constant(1.), boundaries, 36)
-        
-        bc_left_c_1 = DirichletBC(W.sub(1), Constant(1.), boundaries, 35)
-        bc_right_c_1 = DirichletBC(W.sub(1), Constant(1.), boundaries, 36)
-        
-        assign(z.sub(1), C_previous_Cl)
-        assign(z.sub(0), C_previous_Na)
-        
-        counter = 0
         Na_Ion = File("Na.pvd")
         Cl_Ion = File("Cl.pvd")
         Voltage = File("phi.pvd")
@@ -691,8 +414,6 @@ The complete FEniCS code is presented here:
         
             problem = NonlinearVariationalProblem(F, z, bcs, J)
             solver = NonlinearVariationalSolver(problem)
-            solver.parameters['newton_solver']['convergence_criterion'] = 'incremental'
-            solver.parameters['newton_solver']['linear_solver'] = 'mumps'
             solver.solve()
         
             (c_Na, c_Cl, phi) = z.split(True)
@@ -701,14 +422,12 @@ The complete FEniCS code is presented here:
             C_previous_Cl.assign(c_Cl)
         
             t += dt
-        
-            print(counter)
+ 
         
             Na_Ion << c_Na
             Cl_Ion << c_Cl
             Voltage << phi
         
-            counter = counter + 1
 
 The results could be visualized in Paraview. Here are the results after 10s for the concentration of the sodium ion, chloride ion and electrical voltage:
 
@@ -717,7 +436,25 @@ The results could be visualized in Paraview. Here are the results after 10s for 
 
    Initial and stationary solutions 
 
+
+The figures (a), (c) and (e) correspond to the initial values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. The figures (b), (d) and (f) correspond to the stationary values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. 
+
 .. note:: 
 
-   The figures (a), (c) and (e) correspond to the initial values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. The figures (b), (d) and (f) correspond to the stationary values of the :math:`c_{Na}` , :math:`c_{Cl}` and :math:`\phi` respectively. 
+   The above code has been written with the capability for parallel computation. You can significantly increase the speed if running it in parallel. 
 
+In order to run the code in parallel, all you need to do is just opening the terminal and then run this command: 
+
+.. code-block:: python
+
+			mpirun -np 4 python3 code.py
+
+Where 4 is the number of the cores you want to use to run the code. You can increase it based on  number of the cores you have access to.    
+
+
+.. note::
+
+   The complete FEniCS code is available upon request (Please refer to the section : **About the Author**)
+
+
+  

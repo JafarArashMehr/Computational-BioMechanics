@@ -4,16 +4,17 @@ Jafar Arash Mehr
 
 .. toctree::
    :maxdepth: 1
-   :caption: Table of Contents 
+
    
    rst/Intro
    rst/resource
    rst/package
    rst/hyperelasticity
    rst/multi-physics
+   rst/drug-delivery
    rst/optimization
-   rst/machine-learning
+   rst/Statistical Analysis
+   rst/Linear Regression
+   rst/ML
+   rst/LDA
    rst/contact
-
-
-
