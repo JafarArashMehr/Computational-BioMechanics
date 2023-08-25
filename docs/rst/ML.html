@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery Simulation</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse FEM (Optimization)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Optimization</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>5. Statistical Analysis</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Linear%20Regression.html"><strong>6. Linear Regression</strong></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>7. Fundamentals of Machine Learning</strong></a><ul>
@@ -134,12 +134,12 @@ There are two main types of ML including:</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> <strong>Normalization</strong></p>
 <p>Normalization (e.g., MinMaxScaler in scikit-learn) transforms data to reassign each value to fall within the range [0, 1]. When applied to a feature, the feature’s minimum value becomes zero and its maximum value becomes one. All other values scale to somewhere between them. The formula for this transformation is:</p>
 <div class="math notranslate nohighlight" id="eq-120">
-<span id="equation-eq-120"></span><span class="eqno">(105)<a class="headerlink" href="#eq-120" title="Permalink to this equation"></a></span>\[ x_{i,normalized}= \frac {x_i-x_{min}}{x_{max}-x_{min}}\]</div>
+<span id="equation-eq-120"></span><span class="eqno">(104)<a class="headerlink" href="#eq-120" title="Permalink to this equation"></a></span>\[ x_{i,normalized}= \frac {x_i-x_{min}}{x_{max}-x_{min}}\]</div>
 <p>Features with higher magnitudes of scale will be more influential in some machine learning algorithms, like K-means, where  Euclidean distances between data points are calculated with the absolute value of the features (so large feature values have major effects, compared to small feature values). By min-max scaling (normalizing) each feature, they are both reduced to the same range</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> <strong>Standardization</strong></p>
 <p>Another type of scaling is called standardization (e.g., StandardScaler in scikit-learn). Standardization transforms each value within a feature so they collectively have a mean of zero and a standard deviation of one. To do this, for each value, subtract the mean of the feature and divide by the feature’s standard deviation:</p>
 <div class="math notranslate nohighlight" id="eq-121">
-<span id="equation-eq-121"></span><span class="eqno">(106)<a class="headerlink" href="#eq-121" title="Permalink to this equation"></a></span>\[ x_{i,standardized}= \frac {x_{i}-x_{mean}}{x_{standard.dev}}\]</div>
+<span id="equation-eq-121"></span><span class="eqno">(105)<a class="headerlink" href="#eq-121" title="Permalink to this equation"></a></span>\[ x_{i,standardized}= \frac {x_{i}-x_{mean}}{x_{standard.dev}}\]</div>
 <p>This method is useful because it centers the feature’s values on zero, which is useful for some machine learning algorithms. It also preserves outliers, since it does not place a hard cap on the range of possible values.</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> <strong>Encoding</strong></p>
 <p>Another form of feature transformation is known as encoding. Variable encoding is the process of converting categorical data to numerical data. Consider the bank churn dataset. The original data has a feature called “Geography”, whose values represent each customer’s country of residence—France, Germany, or Spain. Most machine learning methodologies cannot extract meaning from strings. Encoding transforms the strings to numbers that can be interpreted mathematically. the feature would typically be encoded into binary. This process requires that a column be added to represent each possible class contained within the feature.</p>
@@ -189,11 +189,11 @@ There are two main types of ML including:</p>
 <p>The probability of the outcome overall, P(A), is multiplied by the conditional probability, P(B|A). This result is then divided by the probability of the predictor variable, P(B), to obtain the posterior probability.</p>
 <p><strong>Bayes’ Theorem:</strong></p>
 <div class="math notranslate nohighlight" id="eq-213">
-<span id="equation-eq-213"></span><span class="eqno">(107)<a class="headerlink" href="#eq-213" title="Permalink to this equation"></a></span>\[ P(B|A)= \frac{P(B|A).P(A)}{P(B)}\]</div>
+<span id="equation-eq-213"></span><span class="eqno">(106)<a class="headerlink" href="#eq-213" title="Permalink to this equation"></a></span>\[ P(B|A)= \frac{P(B|A).P(A)}{P(B)}\]</div>
 <p>The goal of Bayes’ Theorem is to find the probability of an event, A, given that another event B is true. In the context of a predictive model, the class label would be A and the predictor variable would be B. P(A) is considered the prior probability of event A before any evidence (feature) is seen. Then, P(A|B) is the posterior probability, or the probability of the class label after the evidence (feature) has been seen.</p>
 <p>In a predictive model, this calculation is carried out for each feature, for each class. Then the probabilities are multiplied together. The class with the highest resulting product is the model’s final prediction for that sample. These models make a number of assumptions about the data to work properly. One of the most important is the assumption that each predictor variable (different Bs in the formula) is independent from the others, conditional on the class. This is called conditional independence. Variables B and C are independent of one another on the condition that a third variable, A, exists such that:</p>
 <div class="math notranslate nohighlight" id="eq-214">
-<span id="equation-eq-214"></span><span class="eqno">(108)<a class="headerlink" href="#eq-214" title="Permalink to this equation"></a></span>\[ P(B|C,A)= P(B,A)\]</div>
+<span id="equation-eq-214"></span><span class="eqno">(107)<a class="headerlink" href="#eq-214" title="Permalink to this equation"></a></span>\[ P(B|C,A)= P(B,A)\]</div>
 <p>This equation can be interpreted as “the probability of B, given C and A, is equal to the probability of B, given A.” In other words, given A, introducing C does not change the probability of B. Note that two features can only be considered conditionally independent of each other when considered in relation to a third variable. Furthermore, it’s possible for variables B and C to be conditionally independent of one another with respect to A, but not with respect to another variable, say, Z.</p>
 <p>In Naive Bayes, the predictor variables (B and C in the equation above) are assumed to be conditionally independent of each other, given the target variable (A). This is an assumption that very often is not actually true. However, Naive Bayes models still often perform well in spite of the data violating the assumption. The assumption is made to simplify the model. Otherwise, long probabilistic chains would have to be calculated to determine the probability of a feature’s value with respect to the values of every other variable.</p>
 <p>Another assumption of the data is that no predictor variable has any more predictive power than any other predictor. In other words, the individual predictor variables are assumed to contribute equally to the model’s prediction. Like the assumption of class-conditional independence between the features, this assumption is also often violated by real-world data, but Naive Bayes still often proves a good model in spite of this.</p>
@@ -366,7 +366,7 @@ In this particular dataset, name is the only categorical column and the other co
 <p><span class="math notranslate nohighlight">\(F_{1}\)</span> Score</p>
 <p><span class="math notranslate nohighlight">\(F_{1} Score\)</span> is a measurement that combines both precision and recall into a single expression, giving each equal importance. It is calculated as:</p>
 <div class="math notranslate nohighlight" id="eq-215">
-<span id="equation-eq-215"></span><span class="eqno">(109)<a class="headerlink" href="#eq-215" title="Permalink to this equation"></a></span>\[ F_{1}= 2. \frac{precision ⋅ recall}{precision + recall}\]</div>
+<span id="equation-eq-215"></span><span class="eqno">(108)<a class="headerlink" href="#eq-215" title="Permalink to this equation"></a></span>\[ F_{1}= 2. \frac{precision ⋅ recall}{precision + recall}\]</div>
 <p>This combination is known as the harmonic mean. F1 score can range [0, 1], with zero being the worst and one being the best. The idea behind this metric is that it penalizes low values of either metric, which prevents one very strong factor—precision or recall—from “carrying” the other, when it is weaker.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -742,7 +742,7 @@ Splitting the data was important for ensuring that there was new data for the mo
 <span class="math notranslate nohighlight">\(\bullet\)</span> <span class="math notranslate nohighlight">\(C_{k}\)</span> = the location of the centroid of cluster k, which is the cluster to which point  is assigned.</p>
 <p>The inertia is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-117">
-<span id="equation-eq-117"></span><span class="eqno">(110)<a class="headerlink" href="#eq-117" title="Permalink to this equation"></a></span>\[ Inertia = \sum_{i=0}^n (x_{i}-C_{k})^2\]</div>
+<span id="equation-eq-117"></span><span class="eqno">(109)<a class="headerlink" href="#eq-117" title="Permalink to this equation"></a></span>\[ Inertia = \sum_{i=0}^n (x_{i}-C_{k})^2\]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The greater the inertia, the greater the distances between points and their centroids, which means the points within each cluster are farther apart from each other. Note, however, that inertia only measures intracluster distance. For the same dataset and the same number of clusters, lower inertia values are typically better than higher values, because low values indicate that points are closer together within their clusters.</p>
@@ -766,7 +766,7 @@ Splitting the data was important for ensuring that there was new data for the mo
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> <span class="math notranslate nohighlight">\(max(a,b)\)</span> = whichever value is greater between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span></p>
 <p>The silhouette score is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-118">
-<span id="equation-eq-118"></span><span class="eqno">(111)<a class="headerlink" href="#eq-118" title="Permalink to this equation"></a></span>\[ Silhouette\: Scores = \frac{(b-a)}{max(a,b)}\]</div>
+<span id="equation-eq-118"></span><span class="eqno">(110)<a class="headerlink" href="#eq-118" title="Permalink to this equation"></a></span>\[ Silhouette\: Scores = \frac{(b-a)}{max(a,b)}\]</div>
 <p>A silhouette coefficient can range between -1 and +1.</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> A value closer to +1 means that a point is close to other points in its own cluster and well separated from points in other clusters.</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> A value closer to zero means that a point is between clusters.</p>
@@ -1090,7 +1090,7 @@ Nodes with low impurity have many more of one class than any other. A perfect sp
 <p>Generally, splits are better when each resulting child node contains many more samples of one class than any other because this means the split is effectively separating the classes—the primary job of the decision tree!
 In such cases, the child nodes are said to have low impurity. The decision tree algorithm determines the split that will result in the lowest impurity among the child nodes by performing a calculation.</p>
 <div class="math notranslate nohighlight" id="eq-200">
-<span id="equation-eq-200"></span><span class="eqno">(112)<a class="headerlink" href="#eq-200" title="Permalink to this equation"></a></span>\[ Gini\: impurity = \sum_{i=0}^n P_{i}^2\]</div>
+<span id="equation-eq-200"></span><span class="eqno">(111)<a class="headerlink" href="#eq-200" title="Permalink to this equation"></a></span>\[ Gini\: impurity = \sum_{i=0}^n P_{i}^2\]</div>
 <p>Where <span class="math notranslate nohighlight">\(i\)</span> refers to the classes and <span class="math notranslate nohighlight">\(P_{i}\)</span> is the probability of samples belonging to class i in a given node.</p>
 <p>In an example where we want to split a node including fruits based on the color:</p>
 <figure class="align-center">

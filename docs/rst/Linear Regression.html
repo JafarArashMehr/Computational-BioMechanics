@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery Simulation</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse FEM (Optimization)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Optimization</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>5. Statistical Analysis</strong></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>6. Linear Regression</strong></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#simple-linear-regression">6.1. Simple linear regression</a></li>
@@ -96,7 +96,7 @@
 <h2>6.1. Simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this heading"></a></h2>
 <p>Using linear regression we define a linear relationship between a dependent variable (Y) and an independent variable (X):</p>
 <div class="math notranslate nohighlight" id="eq-113">
-<span id="equation-eq-113"></span><span class="eqno">(103)<a class="headerlink" href="#eq-113" title="Permalink to this equation"></a></span>\[ Y= aX+b\]</div>
+<span id="equation-eq-113"></span><span class="eqno">(102)<a class="headerlink" href="#eq-113" title="Permalink to this equation"></a></span>\[ Y= aX+b\]</div>
 <p>In above equation, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are the slope and intercept parameters.</p>
 <p>The purpose of using linear regression is to explore the relationship between two continuous variables. To this end, we need to perform a complete simple linear regression analysis. Here are the main steps:</p>
 <ol class="arabic simple">
@@ -541,7 +541,7 @@ Sales (in millions)=−0.1263+3.5614∗TV (in millions)</p>
 <p><span class="math notranslate nohighlight">\(\bullet\)</span> <span class="math notranslate nohighlight">\(\beta_{𝑅𝑎𝑑𝑖𝑜}=2.9669\)</span></p>
 <p>Now we can define the Sales as below:</p>
 <div class="math notranslate nohighlight" id="eq-115">
-<span id="equation-eq-115"></span><span class="eqno">(104)<a class="headerlink" href="#eq-115" title="Permalink to this equation"></a></span>\[ Sales= \beta_{0} + \beta_{𝑇𝑉𝐿𝑜𝑤} * X_{𝑇𝑉𝐿𝑜𝑤} +\beta_{𝑀𝑒𝑑𝑖𝑢𝑚} * X_{𝑇𝑉𝑀𝑒𝑑𝑖𝑢𝑚} + \beta_{𝑅𝑎𝑑𝑖𝑜} * X_{𝑅𝑎𝑑𝑖𝑜}\]</div>
+<span id="equation-eq-115"></span><span class="eqno">(103)<a class="headerlink" href="#eq-115" title="Permalink to this equation"></a></span>\[ Sales= \beta_{0} + \beta_{𝑇𝑉𝐿𝑜𝑤} * X_{𝑇𝑉𝐿𝑜𝑤} +\beta_{𝑀𝑒𝑑𝑖𝑢𝑚} * X_{𝑇𝑉𝑀𝑒𝑑𝑖𝑢𝑚} + \beta_{𝑅𝑎𝑑𝑖𝑜} * X_{𝑅𝑎𝑑𝑖𝑜}\]</div>
 <p>The default TV category for the model is High since there are coefficients for the other two TV categories, Medium and Low. Because the coefficients for the Medium and Low TV categories are negative, that means the average of sales is lower for Medium or Low TV categories compared to the High TV category when Radio is at the same level.</p>
 <p>The p-value for all coefficients is  0.000, meaning all coefficients are statistically significant at  𝑝=0.05. The 95% confidence intervals for each coefficient should be reported when presenting results.</p>
 <p>For example, there is a  95% chance that the interval  [−163.979,−144.616] contains the true parameter of the slope of  <span class="math notranslate nohighlight">\(\beta_{𝑇𝑉𝐿𝑜𝑤}\)</span>, which is the estimated difference in promotion sales when a Low TV promotion is chosen instead of a High TV promotion.</p>

@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery Simulation</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse FEM (Optimization)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Optimization</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>5. Statistical Analysis</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Linear%20Regression.html"><strong>6. Linear Regression</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="ML.html"><strong>7. Fundamentals of Machine Learning</strong></a></li>
@@ -111,40 +111,40 @@ space to a lower dimensional space where the data achieves maximum class separab
 between-class :math:`S_B\)</span>. The <span class="math notranslate nohighlight">\(S_W\)</span> and <span class="math notranslate nohighlight">\(S_B\)</span> are two <span class="math notranslate nohighlight">\(n \times n\)</span> matrices indicating the number of features in the data where <span class="math notranslate nohighlight">\(n\)</span> is the number of the features.
 The <span class="math notranslate nohighlight">\(S_W\)</span> corresponds to the separability between different classes (i.e. the distance between the mean of different classes). The optimal transformation in classical LDA is achieved by minimizing the <span class="math notranslate nohighlight">\(S_W\)</span> distance and maximizing the <span class="math notranslate nohighlight">\(S_B\)</span> distance simultaneously, leading to maximum discrimination. The <span class="math notranslate nohighlight">\(S_W\)</span> is represented as following:</p>
 <div class="math notranslate nohighlight" id="eq-100">
-<span id="equation-eq-100"></span><span class="eqno">(113)<a class="headerlink" href="#eq-100" title="Permalink to this equation"></a></span>\[ S_W=  \sum_{i_=1}^{class} S_i \quad Where \quad  S_i = \sum_{j_=1}^{n} (x_j-m_i)(x_j-m_i)^T\]</div>
+<span id="equation-eq-100"></span><span class="eqno">(112)<a class="headerlink" href="#eq-100" title="Permalink to this equation"></a></span>\[ S_W=  \sum_{i_=1}^{class} S_i \quad Where \quad  S_i = \sum_{j_=1}^{n} (x_j-m_i)(x_j-m_i)^T\]</div>
 <p>In the above equations, the class represent the classes (e.g. Normal, Low-Flattened and High-Flattened globes). <span class="math notranslate nohighlight">\(X\)</span> is
 the number of the samples including the features in each class. The <span class="math notranslate nohighlight">\(m\)</span> is a vector including the mean of each feature in each class:</p>
 <div class="math notranslate nohighlight" id="eq-101">
-<span id="equation-eq-101"></span><span class="eqno">(114)<a class="headerlink" href="#eq-101" title="Permalink to this equation"></a></span>\[ m_i= \frac {1}{n_i} \sum_{k=1}{n} X_k\]</div>
+<span id="equation-eq-101"></span><span class="eqno">(113)<a class="headerlink" href="#eq-101" title="Permalink to this equation"></a></span>\[ m_i= \frac {1}{n_i} \sum_{k=1}{n} X_k\]</div>
 <p>The <span class="math notranslate nohighlight">\(S_B\)</span> is computed as following:</p>
 <div class="math notranslate nohighlight" id="eq-102">
-<span id="equation-eq-102"></span><span class="eqno">(115)<a class="headerlink" href="#eq-102" title="Permalink to this equation"></a></span>\[ S_B= \sum_{I=1}^{c} N_i(m_i-\mu)(m_i-\mu)^T\]</div>
+<span id="equation-eq-102"></span><span class="eqno">(114)<a class="headerlink" href="#eq-102" title="Permalink to this equation"></a></span>\[ S_B= \sum_{I=1}^{c} N_i(m_i-\mu)(m_i-\mu)^T\]</div>
 <p>Where <span class="math notranslate nohighlight">\(\mu\)</span> is a vector containing the mean of all the samples in all of the classes. In the LDA analysis we try to obtain the lower dimensional space in a way that it maximizes the between class variance and minimizes the within class variance. We can transform data using a transformation matrix <span class="math notranslate nohighlight">\(\xi\)</span> .With that being said, the transformed dataset (Y), could be written as:</p>
 <div class="math notranslate nohighlight" id="eq-103">
-<span id="equation-eq-103"></span><span class="eqno">(116)<a class="headerlink" href="#eq-103" title="Permalink to this equation"></a></span>\[ Y = \xi^T \times X\]</div>
+<span id="equation-eq-103"></span><span class="eqno">(115)<a class="headerlink" href="#eq-103" title="Permalink to this equation"></a></span>\[ Y = \xi^T \times X\]</div>
 <p>In order to obtain a good separation between classes we seek to maximize the <span class="math notranslate nohighlight">\(\frac{S_B}{S_W}\)</span>. By applying this transformation to <span class="math notranslate nohighlight">\(S_B\)</span> and <span class="math notranslate nohighlight">\(S_W\)</span> :</p>
 <div class="math notranslate nohighlight" id="eq-104">
-<span id="equation-eq-104"></span><span class="eqno">(117)<a class="headerlink" href="#eq-104" title="Permalink to this equation"></a></span>\[ S_W= \sum_{I=I}^{class} \sum_{j=1}^{class} [(\xi^T(x_j-m_i)(\xi^T(x_j-m_i))^T]_i=\xi^T S_W \xi\]</div>
+<span id="equation-eq-104"></span><span class="eqno">(116)<a class="headerlink" href="#eq-104" title="Permalink to this equation"></a></span>\[ S_W= \sum_{I=I}^{class} \sum_{j=1}^{class} [(\xi^T(x_j-m_i)(\xi^T(x_j-m_i))^T]_i=\xi^T S_W \xi\]</div>
 <div class="math notranslate nohighlight" id="eq-105">
-<span id="equation-eq-105"></span><span class="eqno">(118)<a class="headerlink" href="#eq-105" title="Permalink to this equation"></a></span>\[ S_B= \sum_{I=I}^{class} N_i [(\xi^T(m_i-m)(\xi^T(m_i-m))^T]=\xi^T S_B \xi\]</div>
+<span id="equation-eq-105"></span><span class="eqno">(117)<a class="headerlink" href="#eq-105" title="Permalink to this equation"></a></span>\[ S_B= \sum_{I=I}^{class} N_i [(\xi^T(m_i-m)(\xi^T(m_i-m))^T]=\xi^T S_B \xi\]</div>
 <p>Then the equation  becomes  <span class="math notranslate nohighlight">\(\frac{\xi^T S_B \xi}{\xi^T S_W \xi}\)</span>. Now we can find the <span class="math notranslate nohighlight">\(\xi\)</span> that maximizes this equation. It turns out that <span class="math notranslate nohighlight">\(\xi\)</span> can be found by calculating the Eigenvectors of <span class="math notranslate nohighlight">\({S_W}^{-1} S_B\)</span>.
 In other words, we can look at it as a constrained optimization problem with <span class="math notranslate nohighlight">\(\xi^T S_W \xi = P\)</span>.To this end, we can rewrite this in Lagrangian form:</p>
 <div class="math notranslate nohighlight" id="eq-106">
-<span id="equation-eq-106"></span><span class="eqno">(119)<a class="headerlink" href="#eq-106" title="Permalink to this equation"></a></span>\[ L=\xi^T S_B \xi - \lambda (\xi^T S_W \xi - P)\]</div>
+<span id="equation-eq-106"></span><span class="eqno">(118)<a class="headerlink" href="#eq-106" title="Permalink to this equation"></a></span>\[ L=\xi^T S_B \xi - \lambda (\xi^T S_W \xi - P)\]</div>
 <p>Then we can take the derivative of the above equation and set it equal to zero:</p>
 <div class="math notranslate nohighlight" id="eq-107">
-<span id="equation-eq-107"></span><span class="eqno">(120)<a class="headerlink" href="#eq-107" title="Permalink to this equation"></a></span>\[ \frac{\partial L}{\partial \xi} = 2(S_B-\lambda S_W) \xi = 0\]</div>
+<span id="equation-eq-107"></span><span class="eqno">(119)<a class="headerlink" href="#eq-107" title="Permalink to this equation"></a></span>\[ \frac{\partial L}{\partial \xi} = 2(S_B-\lambda S_W) \xi = 0\]</div>
 <p>Which gives:</p>
 <div class="math notranslate nohighlight" id="eq-108">
-<span id="equation-eq-108"></span><span class="eqno">(121)<a class="headerlink" href="#eq-108" title="Permalink to this equation"></a></span>\[ S_B \xi = \lambda S_W \xi\]</div>
+<span id="equation-eq-108"></span><span class="eqno">(120)<a class="headerlink" href="#eq-108" title="Permalink to this equation"></a></span>\[ S_B \xi = \lambda S_W \xi\]</div>
 <p>The above generalized eigenvalue problem can be written as following:</p>
 <div class="math notranslate nohighlight" id="eq-109">
-<span id="equation-eq-109"></span><span class="eqno">(122)<a class="headerlink" href="#eq-109" title="Permalink to this equation"></a></span>\[ {S_W}^{-1} S_B \xi = \lambda \xi\]</div>
+<span id="equation-eq-109"></span><span class="eqno">(121)<a class="headerlink" href="#eq-109" title="Permalink to this equation"></a></span>\[ {S_W}^{-1} S_B \xi = \lambda \xi\]</div>
 <div class="math notranslate nohighlight" id="eq-110">
-<span id="equation-eq-110"></span><span class="eqno">(123)<a class="headerlink" href="#eq-110" title="Permalink to this equation"></a></span>\[ {S_W}^{-1} S_B \xi - \lambda \xi = 0 \Rightarrow {S_W}^{-1} S_B \xi - \lambda I \xi = 0\]</div>
+<span id="equation-eq-110"></span><span class="eqno">(122)<a class="headerlink" href="#eq-110" title="Permalink to this equation"></a></span>\[ {S_W}^{-1} S_B \xi - \lambda \xi = 0 \Rightarrow {S_W}^{-1} S_B \xi - \lambda I \xi = 0\]</div>
 <p>The above equation could be written as following:</p>
 <div class="math notranslate nohighlight" id="eq-111">
-<span id="equation-eq-111"></span><span class="eqno">(124)<a class="headerlink" href="#eq-111" title="Permalink to this equation"></a></span>\[ ({S_W}^{-1} S_B - \lambda I) \xi = 0\]</div>
+<span id="equation-eq-111"></span><span class="eqno">(123)<a class="headerlink" href="#eq-111" title="Permalink to this equation"></a></span>\[ ({S_W}^{-1} S_B - \lambda I) \xi = 0\]</div>
 <p>Solving this equation gives the eigenvalues (<span class="math notranslate nohighlight">\(\lambda_i\)</span>) and corresponding eigenvectors of the <span class="math notranslate nohighlight">\(S_W^{-1} S_B\)</span>
 matrix.</p>
 </section>
@@ -166,7 +166,7 @@ The eye globe could be modeled as an axisymetric finite element model where the 
 <figure class="align-center" id="id1">
 <img alt="../_images/14.png" src="../_images/14.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Illustration of the parameters <span class="math notranslate nohighlight">\(\alpha\)</span> , <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>. The tissues within the eye globe are shown in the left.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Illustration of the parameters <span class="math notranslate nohighlight">\(\alpha\)</span> , <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>. The tissues within the eye globe are shown in the left.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>In general, the lower value of <span class="math notranslate nohighlight">\(\beta\)</span> indicates larger flattening area at the posterior of the eye globe that is equal to higher severity of this eye disease.
@@ -322,7 +322,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 <figure class="align-center" id="id2">
 <img alt="../_images/15.png" src="../_images/15.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Separation of the classes including the Normal eyes, Lowe-Flattened eyes and High-Flattened eyes after implementation of the LDA analysis on the data.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Separation of the classes including the Normal eyes, Lowe-Flattened eyes and High-Flattened eyes after implementation of the LDA analysis on the data.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </section>
@@ -431,7 +431,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 <figure class="align-center" id="id3">
 <img alt="../_images/16.png" src="../_images/16.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Illustration of the new data. The arrow points at the location where the data is located</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Illustration of the new data. The arrow points at the location where the data is located</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>It could be clearly seen that this case belongs to the high-flattened class.</p>
@@ -446,7 +446,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 <figure class="align-center" id="id4">
 <img alt="../_images/17.png" src="../_images/17.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Illustration of the second unknown data. The arrow points at the location where the data is located</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Illustration of the second unknown data. The arrow points at the location where the data is located</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>It is obvious that this case belongs to the low-flattened class.</p>
@@ -461,7 +461,7 @@ Regarding the given eye globes, we have information of the pressures  (IOP and I
 <figure class="align-center" id="id5">
 <img alt="../_images/18.png" src="../_images/18.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Illustration of the third unknown data. The arrow points at the location where the data is located</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Illustration of the third unknown data. The arrow points at the location where the data is located</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>This case, clearly falls within the normal class.</p>

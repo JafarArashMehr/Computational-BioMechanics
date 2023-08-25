@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4. Inverse FEM (Optimization) &mdash; Jafar Arash Mehr 2022 documentation</title>
+  <title>4. Optimization &mdash; Jafar Arash Mehr 2022 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -48,13 +48,10 @@
 <li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery Simulation</strong></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>4. Inverse FEM (Optimization)</strong></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#optimization">4.1. Optimization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#differential-evolution">4.1.1. Differential Evolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#python-implementation">4.1.2. Python Implementation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#inverse-fem">4.2. Inverse FEM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>4. Optimization</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#differential-evolution-algorithm">4.1. Differential Evolution Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-implementation">4.2. Python Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-implementation">4.3. C++ Implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Statistical%20Analysis.html"><strong>5. Statistical Analysis</strong></a></li>
@@ -78,7 +75,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><strong>4. Inverse FEM (Optimization)</strong></li>
+      <li><strong>4. Optimization</strong></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/rst/optimization.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -88,13 +85,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="inverse-fem-optimization">
-<h1><strong>4. Inverse FEM (Optimization)</strong><a class="headerlink" href="#inverse-fem-optimization" title="Permalink to this heading"></a></h1>
-<section id="optimization">
-<h2>4.1. Optimization<a class="headerlink" href="#optimization" title="Permalink to this heading"></a></h2>
+  <section id="optimization">
+<h1><strong>4. Optimization</strong><a class="headerlink" href="#optimization" title="Permalink to this heading"></a></h1>
+<section id="differential-evolution-algorithm">
+<h2>4.1. Differential Evolution Algorithm<a class="headerlink" href="#differential-evolution-algorithm" title="Permalink to this heading"></a></h2>
 <p>In this section we implement a powerful optimization algorithm which is called <strong>Differential Evolution</strong> (Storn &amp; Price, 1997). This algorithm is one of the most popular population-based algorithms that is very efficient in optimization of complex and multi-dimensional problems. We explain how it works and then implement it in Python:</p>
-<section id="differential-evolution">
-<h3>4.1.1. Differential Evolution<a class="headerlink" href="#differential-evolution" title="Permalink to this heading"></a></h3>
 <p>Lets say we have a 2-dimensional problem meaning that there are 2 parameters that we want to find in a way that the cost function is minimized. First, we need to set up a list of population. The population list include vectors <span class="math notranslate nohighlight">\(\vec{x_1} , ... , \vec{x_n}\)</span>. Each vector has two components corresponding to the unknowns of interest. The number of the population should be set by the user:</p>
 <div class="math notranslate nohighlight" id="eq-93">
 <span id="equation-eq-93"></span><span class="eqno">(93)<a class="headerlink" href="#eq-93" title="Permalink to this equation"></a></span>\[\begin{split}Populations:\begin{cases}
@@ -114,8 +109,8 @@
 <p>It should be noted that we need to set a limit for each parameter for the optimization. In the trial vector, if one of the components corresponding to a parameter is higher than the maximum limit for that parameter, it will be pushed to the maximum value of the limit. Similarly, if it is less than the minimum of the limit it should be pushed back to the minimum value of the limit that has been set for that parameter.</p>
 <div class="math notranslate nohighlight" id="eq-95">
 <span id="equation-eq-95"></span><span class="eqno">(95)<a class="headerlink" href="#eq-95" title="Permalink to this equation"></a></span>\[\begin{split}check:\begin{cases}
-  If \quad u&gt;upper-bound \Rightarrow u=upper-bound  \\
-  If \quad u&lt;lower-bound \Rightarrow u=lower-bound \\
+  If \quad u&gt;upper\,bound \Rightarrow u=upper\,bound \\
+  If \quad u&lt;lower\,bound \Rightarrow u=ower\,bound \\
 \end{cases}\end{split}\]</div>
 <p>Now, we check in the trial vector to know if we should keep that particular component or replace it with the corresponding component from the member in the population list that the trial vector has been produced based on. In this regard, we should define a cross-over value (<span class="math notranslate nohighlight">\(C.R\)</span> )which is a number we should set between 0 and 1. A random number should be produced 2 times to determine each component of the trial vector. If the <span class="math notranslate nohighlight">\(C.R\)</span> is larger than the produced random number, then the component is kept inside the trial vector and if it is less than the produced random number it should be replaced with the component of the corresponding member in the population list:</p>
 <div class="math notranslate nohighlight" id="eq-96">
@@ -142,7 +137,7 @@ Finally, we should compare all members in the population list to see which one l
 <p>Now we are done with the first generation. The same procedure should be repeated based on the updated population list.</p>
 </section>
 <section id="python-implementation">
-<h3>4.1.2. Python Implementation<a class="headerlink" href="#python-implementation" title="Permalink to this heading"></a></h3>
+<h2>4.2. Python Implementation<a class="headerlink" href="#python-implementation" title="Permalink to this heading"></a></h2>
 <p>The python code is implemented for a simple function <span class="math notranslate nohighlight">\(f = (parameter.1)^3+ (parameter.2)^3\)</span> with the limit of <span class="math notranslate nohighlight">\([-3,3]\)</span> for both parameters to find the minimum of the function <span class="math notranslate nohighlight">\(f\)</span></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -153,7 +148,8 @@ Finally, we should compare all members in the population list to see which one l
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 
-    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="nb">pow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">3</span><span class="p">)</span>
+    <span class="c1">#print (&quot;aaa&quot;)</span>
+    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="nb">pow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="n">up_bound</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <span class="n">low_bound</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
@@ -161,7 +157,7 @@ Finally, we should compare all members in the population list to see which one l
 <span class="n">dim</span><span class="o">=</span> <span class="mi">2</span>
 <span class="n">NP</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">cr</span> <span class="o">=</span> <span class="mf">0.90</span>  <span class="c1"># crossover probability</span>
-<span class="n">F5</span> <span class="o">=</span> <span class="mf">0.90</span>  <span class="c1"># Mutation factor</span>
+<span class="n">F5</span> <span class="o">=</span> <span class="mf">0.50</span>  <span class="c1"># Scaling factor</span>
 
 <span class="n">Iteration_Number</span><span class="o">=</span><span class="mi">20</span>
 
@@ -196,8 +192,6 @@ Finally, we should compare all members in the population list to see which one l
 
         <span class="n">generation</span><span class="o">=</span><span class="n">generation</span><span class="o">+</span><span class="mi">1</span>
 
-        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;generation:&quot;</span><span class="p">,</span><span class="n">generation</span><span class="p">)</span>
-
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent_start</span><span class="p">)):</span>
 
             <span class="n">trials</span> <span class="o">=</span> <span class="p">[]</span>
@@ -227,10 +221,7 @@ Finally, we should compare all members in the population list to see which one l
                 <span class="n">parent_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">trials</span>
                 <span class="n">parent_val_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">child_val</span>
 
-            <span class="c1">#print (parent_val_start)</span>
-
-
-        <span class="n">soretd_val</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parent_val_start</span><span class="p">,</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">soretd_val</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parent_val_start</span><span class="p">,</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">ind</span> <span class="o">=</span> <span class="n">parent_val_start</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="n">iteration</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">generation</span><span class="p">)</span>
@@ -238,61 +229,235 @@ Finally, we should compare all members in the population list to see which one l
         <span class="n">param2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_start</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">cost_func</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Extremum = &quot;</span><span class="p">,</span> <span class="n">parent_start</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Minimum Objective Function = &quot;</span><span class="p">,</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
     <span class="n">col_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:&lt;30}</span><span class="s2">&quot;</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;RESULTS.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">of</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;RESULTS-Python.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">of</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">,</span><span class="n">cost_func</span><span class="p">):</span>
             <span class="n">of</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">col_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
 
 <span class="n">DE</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The output of the above code is:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Extremum</span> <span class="o">=</span>  <span class="p">[</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">]</span>
-<span class="n">Minimum</span> <span class="n">Objective</span> <span class="n">Function</span> <span class="o">=</span>  <span class="o">-</span><span class="mf">54.0</span>
+<p>The results are saved in a text file (RESULTS-Python.txt). In this file the columns 1-4 corresponds to the number of generation, best value found for the first parameter, best value found for the second parameter and the minimum value of the objective function respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>                             <span class="o">-</span><span class="mi">3</span>                            <span class="mf">0.13575177113689574</span>           <span class="o">-</span><span class="mf">26.997498292598483</span>
+<span class="mi">2</span>                             <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">0.32372692704626427</span>          <span class="o">-</span><span class="mf">27.033926298141374</span>
+<span class="mi">3</span>                             <span class="o">-</span><span class="mf">2.8804034576214943</span>           <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">50.897912723155216</span>
+<span class="mi">4</span>                             <span class="o">-</span><span class="mf">2.8914790672098825</span>           <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">51.17464792180381</span>
+<span class="mi">5</span>                             <span class="o">-</span><span class="mf">2.91210613749475</span>             <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">51.69571468276654</span>
+<span class="mi">6</span>                             <span class="o">-</span><span class="mf">2.91210613749475</span>             <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">51.69571468276654</span>
+<span class="mi">7</span>                             <span class="o">-</span><span class="mf">2.923664426142372</span>            <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">51.99093876783297</span>
+<span class="mi">8</span>                             <span class="o">-</span><span class="mf">2.9752511297830933</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.33727790449086</span>
+<span class="mi">9</span>                             <span class="o">-</span><span class="mf">2.9752511297830933</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.33727790449086</span>
+<span class="mi">10</span>                            <span class="o">-</span><span class="mf">2.9778505435169755</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.40636919427237</span>
+<span class="mi">11</span>                            <span class="o">-</span><span class="mf">2.9792931692582787</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.444765647001205</span>
+<span class="mi">12</span>                            <span class="o">-</span><span class="mf">2.9832801955402197</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.55107657228403</span>
+<span class="mi">13</span>                            <span class="o">-</span><span class="mf">2.9832801955402197</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.55107657228403</span>
+<span class="mi">14</span>                            <span class="o">-</span><span class="mf">2.9909008960491836</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.75506858321391</span>
+<span class="mi">15</span>                            <span class="o">-</span><span class="mf">2.9979827647658714</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.945571263611825</span>
+<span class="mi">16</span>                            <span class="o">-</span><span class="mf">2.9979827647658714</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.945571263611825</span>
+<span class="mi">17</span>                            <span class="o">-</span><span class="mf">2.9979827647658714</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.945571263611825</span>
+<span class="mi">18</span>                            <span class="o">-</span><span class="mf">2.9979827647658714</span>           <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">53.945571263611825</span>
+<span class="mi">19</span>                            <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">54.0</span>
+<span class="mi">20</span>                            <span class="o">-</span><span class="mi">3</span>                            <span class="o">-</span><span class="mf">3.0</span>                          <span class="o">-</span><span class="mf">54.0</span>
 </pre></div>
 </div>
-<p>It means that the best values of the parameters minimizing the function are -3 and -3 resulting in the minimized objective function equal to -54.</p>
-<p>The results are saved in a text file (RESULTS.txt). We can monitor the rate of the convergence by running this code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plotfile</span><span class="p">(</span><span class="s1">&#39;RESULTS.txt&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\mathrm{f=(parameter.1)^3+(parameter.2)^3}$&#39;</span><span class="p">)</span>
-<span class="n">lg</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mathrm</span><span class="si">{Iteration}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mathrm{Cost \/\/\/Function}$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-
-<span class="n">axes</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<figure class="align-center" id="id1">
-<img alt="../_images/13.png" src="../_images/13.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Results of the convergence for the optimization of the parameters</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
 </section>
-</section>
-<section id="inverse-fem">
-<h2>4.2. Inverse FEM<a class="headerlink" href="#inverse-fem" title="Permalink to this heading"></a></h2>
-<p>In this section we introduce how we can use differential evolution algorithm in finding the best values of some parameters in a finite element code when we have some experimental data and try to tune the parameters in a way that the numerical results are best fitted into the experimental data.
-Lets say we have measured the displacement at two points in an experiment at the coordinates of <span class="math notranslate nohighlight">\((x_1,y_1)\)</span> and <span class="math notranslate nohighlight">\((x_2,y_2)\)</span> and we have a finite element code (e.g., FEniCS code) for simulation of the displacement field. Now we want to find the best value of a parameter (It could be anything like the Young’s modulus etc.) in finite element code in a way that it leads to closest possible values of the displacements <span class="math notranslate nohighlight">\(u\)</span> in those points in comparison with the experimental values (EXP).</p>
-<p>The only difference is where we defined the <span class="math notranslate nohighlight">\(f(X)\)</span>. With that being said we should define the objective functions as the out put of the <span class="math notranslate nohighlight">\(f(X)\)</span>:</p>
-<div class="math notranslate nohighlight" id="eq-99">
-<span id="equation-eq-99"></span><span class="eqno">(99)<a class="headerlink" href="#eq-99" title="Permalink to this equation"></a></span>\[ \textbf{Objective Function} = \sqrt{[EXP_{(x_1,y_1)} - u(x_1,y_1)]^2+[EXP_{(x_2,y_2)} - u(x_2,y_2)]^2)}\]</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<section id="c-implementation">
+<h2>4.3. C++ Implementation<a class="headerlink" href="#c-implementation" title="Permalink to this heading"></a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;random&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span><span class="cp"></span>
 
-    <span class="s2">&quot;Here we write the FEniCS code&quot;</span>
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="s2">&quot;Experimental Value&quot;</span><span class="o">-</span><span class="n">u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="kt">float</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">pow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">up_bound</span><span class="w"> </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">low_bound</span><span class="w"> </span><span class="p">{</span><span class="mi">-3</span><span class="p">,</span><span class="mi">-3</span><span class="p">};</span><span class="w"></span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="n">dim</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">NP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">cr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.90</span><span class="p">;</span><span class="w">  </span><span class="c1">// crossover probability</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">F5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.50</span><span class="p">;</span><span class="w">  </span><span class="c1">// Scaling factor</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Iteration_Number</span><span class="o">=</span><span class="mi">20</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">parent_start</span><span class="p">;</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent_val_start</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="n">random_device</span><span class="w"> </span><span class="n">rd</span><span class="p">;</span><span class="w"></span>
+<span class="n">default_random_engine</span><span class="w"> </span><span class="nf">eng</span><span class="p">(</span><span class="n">rd</span><span class="p">());</span><span class="w"></span>
+
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NP</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="w"> </span><span class="p">){</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dim</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="w"> </span><span class="p">){</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">uniform_real_distribution</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">distr</span><span class="p">{</span><span class="n">low_bound</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="w"> </span><span class="n">up_bound</span><span class="p">[</span><span class="n">k</span><span class="p">]};</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">x</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">distr</span><span class="p">(</span><span class="n">eng</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">parent_start</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">parent_val_start</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">find_index</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">val_array</span><span class="w"> </span><span class="p">){</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">iterator</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="n">q</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">val_array</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">target</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">iterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">iterator</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">generation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">iteration</span><span class="p">;</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">param1</span><span class="p">;</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">param2</span><span class="p">;</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cost_func</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="n">uniform_real_distribution</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">distr_cr</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">start</span><span class="p">();</span><span class="w"></span>
+
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Iteration_Number</span><span class="p">;</span><span class="w"> </span><span class="n">z</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">generation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generation</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">parent_start</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">trials</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">                    </span><span class="kt">int</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="kt">int</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span><span class="w"></span>
+<span class="w">                    </span><span class="kt">int</span><span class="w"> </span><span class="n">p_target</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">                    </span><span class="k">do</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">                        </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">parent_start</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
+<span class="w">                        </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">parent_start</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
+<span class="w">                        </span><span class="n">p_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">parent_start</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
+
+
+<span class="w">                    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">p1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">p_target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">p_target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">p_target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="w">                        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dim</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">                            </span><span class="kt">float</span><span class="w"> </span><span class="n">rand_0_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distr_cr</span><span class="w"> </span><span class="p">(</span><span class="n">eng</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">                            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rand_0_1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">cr</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">                                </span><span class="n">trials</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">parent_start</span><span class="p">[</span><span class="n">p_target</span><span class="p">])[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">F5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="n">parent_start</span><span class="p">[</span><span class="n">p1</span><span class="p">])[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">parent_start</span><span class="p">[</span><span class="n">p2</span><span class="p">])[</span><span class="n">k</span><span class="p">]));</span><span class="w"></span>
+<span class="w">                            </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">                            </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">                                </span><span class="n">trials</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">parent_start</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="n">k</span><span class="p">]);</span><span class="w"></span>
+<span class="w">                            </span><span class="p">}</span><span class="w"></span>
+<span class="w">                        </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">                        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dim</span><span class="p">;</span><span class="w"> </span><span class="n">s</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">                            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">up_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]){</span><span class="w"></span>
+
+<span class="w">                                </span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span><span class="n">up_bound</span><span class="p">[</span><span class="n">s</span><span class="p">];</span><span class="w"></span>
+<span class="w">                            </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">                            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">low_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]){</span><span class="w"></span>
+
+<span class="w">                                </span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span><span class="n">low_bound</span><span class="p">[</span><span class="n">s</span><span class="p">];</span><span class="w"></span>
+<span class="w">                            </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">                            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">low_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">up_bound</span><span class="p">[</span><span class="n">s</span><span class="p">]){</span><span class="w"></span>
+
+<span class="w">                                </span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span><span class="n">trials</span><span class="p">[</span><span class="n">s</span><span class="p">];</span><span class="w"></span>
+<span class="w">                            </span><span class="p">}</span><span class="w"></span>
+<span class="w">                        </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">                        </span><span class="kt">float</span><span class="w"> </span><span class="n">child_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">trials</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">trials</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span><span class="w"></span>
+
+
+<span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">child_val</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">parent_val_start</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span><span class="w"></span>
+
+<span class="w">                            </span><span class="n">parent_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trials</span><span class="p">;</span><span class="w"></span>
+<span class="w">                            </span><span class="n">parent_val_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">child_val</span><span class="p">;</span><span class="w"></span>
+<span class="w">                        </span><span class="p">}</span><span class="w"></span>
+<span class="w">                </span><span class="p">};</span><span class="w"></span>
+
+
+<span class="w">                </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">soretd_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent_val_start</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="n">sort</span><span class="p">(</span><span class="n">soretd_val</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">soretd_val</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"></span>
+
+<span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">ind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_index</span><span class="w"> </span><span class="p">(</span><span class="n">parent_val_start</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">parent_val_start</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">iteration</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">generation</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="n">param1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">parent_start</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
+<span class="w">                </span><span class="n">param2</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">parent_start</span><span class="p">[</span><span class="n">ind</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span><span class="w"></span>
+<span class="w">                </span><span class="n">cost_func</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">soretd_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">(</span><span class="s">&quot;Results-CPP.txt&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">fstream</span><span class="w"> </span><span class="n">file_out</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">file_out</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">iteration</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">r</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">file_out</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">iteration</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;       &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">param1</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;       &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">param2</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;       &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">cost_func</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">file_out</span><span class="p">.</span><span class="n">close</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
+<p>The results are saved in a text file (RESULTS-CPP.txt). In this file the columns 1-4 corresponds to the number of generation, best value found for the first parameter, best value found for the second parameter and the minimum value of the objective function respectively.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="w">       </span><span class="mf">1.18459</span><span class="w">         </span><span class="mi">-3</span><span class="w">            </span><span class="mf">-25.3377</span><span class="w"></span>
+<span class="mi">2</span><span class="w">       </span><span class="mf">-1.54879</span><span class="w">       </span><span class="mf">-2.90724</span><span class="w">       </span><span class="mf">-28.2871</span><span class="w"></span>
+<span class="mi">3</span><span class="w">       </span><span class="mf">-1.83923</span><span class="w">       </span><span class="mf">-2.95362</span><span class="w">       </span><span class="mf">-31.9886</span><span class="w"></span>
+<span class="mi">4</span><span class="w">       </span><span class="mf">-1.83923</span><span class="w">       </span><span class="mf">-2.95362</span><span class="w">       </span><span class="mf">-31.9886</span><span class="w"></span>
+<span class="mi">5</span><span class="w">       </span><span class="mf">-2.30088</span><span class="w">       </span><span class="mf">-2.9091</span><span class="w">        </span><span class="mf">-36.8003</span><span class="w"></span>
+<span class="mi">6</span><span class="w">       </span><span class="mf">-2.56735</span><span class="w">       </span><span class="mf">-2.93374</span><span class="w">       </span><span class="mf">-42.1723</span><span class="w"></span>
+<span class="mi">7</span><span class="w">       </span><span class="mf">-2.56735</span><span class="w">       </span><span class="mf">-2.93374</span><span class="w">       </span><span class="mf">-42.1723</span><span class="w"></span>
+<span class="mi">8</span><span class="w">       </span><span class="mf">-2.56735</span><span class="w">       </span><span class="mf">-2.93374</span><span class="w">       </span><span class="mf">-42.1723</span><span class="w"></span>
+<span class="mi">9</span><span class="w">       </span><span class="mf">-2.6831</span><span class="w">        </span><span class="mf">-2.90672</span><span class="w">       </span><span class="mf">-43.8746</span><span class="w"></span>
+<span class="mi">10</span><span class="w">       </span><span class="mf">-2.73581</span><span class="w">       </span><span class="mf">-2.88452</span><span class="w">       </span><span class="mf">-44.4773</span><span class="w"></span>
+<span class="mi">11</span><span class="w">       </span><span class="mf">-2.81982</span><span class="w">       </span><span class="mf">-2.93374</span><span class="w">       </span><span class="mf">-47.6718</span><span class="w"></span>
+<span class="mi">12</span><span class="w">       </span><span class="mf">-2.90422</span><span class="w">       </span><span class="mf">-2.90321</span><span class="w">       </span><span class="mf">-48.9656</span><span class="w"></span>
+<span class="mi">13</span><span class="w">       </span><span class="mf">-2.91029</span><span class="w">       </span><span class="mf">-2.93327</span><span class="w">       </span><span class="mf">-49.8878</span><span class="w"></span>
+<span class="mi">14</span><span class="w">       </span><span class="mf">-2.91029</span><span class="w">       </span><span class="mf">-2.96987</span><span class="w">       </span><span class="mf">-50.8442</span><span class="w"></span>
+<span class="mi">15</span><span class="w">       </span><span class="mi">-3</span><span class="w">             </span><span class="mf">-2.96256</span><span class="w">       </span><span class="mf">-53.0016</span><span class="w"></span>
+<span class="mi">16</span><span class="w">       </span><span class="mi">-3</span><span class="w">             </span><span class="mf">-2.96256</span><span class="w">       </span><span class="mf">-53.0016</span><span class="w"></span>
+<span class="mi">17</span><span class="w">       </span><span class="mi">-3</span><span class="w">             </span><span class="mi">-3</span><span class="w">              </span><span class="mi">-54</span><span class="w"></span>
+<span class="mi">18</span><span class="w">       </span><span class="mi">-3</span><span class="w">             </span><span class="mi">-3</span><span class="w">              </span><span class="mi">-54</span><span class="w"></span>
+<span class="mi">19</span><span class="w">       </span><span class="mi">-3</span><span class="w">             </span><span class="mi">-3</span><span class="w">              </span><span class="mi">-54</span><span class="w"></span>
+<span class="mi">20</span><span class="w">       </span><span class="mi">-3</span><span class="w">             </span><span class="mi">-3</span><span class="w">              </span><span class="mi">-54</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Like the previous Implementation in Python, the C++ code minimizes the objective function to -54 where the best value for each parameter was found equal to -3.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The limits of the parameter that we want to find as well as the number of populations, <span class="math notranslate nohighlight">\(C.R\)</span> , <span class="math notranslate nohighlight">\(F\)</span> and number of iterations should be set in way a that it leads to best possible results. It usually needs some try and error and good understanding of the physics of the problem.</p>

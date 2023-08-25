@@ -18,6 +18,3 @@ Jafar Arash Mehr
    rst/ML
    rst/LDA
    rst/contact
-
-
-

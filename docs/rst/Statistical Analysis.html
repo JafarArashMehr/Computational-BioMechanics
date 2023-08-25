@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. Linear Regression" href="Linear%20Regression.html" />
-    <link rel="prev" title="4. Inverse FEM (Optimization)" href="optimization.html" /> 
+    <link rel="prev" title="4. Optimization" href="optimization.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery Simulation</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Inverse FEM (Optimization)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Optimization</strong></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>5. Statistical Analysis</strong></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#descriptive-statistics">5.1. Descriptive statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#data-sampling">5.2. Data sampling</a></li>
@@ -114,7 +114,7 @@
 <figure class="align-center" id="id1">
 <img alt="../_images/23.png" src="../_images/23.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Information of the first 10 rows of the data</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Information of the first 10 rows of the data</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>Now, get a table that contains some descriptive statistics about the data.</p>
@@ -265,7 +265,7 @@ About 99.62% of the data falls within 3 standard deviations of the mean.</p>
 <p>The 95.77% is very close to 95%, and the 99.62% is very close to 99.7%. The 75.15% is not as close to 68%, but relatively close. Overall, from applying the empirical rule, the data appears to be not exactly normal, but could be considered approximately normal.</p>
 <p>The z-score is defined as:</p>
 <div class="math notranslate nohighlight" id="eq-112">
-<span id="equation-eq-112"></span><span class="eqno">(100)<a class="headerlink" href="#eq-112" title="Permalink to this equation"></a></span>\[ z_{score}= \frac {x-\mu}{\sigma}\]</div>
+<span id="equation-eq-112"></span><span class="eqno">(99)<a class="headerlink" href="#eq-112" title="Permalink to this equation"></a></span>\[ z_{score}= \frac {x-\mu}{\sigma}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(x\)</span> , <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> correspond to the raw data, population mean and standard deviation of the population respectively.</p>
 <p>Since z-score indicates the relative position of values (for instance, z-score measures how many standard deviations below or above the mean a data point is), it can be used to detect outliers. Z-score could be used to identify values that lie more than 3 standard deviations below or above the mean. These values may be considered outliers.We can compute the z-score for every aqi_log value. Then, add a column named z_score in the data to store those results:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;z_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aqi_log&quot;</span><span class="p">])</span>
@@ -360,7 +360,7 @@ About 99.62% of the data falls within 3 standard deviations of the mean.</p>
 </table>
 <p>In addition, the standard error is calculated using this formula:</p>
 <div class="math notranslate nohighlight" id="eq-313">
-<span id="equation-eq-313"></span><span class="eqno">(101)<a class="headerlink" href="#eq-313" title="Permalink to this equation"></a></span>\[ Standard Error= \frac {S}{\sqrt{n}}\]</div>
+<span id="equation-eq-313"></span><span class="eqno">(100)<a class="headerlink" href="#eq-313" title="Permalink to this equation"></a></span>\[ Standard Error= \frac {S}{\sqrt{n}}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(n\)</span> are standard deviation and size of the data.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Defining the z associated with the chosen confidence level.</span>
 <span class="n">z_value</span> <span class="o">=</span> <span class="mf">1.96</span>
@@ -474,7 +474,7 @@ Lastly, we can conclude that confidence interval at the 95% level of confidence 
 <p>The difference between the z score and t score is that when using the z score, the standard deviation of the population is known while when using the t score, it is not. Instead we use the standard deviation of the sample in the formula.</p>
 </div>
 <div class="math notranslate nohighlight" id="eq-114">
-<span id="equation-eq-114"></span><span class="eqno">(102)<a class="headerlink" href="#eq-114" title="Permalink to this equation"></a></span>\[ t_{score}= \frac {\bar{X}-\mu}{\sigma}\]</div>
+<span id="equation-eq-114"></span><span class="eqno">(101)<a class="headerlink" href="#eq-114" title="Permalink to this equation"></a></span>\[ t_{score}= \frac {\bar{X}-\mu}{\sigma}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(\bar{X}\)</span> , <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> correspond to the sample mean, population mean and standard deviation of the sample respectively.</p>
 </section>
 </section>
@@ -483,7 +483,7 @@ Lastly, we can conclude that confidence interval at the 95% level of confidence 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="optimization.html" class="btn btn-neutral float-left" title="4. Inverse FEM (Optimization)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="optimization.html" class="btn btn-neutral float-left" title="4. Optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Linear%20Regression.html" class="btn btn-neutral float-right" title="6. Linear Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
