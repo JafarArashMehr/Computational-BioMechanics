@@ -1,0 +1,24 @@
+About the Author
+===============================
+
+
+:math:`\textbf {Education:}`
+
+	:math:`\circ` PhD.Mechanical Engineering, University of Illinois at Chicago
+
+	:math:`\circ` MSc.Mechanical Engineering, Tarbiat Modares University
+
+	:math:`\circ` BSc.Mechanical Engineering, Sharif University of Technology
+
+ 
+:math:`\textbf {Selected Publications:}`
+
+	:math:`\circ` `Mehr, Jafar Arash, and Hamed Hatami-Marbini. "Finite Deformation of Scleral Tissue under Electrical Stimulation: An Arbitrary Lagrangian-Eulerian Finite Element Method." Bioengineering 10, no. 8 (2023): 920.`
+
+	:math:`\circ` `Mehr, Jafar Arash, and Hamed Hatami-Marbini. "Experimental and numerical analysis of electroactive characteristics of scleral tissue." Acta Biomaterialia 143 (2022): 127-137.`
+
+	:math:`\circ` `Mehr, Jafar A., Heather E. Moss, and Hamed Hatami-Marbini. "Numerical investigation on the role of mechanical factors contributing to globe flattening in states of elevated intracranial pressure." Life 10, no. 12 (2020): 316.`
+
+:math:`\textbf {Contact:}`
+
+Please feel free to contact me via email if you either want to give a feedback or have any question about this document: **JafarArashMehr@gmail.com**
