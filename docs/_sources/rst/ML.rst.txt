@@ -188,7 +188,7 @@ The probability of the outcome overall, P(A), is multiplied by the conditional p
 .. math:: 
   :name: eq.213
 
-   P(B|A)= \frac{P(B|A).P(A)}{P(B)}
+   P(A|B)= \frac{P(B|A).P(A)}{P(B)}
 
 
 The goal of Bayes’ Theorem is to find the probability of an event, A, given that another event B is true. In the context of a predictive model, the class label would be A and the predictor variable would be B. P(A) is considered the prior probability of event A before any evidence (feature) is seen. Then, P(A|B) is the posterior probability, or the probability of the class label after the evidence (feature) has been seen. 
