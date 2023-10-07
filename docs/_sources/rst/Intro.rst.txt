@@ -1,0 +1,13 @@
+
+**What is this document about?**
+=========================================
+
+:math:`\textbf {1.}` The first chapter talks about the concepts of some hyperelastic material models and compares the analytical solutions with the numerical results based on finite element method (**FEM**).  
+
+:math:`\textbf {2.}` The second chapter explains how to solve a **multi-Physics** problem using FEM. 
+
+:math:`\textbf {3.}` This chapter presents and solve an example to illustrate how a multi-Physics model could be used for simulation of enhanced drug delivery. 
+
+:math:`\textbf {4.}` In this chapter, details of **Differential Evolution** optimization algorithm will be described and an example will be implemented in **Python** and **C++** programming languages.
+
+:math:`\textbf {5.}` This chapter presents the theory of a supervised machine learning technique (**Linear Discriminant Analysis**) and goes over an example to demonstrate how it could be used in disease diagnosis.
