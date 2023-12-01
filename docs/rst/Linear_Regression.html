@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. Linear Regression &mdash; Jafar Arash Mehr 2022 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Machine Learning in Diagnosis" href="LDA.html" />
+    <link rel="prev" title="4. Optimization (Python vs C++)" href="optimization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Jafar Arash Mehr
+            <img src="../_static/profile.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Intro.html"><strong>What is this document about?</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="resource.html"><strong>Useful Resources</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html"><strong>Required Packages</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperelasticity.html"><strong>1. Hyperelasticity</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi-physics.html"><strong>2. Multi-Physics Problem</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="drug-delivery.html"><strong>3. Drug Delivery Simulation</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html"><strong>4. Optimization (Python vs C++)</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>5. Linear Regression</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-linear-regression">5.1. What is Linear Regression?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-framework">5.2. Mathematical Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#analytical-solution">5.3. Analytical Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gradient-descent">5.4. Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-implementation">5.5. C++ Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#direct-solver">5.5.1 Direct Solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iterative-solver-gradient-descent">5.5.2 Iterative Solver (Gradient Descent)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LDA.html"><strong>6. Machine Learning in Diagnosis</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ANN.html"><strong>7. Neural Network form the Scratch</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html"><strong>About the Author</strong></a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/JafarArashMehr">GitHub</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Jafar Arash Mehr</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><strong>5. Linear Regression</strong></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/rst/Linear_Regression.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="linear-regression">
+<h1><strong>5. Linear Regression</strong><a class="headerlink" href="#linear-regression" title="Permalink to this heading"></a></h1>
+<section id="what-is-linear-regression">
+<h2>5.1. What is Linear Regression?<a class="headerlink" href="#what-is-linear-regression" title="Permalink to this heading"></a></h2>
+<p>The linear regression is a supervised machine learning (ML) technique for modeling a dependent value(s) based on an
+independent value(s).
+This ML method is used for prediction and finding relationships between values. Simple linear regression is the case where
+the number of independent variables is 1, and
+there is a linear relationship between the independent (<span class="math notranslate nohighlight">\(x\)</span>) and dependent (<span class="math notranslate nohighlight">\(y\)</span>) variable.
+The Linear regression is of interest in several scientific and industrial fields.
+The purpose of using this method is to find a relationship between one independent variable and one or
+more dependent variable(s) using a straight line.
+If there is only one independent variable in the model, we call it <strong>Simple Linear Regression</strong> and if
+there are several independent variables, it is called <strong>Multiple Linear Regression</strong>.
+It should be noted that in the most of the real world problems, we are dealing with a lot of
+independent variables where the multiple linear regression model is applicable.</p>
+</section>
+<section id="mathematical-framework">
+<h2>5.2. Mathematical Framework<a class="headerlink" href="#mathematical-framework" title="Permalink to this heading"></a></h2>
+<p>Lets say we have a dependent variable (<span class="math notranslate nohighlight">\(y_i\)</span>) where it has a relationship with linear combination of different independent
+variables (x_{in}) where the <span class="math notranslate nohighlight">\(i\)</span> and  <span class="math notranslate nohighlight">\(n\)</span> correspond to size of the data and number of the independent variables
+respectively. This relationship could be expressed as below:</p>
+<div class="math notranslate nohighlight" id="eq-500">
+<span id="equation-eq-500"></span><span class="eqno">(99)<a class="headerlink" href="#eq-500" title="Permalink to this equation"></a></span>\[ y_i =  \alpha_0 1 + \alpha_1 x_{i1} + \alpha_2 x_{i2} + ... +\alpha_n x_{in}\]</div>
+<p>The <a class="reference internal" href="#eq-500"><span class="std std-ref">Equation.99</span></a> could be rewritten in matrix format:</p>
+<div class="math notranslate nohighlight" id="eq-501">
+<span id="equation-eq-501"></span><span class="eqno">(100)<a class="headerlink" href="#eq-501" title="Permalink to this equation"></a></span>\[ \vec{\boldsymbol{y_i}} =  \boldsymbol{x} \vec{\boldsymbol{\alpha_j}}\]</div>
+<p>In the above equation, the parameters are expressed as follows:</p>
+<div class="math notranslate nohighlight" id="eq-502">
+<span id="equation-eq-502"></span><span class="eqno">(101)<a class="headerlink" href="#eq-502" title="Permalink to this equation"></a></span>\[\begin{split} \vec{\boldsymbol{y_i}} =  \begin{bmatrix} y_1 \\ y_2 \\. \\ . \\ . \\ y_n \end{bmatrix} \quad &amp; \quad
+ \vec{\boldsymbol{\alpha_i}} =  \begin{bmatrix} \alpha_1 \\ \alpha_2 \\. \\ . \\ . \\ \alpha_j \end{bmatrix} \quad &amp; \quad
+ \boldsymbol{x} =  \begin{bmatrix} x_{11} &amp; x_{12} &amp; . &amp; .&amp; . &amp; x_{1m}  \\ x_{21} &amp; x_{22} &amp; . &amp; .&amp; . &amp; x_{2m} \\
+  . &amp; . &amp; . &amp; .&amp; . &amp; . \\ . &amp; . &amp; . &amp; .&amp; . &amp; .\\ . &amp; . &amp; . &amp; .&amp; . &amp; . \\  x_{n1} &amp; x_{n2} &amp; . &amp; .&amp; . &amp; x_{nm}  \end{bmatrix}\end{split}\]</div>
+<p>Again, it should be noted that each <span class="math notranslate nohighlight">\(y_i\)</span> corresponds to a specific data where the value of the <span class="math notranslate nohighlight">\(y_i\)</span> depends to
+the linear combination of multiplication of the values of independent variables (<span class="math notranslate nohighlight">\(x_{i1},.....,x_{im}\)</span>) by their
+corresponding <span class="math notranslate nohighlight">\(\alpha\)</span> values (<span class="math notranslate nohighlight">\(\alpha_{1},.....,\alpha_{m}\)</span>)</p>
+</section>
+<section id="analytical-solution">
+<h2>5.3. Analytical Solution<a class="headerlink" href="#analytical-solution" title="Permalink to this heading"></a></h2>
+<p>The purpose of performing the linear regression is to find the values of the <span class="math notranslate nohighlight">\(\alpha_{1},....,\alpha_{m}\)</span> so we could
+find the equation of a straight line which is best fitted to the data.</p>
+<p>In order to do that, we need to minimize the sum of the squares of the differences between the real value of
+the <span class="math notranslate nohighlight">\(y_i\)</span> and the value predicted
+by the liner regression model which is usually referred to as <strong>Ordinary Least Square</strong> (<strong>OLS</strong>) method.</p>
+<p>The objective function is defined as:</p>
+<div class="math notranslate nohighlight" id="eq-503">
+<span id="equation-eq-503"></span><span class="eqno">(102)<a class="headerlink" href="#eq-503" title="Permalink to this equation"></a></span>\[ F = \sum_{i=0}^n ((y_i - \sum_{j=0}^m x_{ij} \alpha_{j})^2)\]</div>
+<p>Where the <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(m\)</span> correspond to the number of the data and number of the independent variables respectively.
+The minimization of the above function results in a unique solution for the <span class="math notranslate nohighlight">\(\alpha\)</span> :</p>
+<div class="math notranslate nohighlight" id="eq-504">
+<span id="equation-eq-504"></span><span class="eqno">(103)<a class="headerlink" href="#eq-504" title="Permalink to this equation"></a></span>\[ \vec{\alpha} = (\boldsymbol{x}^{T}\boldsymbol{x})^{-1} \boldsymbol{x}^{T} \vec{y}\]</div>
+<p>The above solution could be used to calculate the unknown <span class="math notranslate nohighlight">\(\alpha\)</span> values. Although this may look
+perfect for small problems where we have only few of independent variables but this approach
+has a prominent disadvantage which is calculation of the inverse of the matrix. It should be noted that when it comes to a problem
+where the size of the independent variables is large, the calculation of the inverse matrix is computationally expensive.</p>
+</section>
+<section id="gradient-descent">
+<h2>5.4. Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this heading"></a></h2>
+<p>To resolve this issue, we need to take an iterative approach in order to minimize the differences between the real values of
+<span class="math notranslate nohighlight">\(y_i\)</span> and the predicted values using the linear regression model. This method is called <strong>Gradient Descent</strong> and we should
+minimize the <strong>Mean Squared Error (MSE)</strong> function as defined here:</p>
+<div class="math notranslate nohighlight" id="eq-505">
+<span id="equation-eq-505"></span><span class="eqno">(104)<a class="headerlink" href="#eq-505" title="Permalink to this equation"></a></span>\[ MSE = \frac {1}{n}\sum_{i=0}^n (y_i - x_{i} \alpha_{i})^2\]</div>
+<p>This could be done by taking a derivative from the above equation with respect to the <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
+<div class="math notranslate nohighlight" id="eq-506">
+<span id="equation-eq-506"></span><span class="eqno">(105)<a class="headerlink" href="#eq-506" title="Permalink to this equation"></a></span>\[ \frac{\partial{(MSE)}}{\partial{\alpha}} = \frac{2}{n} \sum_{i=0}^n (y_i - x_{i} \alpha_{i}) x_{i}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are a couple of steps should be taken until reaching to the minimum of the MSE function by
+performing the Gradient Descent approach as follows:</p>
+</div>
+<p><strong>1.</strong> Initialize <span class="math notranslate nohighlight">\(\alpha\)</span> with zeros</p>
+<p><strong>2.</strong>  Specifying a parameter which is called <strong>Learning Rate</strong> (<span class="math notranslate nohighlight">\(\lambda\)</span>) for adjusting at which rate
+we are moving to find the extremum of the function</p>
+<p><strong>3.</strong> Replacing the <span class="math notranslate nohighlight">\(\alpha_i\)</span> values with:</p>
+<div class="math notranslate nohighlight" id="eq-507">
+<span id="equation-eq-507"></span><span class="eqno">(106)<a class="headerlink" href="#eq-507" title="Permalink to this equation"></a></span>\[\alpha_i = \alpha_i - \frac{2}{n} \lambda \sum_{i=0}^n (y_i - x_{i} \alpha) x_{i}\]</div>
+<p><strong>4.</strong> Repeat steps 1-3 until the MSE value reaches to a reasonable minimum value</p>
+</section>
+<section id="c-implementation">
+<h2>5.5. C++ Implementation<a class="headerlink" href="#c-implementation" title="Permalink to this heading"></a></h2>
+<p>Here we implement the Linear Regression model for a simple problem to show how it works. We consider a problem
+with only one independent variable (<span class="math notranslate nohighlight">\(x\)</span>) and 3 input data including 1, 2 and 3 with the dependent variable (<span class="math notranslate nohighlight">\(y\)</span>) of
+6, 11 and 16 respectively. We implement the Linear_Regression model using both direct approach and
+iterative approach (Gradient Descent). In this case, the equation of the linear line is: <span class="math notranslate nohighlight">\(y = \alpha_{0} + \alpha_{1} x\)</span>.
+The purpose is to find the <span class="math notranslate nohighlight">\(\alpha_{0}\)</span> and <span class="math notranslate nohighlight">\(\alpha_{1}\)</span>. After that, we will use the obtained <span class="math notranslate nohighlight">\(alpha\)</span> values
+to predict the dependent value for a new input independent variable (i.e., 4 )
+In order to perform the linear algebra operation (e.g., Calculation of inverse of the matrix) we use a C++ library (<a class="reference external" href="http://dlib.net/">Dlib</a>)</p>
+<section id="direct-solver">
+<h3>5.5.1 Direct Solver<a class="headerlink" href="#direct-solver" title="Permalink to this heading"></a></h3>
+<p>Here is the implementation of the Linear Regression using direct approach</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;/dlib/matrix.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// Here we define 3 input data corresponding to the independent variable (1,2,3).</span>
+<span class="c1">// Each data should be stored in a vector starting with number 1</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">x_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">      </span><span class="p">};</span><span class="w"></span>
+
+<span class="c1">// Here we define 3 values corresponding to the dependent variable (6,11,16).</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">target_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">};</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="n">constexpr</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">dlib</span><span class="o">::</span><span class="n">matrix</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">number_of_data</span><span class="p">,</span><span class="w"> </span><span class="n">dimensions</span><span class="o">&gt;</span><span class="w"> </span><span class="n">matrix_x</span><span class="p">;</span><span class="w"></span>
+<span class="n">dlib</span><span class="o">::</span><span class="n">matrix</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">number_of_data</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="w"> </span><span class="n">matrix_y</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">class</span><span class="w"> </span><span class="n">Linear_Regression</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">   </span><span class="n">dlib</span><span class="o">::</span><span class="n">matrix</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">dimensions</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="w"> </span><span class="n">return_alpha</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">vec_x</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec_y</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dimensions</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">         </span><span class="n">matrix_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec_x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">         </span><span class="n">matrix_y</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec_y</span><span class="p">[</span><span class="n">k</span><span class="p">];</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">inv</span><span class="p">(</span><span class="n">trans</span><span class="p">(</span><span class="n">matrix_x</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">matrix_x</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">trans</span><span class="p">(</span><span class="n">matrix_x</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">matrix_y</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="p">};</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">float</span><span class="w"> </span><span class="nf">predict</span><span class="w"> </span><span class="p">(</span><span class="n">dlib</span><span class="o">::</span><span class="n">matrix</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">dimensions</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="w"> </span><span class="n">coefficients</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_inputs</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">   </span><span class="kt">float</span><span class="w"> </span><span class="n">new_predict</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">new_inputs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">p</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">      </span><span class="n">new_predict</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">coefficients</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">new_inputs</span><span class="p">[</span><span class="n">p</span><span class="p">];</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">new_predict</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">Linear_Regression</span><span class="w"> </span><span class="n">lg</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">dlib</span><span class="o">::</span><span class="n">matrix</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">dimensions</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lg</span><span class="p">.</span><span class="n">return_alpha</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span><span class="n">target_values</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;The calculated coefficients are: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">alpha</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">z</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">alpha</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="c1">// Here we define new independent variable (4) to predict the dependent variable.</span>
+<span class="c1">// This new value should be stored in a vector starting with number 1</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_values_to_predict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w"></span>
+
+<span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;The predicted value is: &quot;</span><span class="w">  </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">predict</span><span class="w"> </span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">new_values_to_predict</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The output of the above code is:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">The</span><span class="w"> </span><span class="n">calculated</span><span class="w"> </span><span class="n">coefficients</span><span class="w"> </span><span class="n">are</span><span class="o">:</span><span class="w"></span>
+<span class="mf">1.00001</span><span class="w"></span>
+<span class="mi">5</span><span class="w"></span>
+<span class="n">The</span><span class="w"> </span><span class="n">predicted</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mi">21</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The above result are as we expect as the equation of this line based on the input data is <span class="math notranslate nohighlight">\(y = 1 + 5x\)</span> and the predicted
+value is equal to 21.</p>
+</section>
+<section id="iterative-solver-gradient-descent">
+<h3>5.5.2 Iterative Solver (Gradient Descent)<a class="headerlink" href="#iterative-solver-gradient-descent" title="Permalink to this heading"></a></h3>
+<p>Here is the implementation of the Linear Regression using gradient descent approach (Iterative Solver):</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// Here we define 3 input data corresponding to the independent variable (1,2,3).</span>
+<span class="c1">// Each data should be stored in a vector starting with number 1</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">x_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">      </span><span class="p">};</span><span class="w"></span>
+
+<span class="c1">// Here we define 3 values corresponding to the dependent variable (6,11,16).</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">target_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">};</span><span class="w"></span>
+
+<span class="c1">// Here we define the learning rate.</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.001</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// Here we define the number of iteration.</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50000</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="c1">////////////////////////////////////////////////////</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">matrix_x</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">matrix_y_real</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">matrix_y_predict</span><span class="p">;</span><span class="w"></span>
+<span class="c1">////////////////////////////////////////////////////</span>
+
+<span class="kt">float</span><span class="w"> </span><span class="n">gamma</span><span class="p">;</span><span class="w"></span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span><span class="w"></span>
+
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_values_to_predict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w"></span>
+
+<span class="kt">float</span><span class="w"> </span><span class="nf">predict</span><span class="w"> </span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">coefficients</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_inputs</span><span class="p">){</span><span class="w"></span>
+
+<span class="kt">float</span><span class="w"> </span><span class="n">new_predict</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">new_inputs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">p</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">      </span><span class="n">new_predict</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">coefficients</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">new_inputs</span><span class="p">[</span><span class="n">p</span><span class="p">];</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">new_predict</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">matrix_x</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">());</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dimensions</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">matrix_x</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">x_values</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">      </span><span class="n">matrix_y_real</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">target_values</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span><span class="w"></span>
+<span class="w">      </span><span class="n">matrix_y_predict</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">////////////////////////////////////</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">f</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">   </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dimensions</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">alpha</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">matrix_x</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="n">matrix_y_predict</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dimensions</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">number_of_data</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">q</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+
+
+<span class="w">            </span><span class="n">gamma</span><span class="w"> </span><span class="o">+=</span><span class="w">  </span><span class="p">(</span><span class="n">matrix_y_predict</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">matrix_y_real</span><span class="p">[</span><span class="n">q</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">matrix_x</span><span class="p">[</span><span class="n">q</span><span class="p">][</span><span class="n">p</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">alpha</span><span class="w"> </span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">2.</span><span class="o">/</span><span class="n">number_of_data</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gamma</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">gamma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Iteration number: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;alpha 1 is: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;alpha 2 is: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">alpha</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;The predicted value is: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">predict</span><span class="w"> </span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">new_values_to_predict</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The output of the above code is:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.022</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0506667</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0437533</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.100772</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0652627</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.150324</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0865309</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.199326</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.107561</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.247786</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.128354</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.29571</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">6</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.148915</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.343103</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">7</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.169245</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.389972</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.189346</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.436322</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">9</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.209222</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.482159</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.228875</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">0.527489</span><span class="w"></span>
+<span class="p">.</span><span class="w"></span>
+<span class="p">.</span><span class="w"></span>
+<span class="p">.</span><span class="w"></span>
+<span class="p">.</span><span class="w"></span>
+<span class="n">Iteration</span><span class="w"> </span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="mi">49999</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mf">1.00001</span><span class="w"></span>
+<span class="n">alpha</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="n">The</span><span class="w"> </span><span class="n">predicted</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">is</span><span class="o">:</span><span class="w"> </span><span class="mi">21</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Which is again the same as the expected values.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span class="math notranslate nohighlight">\(\bullet\)</span>  This should be noted again, the direct approach works seamlessly and it is recommended when the size (dimensions) of the
+independent variables is small. On the other hand, in case of dealing with large number of independent variables, this is
+recommended to use the iterative approach based on gradient descent method to avoid high computational cost of calculation
+of the inverse matrix.</p>
+<p><span class="math notranslate nohighlight">\(\bullet\)</span>  It is cool to play with the value of the learning rate <span class="math notranslate nohighlight">\(\lambda\)</span> and number of the iterations to
+see how altering these value affect the accuracy of prediction.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="optimization.html" class="btn btn-neutral float-left" title="4. Optimization (Python vs C++)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LDA.html" class="btn btn-neutral float-right" title="6. Machine Learning in Diagnosis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Jafar Arash Mehr.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
