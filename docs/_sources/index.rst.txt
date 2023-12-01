@@ -1,0 +1,20 @@
+Jafar Arash Mehr 
+==================
+
+
+.. toctree::
+   :maxdepth: 1
+
+   
+   rst/Intro
+   rst/resource
+   rst/package
+   rst/hyperelasticity
+   rst/multi-physics
+   rst/drug-delivery
+   rst/optimization
+   rst/Linear_Regression
+   rst/LDA
+   rst/ANN
+   rst/contact
+   GitHub <https://github.com/JafarArashMehr>
