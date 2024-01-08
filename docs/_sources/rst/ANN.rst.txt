@@ -130,7 +130,7 @@ the :math:`\boldsymbol{X}` matrix is formed as following:
 The values of the :math:`\boldsymbol{W^{[1]}}` matrix are initially determined by generating random numbers 
 between 0 and 1 for each element. 
 In the second step, we need to make a matrix including the weights values(:math:`\boldsymbol{W^{[1]}}`). This is
-a :math:`[r \times d]` matrix where :math:`b` is the number of the neurons in the hidden layer (i.e., 3):
+a :math:`[r \times d]` matrix where :math:`r` is the number of the neurons in the hidden layer (i.e., 3):
 
 .. math:: 
   :name: eq.701
